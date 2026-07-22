@@ -1,0 +1,20 @@
+# v0 sandbox internal files
+__v0_runtime_loader.js
+__v0_devtools.tsx
+__v0_jsx-dev-runtime.ts
+.snowflake/
+.v0-trash/
+.vercel/
+
+# Environment variables
+.env*.local
+
+# Java / Maven
+target/
+backend/src/main/resources/spa/
+
+# Node / frontend
+node_modules
+frontend/node/
+frontend/dist
+.DS_Store

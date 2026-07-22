@@ -1,0 +1,9 @@
+{
+  "name": "intellitrip-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Plain HTML/CSS/JS frontend for IntelliTrip (no build step, no framework).",
+  "scripts": {
+    "serve": "npx --yes serve -s public -l 5173"
+  }
+}
