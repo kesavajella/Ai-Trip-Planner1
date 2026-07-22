@@ -104,7 +104,7 @@ CORS is enabled for `localhost:5173` (dev) and `localhost:8080`.
 | POST | `/api/trips` | Create trip |
 | PUT | `/api/trips/{id}` | Update trip |
 | PATCH | `/api/trips/{id}/status` | Update trip status |
-| DELETE | `/api/trips/{id}` | Delete trip |
+| DELETE | `/api/trips/{id}}` | Delete trip |
 | GET | `/api/admin/stats` | Admin analytics (ADMIN only) |
 
 ## Tech Stack
