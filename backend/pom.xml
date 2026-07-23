@@ -90,8 +90,8 @@
                 </configuration>
             </plugin>
 
-            <!-- The frontend is plain HTML/CSS/JS (no build step). Copy the static
-                 assets into src/main/resources/spa so Spring Boot serves them. -->
+            <!-- The frontend is a React + Vite app. Copy the built assets from
+                 frontend/dist into src/main/resources/spa so Spring Boot serves them. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -107,7 +107,7 @@
                             <outputDirectory>${project.basedir}/src/main/resources/spa</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>../frontend/public</directory>
+                                    <directory>../frontend/dist</directory>
                                 </resource>
                             </resources>
                         </configuration>

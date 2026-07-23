@@ -1,8 +1,16 @@
+FROM node:20-alpine AS frontend
+WORKDIR /app
+COPY frontend/package.json frontend/vite.config.js frontend/index.html ./
+COPY frontend/src ./src
+COPY frontend/css ./css
+COPY frontend/public ./public
+RUN npm install && npm run build
+
 FROM eclipse-temurin:17-jdk AS builder
 WORKDIR /app
 COPY backend/pom.xml ./backend/pom.xml
 COPY backend/src ./backend/src
-COPY frontend ./frontend
+COPY --from=frontend /app/dist ./frontend/dist
 WORKDIR /app/backend
 RUN apt-get update && apt-get install -y maven && mvn clean package -DskipTests
 
