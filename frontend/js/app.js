@@ -2,7 +2,7 @@
 (function () {
   "use strict";
 
-  const API_BASE = "/api";
+  const API_BASE = (document.querySelector('meta[name="api-base"]')?.content || "/api").replace(/\/$/, "");
   const TOKEN_KEY = "intellitrip_user";
 
   /* ----------------------------- Storage / Auth ----------------------------- */
@@ -150,7 +150,7 @@
   }
 
   function render() {
-    resolve();
+    mount(resolve());
   }
 
   window.addEventListener("hashchange", render);

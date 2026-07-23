@@ -2,8 +2,19 @@
   "name": "intellitrip-frontend",
   "private": true,
   "version": "1.0.0",
-  "description": "Plain HTML/CSS/JS frontend for IntelliTrip (no build step, no framework).",
+  "type": "module",
   "scripts": {
-    "serve": "npx --yes serve -s public -l 5173"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.0"
   }
 }
