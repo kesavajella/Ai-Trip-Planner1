@@ -30,46 +30,57 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        if (userRepository.count() > 0) {
-            log.info("Database already seeded, skipping...");
-            return;
+        if (userRepository.count() == 0) {
+            log.info("Seeding database with demo users...");
+
+            User marcus = new User("Marcus Chen", "marcus@example.com", passwordEncoder.encode("password"));
+            marcus.setCountry("Japan");
+            marcus.setCountryCode("JP");
+            userRepository.save(marcus);
+
+            User zara = new User("Zara Okafor", "zara@example.com", passwordEncoder.encode("password"));
+            zara.setCountry("France");
+            zara.setCountryCode("FR");
+            userRepository.save(zara);
+
+            User diego = new User("Diego Alvarez", "diego@example.com", passwordEncoder.encode("password"));
+            diego.setCountry("Italy");
+            diego.setCountryCode("IT");
+            userRepository.save(diego);
+
+            User priya = new User("Priya Sharma", "priya@example.com", passwordEncoder.encode("password"));
+            priya.setStatus("suspended");
+            userRepository.save(priya);
+
+            User tom = new User("Tom Becker", "tom@example.com", passwordEncoder.encode("password"));
+            tom.setCountry("Thailand");
+            tom.setCountryCode("TH");
+            userRepository.save(tom);
+
+            log.info("Database seeded with {} users", userRepository.count());
+        } else {
+            log.info("Users already exist ({}), skipping user seeding", userRepository.count());
         }
-
-        log.info("Seeding database with demo users...");
-
-        User marcus = new User("Marcus Chen", "marcus@example.com", passwordEncoder.encode("password"));
-        marcus.setCountry("Japan");
-        marcus.setCountryCode("JP");
-        userRepository.save(marcus);
-
-        User zara = new User("Zara Okafor", "zara@example.com", passwordEncoder.encode("password"));
-        zara.setCountry("France");
-        zara.setCountryCode("FR");
-        userRepository.save(zara);
-
-        User diego = new User("Diego Alvarez", "diego@example.com", passwordEncoder.encode("password"));
-        diego.setCountry("Italy");
-        diego.setCountryCode("IT");
-        userRepository.save(diego);
-
-        User priya = new User("Priya Sharma", "priya@example.com", passwordEncoder.encode("password"));
-        priya.setStatus("suspended");
-        userRepository.save(priya);
-
-        User tom = new User("Tom Becker", "tom@example.com", passwordEncoder.encode("password"));
-        tom.setCountry("Thailand");
-        tom.setCountryCode("TH");
-        userRepository.save(tom);
-
-        log.info("Database seeded with {} users", userRepository.count());
 
         if (tripRepository.count() == 0) {
             log.info("Seeding demo trips...");
-            seedTrips(marcus, zara, diego, tom);
+            seedTrips();
+        } else {
+            log.info("Trips already exist ({}), skipping trip seeding", tripRepository.count());
         }
     }
 
-    private void seedTrips(User marcus, User zara, User diego, User tom) {
+    private void seedTrips() {
+        List<User> users = userRepository.findAll();
+        if (users.isEmpty()) {
+            log.warn("No users found for trip seeding");
+            return;
+        }
+
+        User marcus = users.stream().filter(u -> "marcus@example.com".equals(u.getEmail())).findFirst().orElse(users.get(0));
+        User zara = users.stream().filter(u -> "zara@example.com".equals(u.getEmail())).findFirst().orElse(users.get(1));
+        User diego = users.stream().filter(u -> "diego@example.com".equals(u.getEmail())).findFirst().orElse(users.get(2));
+        User tom = users.stream().filter(u -> "tom@example.com".equals(u.getEmail())).findFirst().orElse(users.size() > 3 ? users.get(3) : users.get(0));
         Trip upcoming1 = new Trip();
         upcoming1.setUser(marcus);
         upcoming1.setDestination("Kyoto");

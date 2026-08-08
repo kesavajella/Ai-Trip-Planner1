@@ -14,22 +14,28 @@
     <div class="flex min-h-screen flex-1 flex-col">
         <div th:replace="~{fragments/topbar :: topbar(title='My Trips', subtitle=${tripsSubtitle})}"></div>
         <div class="flex-1 px-4 py-8 md:px-8">
-            <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                <a th:each="trip : ${trips}" th:href="@{/dashboard/trips/{id}(id=${trip.id})}" class="rounded-3xl border border-border bg-card overflow-hidden group transition-all hover:-translate-y-1 hover:soft-shadow-lg">
+            <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" th:if="${!#lists.isEmpty(trips)}">
+                <a th:each="trip : ${trips}" th:href="@{/dashboard/trips/{id}(id=${trip.id})}" class="rounded-3xl border border-border bg-card overflow-hidden group transition-all hover:-translate-y-1 hover:shadow-lg">
                     <div class="relative aspect-[16/10] overflow-hidden">
-                        <img th:src="${trip.image ?: '/images/placeholder.jpg'}" th:alt="${trip.destination}" onerror="this.onerror=null;this.src='/images/placeholder.jpg';" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <span th:class="${trip.status == 'upcoming'} ? 'absolute left-3 top-3 rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary capitalize' : ${trip.status == 'completed'} ? 'absolute left-3 top-3 rounded-full border border-accent/40 bg-accent/30 px-2.5 py-0.5 text-xs font-medium text-accent-foreground capitalize' : 'absolute left-3 top-3 rounded-full border border-border bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground capitalize'" th:text="${trip.status}"></span>
+                        <img th:src="${trip.image != null && !trip.image.isBlank() ? trip.image : '/images/placeholder.jpg'}" th:alt="${trip.destination != null ? trip.destination : 'Trip'}" onerror="this.onerror=null;this.src='/images/placeholder.jpg';" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <span th:if="${trip.status != null}" th:class="${trip.status == 'upcoming'} ? 'absolute left-3 top-3 rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary capitalize' : ${trip.status == 'completed'} ? 'absolute left-3 top-3 rounded-full border border-accent/40 bg-accent/30 px-2.5 py-0.5 text-xs font-medium text-accent-foreground capitalize' : 'absolute left-3 top-3 rounded-full border border-border bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground capitalize'" th:text="${trip.status}"></span>
                     </div>
                     <div class="p-5">
-                        <h3 class="font-serif text-2xl leading-tight tracking-tight" th:text="${trip.destination}"></h3>
-                        <p class="mt-0.5 text-sm text-muted-foreground" th:text="${trip.country}"></p>
+                        <h3 class="font-serif text-2xl leading-tight tracking-tight" th:text="${trip.destination != null ? trip.destination : 'Untitled Trip'}"></h3>
+                        <p class="mt-0.5 text-sm text-muted-foreground" th:text="${trip.country != null ? trip.country : ''}"></p>
                         <div class="mt-5 grid grid-cols-3 gap-3">
-                            <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Days</dt><dd class="mt-0.5 text-sm font-medium" th:text="${trip.days}"></dd></div>
-                            <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Budget</dt><dd class="mt-0.5 text-sm font-medium capitalize" th:text="${trip.budget}"></dd></div>
-                            <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Type</dt><dd class="mt-0.5 text-sm font-medium capitalize" th:text="${trip.travelType}"></dd></div>
+                            <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Days</dt><dd class="mt-0.5 text-sm font-medium" th:text="${trip.days}">0</dd></div>
+                            <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Budget</dt><dd class="mt-0.5 text-sm font-medium capitalize" th:text="${trip.budget != null ? trip.budget : 'N/A'}"></dd></div>
+                            <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Type</dt><dd class="mt-0.5 text-sm font-medium capitalize" th:text="${trip.travelType != null ? trip.travelType : 'N/A'}"></dd></div>
                         </div>
                     </div>
                 </a>
+            </div>
+            <div th:if="${#lists.isEmpty(trips)}" class="mt-10 flex flex-col items-center justify-center rounded-3xl border border-dashed border-border bg-card/50 p-10 text-center">
+                <span class="grid h-12 w-12 place-items-center rounded-2xl bg-primary/10 text-primary"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span>
+                <p class="mt-4 font-medium">No trips yet</p>
+                <p class="mt-1 max-w-[28ch] text-xs text-muted-foreground">Generate your first AI trip and it will show up here.</p>
+                <a href="/dashboard/generate" class="mt-4 inline-flex items-center justify-center rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">Plan a trip</a>
             </div>
         </div>
     </div>

@@ -116,10 +116,17 @@ public class TripApiController {
         return ResponseEntity.ok(Map.of("message", "Trip deleted"));
     }
 
-@PostMapping("/generate-trip")
+    @PostMapping("/generate-trip")
     public ResponseEntity<?> generateTrip(@RequestBody Map<String, Object> body, HttpSession session) {
         try {
-            // Log the exact prompt/payload received from the client
+            String userId = (String) session.getAttribute("userId");
+            if (userId == null) {
+                return ResponseEntity.status(401).body(Map.of(
+                        "error", "Please log in to generate and save trips",
+                        "details", "User session expired or not authenticated"
+                ));
+            }
+
             log.info("🔍 [Backend Prompt Input]: {}", body);
 
             String city = (String) body.getOrDefault("city", "");
@@ -172,10 +179,9 @@ public class TripApiController {
 
             log.info("✅ [Gemini Success Output]: Trip generated successfully: {} days", itinerary.getDays().size());
 
-            String userId = (String) session.getAttribute("userId");
             Trip savedTrip = saveTripFromItinerary(city, countryCode, countryName, numberOfDays, budget, travelers, interestsList, accommodationPreference, itinerary, userId, itinerary.getDestinationCurrencyCode());
 
-if (userId != null) {
+            if (userId != null) {
                 notificationService.createNotification(
                         userId,
                         "Trip Generated",

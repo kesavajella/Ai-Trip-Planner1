@@ -239,9 +239,6 @@ public class ItineraryGeneratorService {
         ItineraryData data = new ItineraryData();
         data.setTitle("%d-Day %s Trip".formatted(request.getNumberOfDays(), request.getCity()));
         data.setOverview(response.getTripSummary());
-        data.setTotalBudget(parseEstimatedCost(response.getEstimatedTotalCost()));
-        data.setDailyBudget(data.getTotalBudget() / request.getNumberOfDays());
-
         data.setDestination(response.getDestination());
         data.setDuration(response.getDuration());
         data.setTravelers(response.getTravelers());
@@ -274,7 +271,6 @@ public class ItineraryGeneratorService {
                     }
                 }
                 dayData.setActivities(activities);
-
                 days.add(dayData);
             }
         }
@@ -289,6 +285,19 @@ public class ItineraryGeneratorService {
         if (!hasActivities) {
             log.warn("AI response contained days but no schedule entries. AI Response: {}. Falling back to generated itinerary.", response);
             throw new IllegalArgumentException("AI returned itinerary with no activities");
+        }
+
+        double actualTotal = days.stream()
+                .filter(d -> d.getActivities() != null)
+                .flatMap(d -> d.getActivities().stream())
+                .mapToDouble(ItineraryData.ActivityData::getEstimatedCost)
+                .sum();
+        if (actualTotal > 0) {
+            data.setTotalBudget(actualTotal);
+            data.setDailyBudget(actualTotal / Math.max(1, request.getNumberOfDays()));
+        } else {
+            data.setTotalBudget(parseEstimatedCost(response.getEstimatedTotalCost()));
+            data.setDailyBudget(data.getTotalBudget() / Math.max(1, request.getNumberOfDays()));
         }
 
         return data;

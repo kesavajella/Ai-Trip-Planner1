@@ -54,7 +54,8 @@ public class DashboardController {
         model.addAttribute("completed", completed);
         model.addAttribute("totalTrips", userTrips.size());
         model.addAttribute("upcomingDays", upcoming.stream().mapToInt(Trip::getDays).sum());
-        model.addAttribute("totalBudget", upcoming.stream().mapToDouble(Trip::getBudgetUsd).sum());
+        model.addAttribute("totalBudget", userTrips.stream().mapToDouble(Trip::getBudgetUsd).sum());
+        model.addAttribute("upcomingBudget", upcoming.stream().mapToDouble(Trip::getBudgetUsd).sum());
         addUserCountryCurrency(model, user);
 
         return "dashboard/dashboard";
