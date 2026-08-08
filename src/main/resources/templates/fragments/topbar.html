@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+<div th:fragment="topbar(title, subtitle)">
+    <div class="flex flex-col gap-4 border-b border-border bg-background/80 px-4 py-5 backdrop-blur md:px-8 md:py-6">
+        <div class="flex items-center justify-between gap-3">
+            <div class="ml-auto flex items-center gap-1.5">
+<div th:replace="~{fragments/theme-toggle :: theme-toggle}"></div>
+                <div class="relative" x-data="{ notifOpen: false, notifications: [], loading: true, fetchNotifications() { fetch('/api/notifications').then(r => r.json()).then(data => { this.notifications = data.map(n => ({ ...n, time: this.formatTime(n.createdAt) })); this.loading = false; }).catch(() => { this.loading = false; }); }, markAllRead() { fetch('/api/notifications/mark-all-read', { method: 'POST' }).then(() => { this.notifications.forEach(n => n.read = true); }); }, formatTime(dateStr) { if (!dateStr) return ''; const d = new Date(dateStr); const now = new Date(); const diff = now - d; if (diff < 60000) return 'Just now'; if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago'; if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago'; return d.toLocaleDateString(); } }" x-init="fetchNotifications(); window.addEventListener('notifications-updated', () => { if (typeof this.fetchNotifications === 'function') { this.fetchNotifications(); } })">
+<button type="button" @click="notifOpen = !notifOpen" class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring relative">
+                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                        <span x-show="notifications.filter(n => !n.read).length > 0" class="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-destructive text-[10px] font-bold text-destructive-foreground flex items-center justify-center" x-text="notifications.filter(n => !n.read).length"></span>
+                    </button>
+                    <div x-show="notifOpen" x-cloak @click.outside="notifOpen = false" class="absolute top-full right-0 mt-2 w-80 rounded-xl border border-border bg-card shadow-xl z-50 overflow-hidden">
+                        <div class="px-4 py-3 border-b border-border flex items-center justify-between">
+                            <p class="text-sm font-semibold">Notifications</p>
+                            <button @click="markAllRead" class="text-xs text-primary hover:underline">Mark all read</button>
+                        </div>
+                        <div class="max-h-72 overflow-y-auto">
+                            <template x-for="n in notifications" :key="n.id">
+                                <div @click="n.read = true" :class="n.read ? 'hover:bg-muted/50' : 'bg-primary/5 hover:bg-primary/10'" class="cursor-pointer px-4 py-3 border-b border-border/50 transition-colors">
+                                    <div class="flex items-start gap-3">
+                                        <div class="mt-0.5 flex-1">
+                                            <div class="flex items-center justify-between">
+                                                <p class="text-sm font-medium" x-text="n.title"></p>
+                                                <span class="text-xs text-muted-foreground" x-text="n.time"></span>
+                                            </div>
+                                            <p class="mt-0.5 text-xs text-muted-foreground" x-text="n.message"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                            <div x-show="notifications.length === 0 && !loading" class="px-4 py-6 text-center text-sm text-muted-foreground">No notifications</div>
+                            <div x-show="loading" class="px-4 py-6 text-center text-sm text-muted-foreground">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative" x-data="{ profileOpen: false }">
+                    <button type="button" @click="profileOpen = !profileOpen" class="flex items-center gap-2 rounded-full border border-border bg-card px-1.5 py-1 pr-3 text-sm hover:bg-muted">
+                        <span class="relative h-7 w-7 overflow-hidden rounded-full bg-muted flex items-center justify-center">
+                            <svg class="h-5 w-5 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+                        </span>
+                        <span class="hidden font-medium sm:inline" th:text="${user != null && user.name != null ? #strings.arraySplit(user.name, ' ')[0] : 'Guest'}">User</span>
+                    </button>
+                    <div x-show="profileOpen" x-cloak @click.outside="profileOpen = false" class="absolute right-0 top-full mt-2 w-48 rounded-lg border border-border bg-card py-1 shadow-lg z-50">
+                        <a href="/logout" class="block w-full px-4 py-2 text-left text-sm text-muted-foreground hover:bg-muted hover:text-foreground">Log out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-wrap items-end justify-between gap-3">
+            <div>
+                <h1 class="font-serif text-3xl tracking-tight md:text-4xl" th:text="${title}">Title</h1>
+                <p th:if="${subtitle}" class="mt-1 text-sm text-muted-foreground md:text-base" th:text="${subtitle}">Subtitle</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

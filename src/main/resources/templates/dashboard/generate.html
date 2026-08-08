@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" x-data="generateApp()" x-init="init()" th:attr="data-currency-code=${userCurrencyCode}, data-rate=${usdRate}, data-user-country-currency-code=${userCountryCurrencyCode}, data-user-country-rate=${userCountryRate}" class="bg-background">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Trip - intellitrip</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/output.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-background text-foreground font-sans antialiased">
+<div class="flex min-h-screen">
+    <div th:replace="~{fragments/sidebar-nav :: sidebar-nav(active='generate')}"></div>
+    <div class="flex min-h-screen flex-1 flex-col">
+        <div th:replace="~{fragments/topbar :: topbar(title='AI Trip Generator', subtitle='Tell us the basics — we handle the day-by-day, hotels, food, and the small stuff.')}"></div>
+        <div class="flex-1 space-y-6 px-4 py-8 md:px-8">
+            <!-- Generator Form -->
+            <form @submit.prevent="generateTrip" class="space-y-12 rounded-3xl border border-border bg-card p-6 md:p-8 font-sans">
+                <div class="grid gap-5 md:grid-cols-2">
+                    <div class="relative space-y-2">
+                        <label class="flex items-center gap-1.5 text-sm font-medium"><svg class="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> What is destination of choice?</label>
+                        <input type="text"
+                               x-model="form.city"
+                               @input="onCityInput($event)"
+                               @keydown.down.prevent="openSuggestions(); highlightNext()"
+                               @keydown.up.prevent="highlightPrev()"
+                               @keydown.enter="onEnter($event)"
+                               @keydown.escape="closeSuggestions"
+                               @blur="closeSuggestions"
+                               placeholder="Search countries, states, cities..."
+                               autocomplete="off"
+                               class="flex h-12 w-full rounded-xl border border-input bg-background px-4 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                        <div x-show="showSuggestions && suggestions.length"
+                             x-cloak
+                             class="absolute top-full left-0 z-30 mt-1 max-h-72 w-full overflow-y-auto rounded-xl border border-border bg-card shadow-xl">
+                            <template x-for="(s, i) in suggestions" :key="i">
+                                <div @mousedown.prevent="pick(i)"
+                                     :class="{'bg-accent': i === highlightedIndex}"
+                                     class="cursor-pointer px-3 py-2">
+                                    <div class="flex items-center justify-between">
+                                        <span x-text="s.name" class="font-medium"></span>
+                                        <span class="text-xs text-muted-foreground" x-text="typeLabel(s.type)"></span>
+                                    </div>
+                                    <div class="text-xs text-muted-foreground" x-text="subtitle(s)"></div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label for="days" class="flex items-center gap-1.5 text-sm"><svg class="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg> Number of days</label>
+                        <input id="days" type="number" x-model.number="form.numberOfDays" min="1" max="30" class="flex h-11 w-full rounded-xl border border-input bg-background px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                    </div>
+                </div>
+
+                <!-- Budget -->
+                <div class="space-y-4">
+                    <h2 class="text-xl font-bold">What is Your Budget?</h2>
+                    <div class="grid gap-4 md:grid-cols-3">
+                        <template x-for="b in budgets" :key="b.id">
+                            <label @click="form.budget = b.id" :class="form.budget === b.id ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/40'" class="flex cursor-pointer flex-col items-start rounded-xl border p-5 transition-colors bg-card">
+                                <span class="h-6 w-6 text-primary" x-html="b.icon"></span>
+                                <p class="mt-2 font-bold text-lg" x-text="b.label"></p>
+                                <p class="mt-1 text-sm text-muted-foreground" x-text="b.desc"></p>
+                            </label>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Travelers -->
+                <div class="space-y-4">
+                    <h2 class="text-xl font-bold">Who do you plan on traveling with?</h2>
+                    <div class="grid gap-4 md:grid-cols-4">
+                        <template x-for="t in travelers" :key="t.id">
+                            <label @click="form.travelers = t.id" :class="form.travelers === t.id ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/40'" class="flex cursor-pointer flex-col items-start rounded-xl border p-5 transition-colors bg-card">
+                                <span class="h-6 w-6 text-primary" x-html="t.icon"></span>
+                                <p class="mt-2 font-bold text-lg" x-text="t.label"></p>
+                                <p class="mt-1 text-sm text-muted-foreground" x-text="t.desc"></p>
+                            </label>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Accommodation Preference -->
+                <div class="space-y-4">
+                    <h2 class="text-xl font-bold">Accommodation Preference</h2>
+                    <div class="grid gap-4 md:grid-cols-4">
+                        <template x-for="a in accommodationOptions" :key="a.id">
+                            <label @click="form.accommodationPreference = a.id" :class="form.accommodationPreference === a.id ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/40'" class="flex cursor-pointer flex-col items-start rounded-xl border p-5 transition-colors bg-card">
+                                <span class="h-6 w-6 text-primary" x-html="a.icon"></span>
+                                <p class="mt-2 font-bold text-lg" x-text="a.label"></p>
+                                <p class="mt-1 text-sm text-muted-foreground" x-text="a.desc"></p>
+                            </label>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Interests -->
+                <div class="space-y-3">
+                    <label class="flex items-center gap-1.5 text-sm"><svg class="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></svg> Interests</label>
+                    <div class="flex flex-wrap gap-2">
+                        <template x-for="i in interestsList" :key="i.id">
+                            <label @click="toggleInterest(i.id)" :class="picked.includes(i.id) ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-card hover:border-primary/40'" class="flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 text-sm transition-colors">
+                                <span x-text="i.emoji"></span>
+                                <span x-text="i.label"></span>
+                            </label>
+                        </template>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-5">
+                    <p class="text-sm text-muted-foreground"><span class="font-medium text-foreground">Pro tip:</span> the more specific your destination, the better the plan.</p>
+                    <button type="submit" class="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors" :disabled="loading">
+                        <svg x-show="loading" class="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke-width="4" class="opacity-25"/><path d="M4 12a8 8 0 0 1 8-8" stroke-width="4" class="opacity-75"/></svg>
+                        <svg x-show="!loading" class="mr-1 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                        <span x-text="loading ? 'Generating…' : 'Generate AI Trip'"></span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Loading State -->
+            <div x-show="loading" x-cloak class="animate-fade-up rounded-3xl border border-border bg-card p-6 md:p-8">
+                <div class="flex items-center gap-3">
+                    <span class="grid h-10 w-10 place-items-center rounded-2xl bg-primary text-primary-foreground"><svg class="h-[1.05rem] w-[1.05rem] animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span>
+                    <div><p class="font-serif text-xl">Crafting your itinerary…</p><p class="text-sm text-muted-foreground">This usually takes about 30 seconds.</p></div>
+                </div>
+                <div class="mt-6 space-y-3">
+                    <div class="h-4 w-1/3 rounded shimmer"></div>
+                    <div class="h-3 w-2/3 rounded shimmer"></div>
+                    <div class="h-3 w-1/2 rounded shimmer"></div>
+                    <div class="grid grid-cols-2 gap-3 pt-2">
+                        <div class="h-20 rounded-xl shimmer"></div>
+                        <div class="h-20 rounded-xl shimmer"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result / Error -->
+            <div x-show="result && resultError" x-cloak class="animate-fade-up rounded-3xl border border-border bg-card p-6">
+                <div class="flex items-start gap-4">
+                    <span class="text-2xl" x-html="resultIcon"></span>
+                    <div class="flex-1">
+                        <h3 class="font-semibold" x-text="resultTitle"></h3>
+                        <p class="mt-2 text-sm text-muted-foreground" x-text="resultMessage"></p>
+                        <div class="mt-4 flex gap-3">
+                            <button @click="retry()" class="inline-flex h-9 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/90">Try Again</button>
+                            <button @click="reset()" class="inline-flex h-9 items-center justify-center rounded-lg border border-input bg-background px-4 text-sm font-medium hover:bg-accent">Reset Form</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Itinerary Result -->
+            <div x-show="result && !resultError && itineraryData" x-cloak class="animate-fade-up space-y-6">
+                <!-- Header -->
+                <div class="rounded-3xl border border-border bg-card p-6 md:p-8">
+                    <div class="flex flex-wrap items-start justify-between gap-4">
+                        <div>
+                            <span class="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                                <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+                                Trip Generated
+                            </span>
+                            <h2 class="mt-3 font-serif text-3xl tracking-tight" x-text="itineraryData?.title || (form.city + ' Trip')"></h2>
+                            <p class="mt-2 max-w-2xl text-sm text-muted-foreground" x-text="itineraryData?.overview"></p>
+                        </div>
+<div class="text-right">
+                            <p class="text-xs uppercase tracking-wide text-muted-foreground">Total Estimated Cost</p>
+                            <p class="font-serif text-3xl tracking-tight text-primary" x-text="formatCost(itineraryData?.totalBudget)"></p>
+                            <p x-show="userCountryCurrencyCode && userCountryCurrencyCode !== destCurrencyCode" class="mt-1 text-sm font-medium text-muted-foreground" x-text="'≈ ' + formatCostInCurrency(itineraryData?.totalBudget, userCountryCurrencyCode, userCountryRate) + ' (' + userCountryCurrencyCode + ')'"></p>
+                            <p class="mt-1 text-xs text-muted-foreground" x-text="(itineraryData?.days || []).length + ' days · ' + (itineraryData?.travelers || '') + ' · ' + (itineraryData?.budgetTier || '')"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day by Day Itinerary -->
+                <div class="rounded-3xl border border-border bg-card p-6 md:p-8">
+                    <div class="mb-5 flex items-center justify-between">
+                        <h3 class="font-serif text-2xl tracking-tight">Day-by-Day Plan</h3>
+                        <span class="text-sm text-muted-foreground" x-text="(itineraryData?.days || []).length + ' days'"></span>
+                    </div>
+                    <div class="space-y-4">
+                        <template x-for="day in (itineraryData?.days || [])" :key="day.day">
+                            <div class="rounded-2xl border border-border bg-background/50 p-5">
+                                <div class="flex items-center gap-3">
+                                    <span class="grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary font-serif text-lg" x-text="day.day"></span>
+                                    <div>
+                                        <h4 class="font-semibold" x-text="day.title || ('Day ' + day.day + ': ' + (day.theme || ''))"></h4>
+                                        <p class="text-sm text-muted-foreground" x-text="day.theme"></p>
+                                    </div>
+                                </div>
+                                <div class="mt-4 space-y-3">
+                                    <template x-for="act in (day.activities || [])" :key="act.time + '-' + act.activity">
+                                        <div class="flex items-start gap-4 rounded-xl bg-muted/30 p-4">
+                                            <span class="min-w-[5rem] text-xs font-medium text-muted-foreground" x-text="act.time || act.timeSlot || act.timeOfDay"></span>
+                                            <div class="flex-1">
+                                                <p class="font-medium" x-text="act.activity || act.locationName || 'Activity'"></p>
+                                                <p class="mt-0.5 text-sm text-muted-foreground" x-text="act.description"></p>
+                                                <p class="mt-1 text-xs text-muted-foreground" x-show="act.locationName">
+                                                    <span class="text-primary">📍</span> <span x-text="act.locationName"></span>
+                                                </p>
+                                                <p class="mt-0.5 text-xs text-muted-foreground" x-show="act.transitInfo">
+                                                    <span class="text-primary">🚌</span> <span x-text="act.transitInfo"></span>
+                                                </p>
+                                            </div>
+                                            <span class="text-sm font-medium" x-text="formatCost(act.estimatedCost || 0)"></span>
+                                        </div>
+                                    </template>
+                                    <template x-if="!day.activities || !day.activities.length">
+                                        <p class="text-sm text-muted-foreground">No activities planned for this day.</p>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap items-center justify-between gap-3 rounded-3xl border border-border bg-card p-5">
+                    <p class="text-sm text-muted-foreground">Save this trip to your Saved Trips, or keep it in My Trips for now.</p>
+                    <div class="flex flex-wrap gap-3">
+                        <button @click="saveTrip()" :disabled="tripSaved || !tripId" class="inline-flex items-center justify-center rounded-full border px-6 py-2.5 text-sm font-medium transition-colors"
+                                :class="tripSaved ? 'border-primary/40 bg-primary/10 text-primary' : 'border-border hover:bg-muted'">
+                            <svg x-show="!tripSaved" class="mr-1.5 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                            <svg x-show="tripSaved" class="mr-1.5 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/><line x1="9" x2="15" y1="11" y2="11"/></svg>
+                            <span x-text="tripSaved ? 'Trip Saved' : 'Save Trip'"></span>
+                        </button>
+                        <a href="/dashboard/trips" class="inline-flex items-center justify-center rounded-full border border-border px-6 py-2.5 text-sm font-medium hover:bg-muted transition-colors">View My Trips</a>
+                        <button @click="reset()" class="inline-flex items-center justify-center rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">Generate Another</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/chatbot :: chatbot}"></div>
+
+<script>
+function generateApp() {
+    return {
+        loading: false,
+        result: false,
+        resultError: false,
+resultIcon: '',
+        resultTitle: '',
+        resultMessage: '',
+        itineraryData: null,
+        tripId: null,
+        tripSaved: false,
+        form: {
+            city: 'Santorini, Greece',
+            numberOfDays: 5,
+            budget: 'Moderate',
+            travelers: 'Just Me',
+            interests: ['food', 'culture'],
+            accommodationPreference: 'Boutique Hotel',
+            countryCode: '',
+            countryName: ''
+        },
+        picked: ['food', 'culture'],
+
+        suggestions: [],
+        showSuggestions: false,
+        highlightedIndex: -1,
+        debounceTimer: null,
+currencyCode: 'USD',
+        rate: 1,
+        userCountryCurrencyCode: '',
+        userCountryRate: 1,
+        destCurrencyCode: '',
+        interestsList: [
+            { id: 'adventure', label: 'Adventure', emoji: '🧗' },
+            { id: 'food', label: 'Food', emoji: '🍝' },
+            { id: 'culture', label: 'Culture', emoji: '🏛️' },
+            { id: 'nature', label: 'Nature', emoji: '🌿' },
+            { id: 'nightlife', label: 'Nightlife', emoji: '🎶' }
+        ],
+        budgets: [
+            { id: 'Budget Friendly', label: 'Budget Friendly', desc: 'Stay conscious of costs', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6"><path d="M17 9V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M10 13V9a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2z"/></svg>' },
+            { id: 'Moderate', label: 'Moderate', desc: 'Balance comfort and value', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>' },
+            { id: 'Luxury', label: 'Luxury', desc: 'Premium experience', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6"><path d="M6 9h.01"/><path d="M10 9h.01"/><path d="M14 9h.01"/><path d="M18 9h.01"/><path d="M4 14a6 6 0 0 0 12 0"/><path d="M16 7c0 1.5-1.5 2-5 2s-5-.5-5-2"/><circle cx="12" cy="5" r="2"/><path d="M18 21c-3.33-1-6.67-1-10 0"/><path d="M18 17c-3.33-1-6.67-1-10 0"/></svg>' }
+        ],
+        travelers: [
+            { id: 'Just Me', label: 'Just Me', desc: 'Solo exploration', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>' },
+            { id: 'A Couple', label: 'A Couple', desc: 'Romantic getaway', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>' },
+            { id: 'Family', label: 'Family', desc: 'With kids', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6"><path d="M20 21v-2a4 4 0 0 0-3-3.87"/><path d="M4 21v-2a4 4 0 0 1 3-3.87"/><circle cx="9" cy="7" r="4"/><circle cx="15" cy="7" r="4"/><path d="M15 11a4 4 0 0 1 6 0"/><path d="M3 11a4 4 0 0 1 6 0"/></svg>' },
+            { id: 'Friends', label: 'Friends', desc: 'Group adventure', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>' }
+        ],
+        accommodationOptions: [
+            { id: 'Budget', label: 'Budget', desc: 'Hostels & guesthouses', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6"><path d="M3 12h18M5 12V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v7M5 12v14h5v-5h4v5h5V12"/></svg>' },
+            { id: 'Mid-range', label: 'Mid-range', desc: 'Comfortable hotels', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6"><path d="M3 12h18M5 12V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v7M5 12v14h14V12"/></svg>' },
+            { id: 'Boutique Hotel', label: 'Boutique', desc: 'Style & character', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6"><path d="M3 12h18M5 12V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v7M9 12V3a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v9"/></svg>' },
+            { id: 'Luxury', label: 'Luxury', desc: 'Premium resorts', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6"><path d="M3 12h18M5 12V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v7M5 12v14h14V12"/><path d="M12 12v10"/></svg>' }
+        ],
+init() {
+            this.currencyCode = this.$el.dataset.currencyCode || 'USD';
+            this.rate = parseFloat(this.$el.dataset.rate || '1') || 1;
+            this.userCountryCurrencyCode = this.$el.dataset.userCountryCurrencyCode || '';
+            this.userCountryRate = parseFloat(this.$el.dataset.userCountryRate || '1') || 1;
+        },
+        formatCostInCurrency(amount, code, rate) {
+            const v = (Number(amount) || 0) * (rate || 1);
+            const c = code || 'USD';
+            try {
+                return new Intl.NumberFormat(undefined, {style:'currency', currency: c, maximumFractionDigits: 0}).format(v);
+            } catch (e) {
+                return c + ' ' + v;
+            }
+        },
+        formatCost(amount) {
+            // Prefer the destination country's currency (rate 1 = no conversion) once
+            // an itinerary is generated. Fall back to the user's locale currency only
+            // when no destination currency is available.
+            const code = (this.itineraryData && this.itineraryData?.destinationCurrencyCode) || this.currencyCode;
+            const rate = (this.itineraryData && this.itineraryData?.destinationCurrencyCode) ? 1 : this.rate;
+            const v = (Number(amount) || 0) * rate;
+            try {
+                return new Intl.NumberFormat(undefined, {style:'currency', currency: code, maximumFractionDigits: 0}).format(v);
+            } catch (e) {
+                return '$' + v;
+            }
+        },
+        toggleInterest(id) {
+            const idx = this.picked.indexOf(id);
+            if (idx > -1) this.picked.splice(idx, 1);
+            else this.picked.push(id);
+            this.form.interests = this.picked;
+        },
+
+        onCityInput(e) {
+            const val = e && e.target ? e.target.value.trim() : (this.form.city ? this.form.city.trim() : '');
+            if (!val) {
+                this.suggestions = [];
+                this.showSuggestions = false;
+                this.highlightedIndex = -1;
+                return;
+            }
+
+            clearTimeout(this.debounceTimer);
+            this.debounceTimer = setTimeout(() => {
+                fetch('/api/data/autocomplete?q=' + encodeURIComponent(val) + '&limit=10')
+                    .then(r => r.ok ? r.json() : Promise.reject(r))
+                    .then(data => {
+                        this.suggestions = (data.results || []).map(s => ({
+                            type: s.type,
+                            name: s.name,
+                            country: s.country || '',
+                            state: s.state || '',
+                            countryCode: s.countryCode || ''
+                        }));
+                        this.highlightedIndex = this.suggestions.length ? 0 : -1;
+                        this.showSuggestions = this.suggestions.length > 0;
+                    })
+                    .catch(() => {
+                        this.suggestions = [];
+                        this.showSuggestions = false;
+                        this.highlightedIndex = -1;
+                    });
+            }, 200);
+        },
+
+        typeLabel(type) {
+            return type === 'country' ? 'Country'
+                 : type === 'state' ? 'State / Province'
+                 : type === 'city' ? 'City' : type;
+        },
+
+        subtitle(s) {
+            if (s.type === 'city') return s.state ? s.state + ', ' + s.country : s.country;
+            if (s.type === 'state') return s.country || '';
+            return '';
+        },
+
+        buildLabel(s) {
+            if (s.type === 'state') return s.name + ', ' + s.country;
+            if (s.type === 'city') return s.state ? s.name + ', ' + s.state + ', ' + s.country : s.name + ', ' + s.country;
+            return s.name;
+        },
+
+        pick(i) {
+            const s = this.suggestions[i];
+            if (!s) return;
+            this.form.city = this.buildLabel(s);
+            this.form.countryCode = s.countryCode || '';
+            this.form.countryName = s.country || '';
+            this.showSuggestions = false;
+            this.suggestions = [];
+            this.highlightedIndex = -1;
+            clearTimeout(this.debounceTimer);
+        },
+
+        openSuggestions() {
+            this.showSuggestions = this.suggestions.length > 0;
+        },
+
+        highlightNext() {
+            if (!this.showSuggestions || !this.suggestions.length) return;
+            this.highlightedIndex = (this.highlightedIndex + 1) % this.suggestions.length;
+        },
+
+        highlightPrev() {
+            if (!this.showSuggestions || !this.suggestions.length) return;
+            this.highlightedIndex = this.highlightedIndex <= 0 ? this.suggestions.length - 1 : this.highlightedIndex - 1;
+        },
+
+        onEnter(e) {
+            if (this.showSuggestions && this.highlightedIndex >= 0 && this.suggestions.length) {
+                e.preventDefault();
+                this.pick(this.highlightedIndex);
+            }
+        },
+
+closeSuggestions() {
+            setTimeout(() => { this.showSuggestions = false; }, 150);
+        },
+        async generateTrip() {
+            if (!this.form.city.trim()) return;
+            this.loading = true;
+            this.result = false;
+            this.itineraryData = null;
+
+            // 1. Log exact input payload before sending
+            console.log("➡️ [API Request Input]:", JSON.stringify(this.form, null, 2));
+
+            try {
+                const res = await fetch('/api/generate-trip', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(this.form)
+                });
+
+                // 2. Fetch API DOES NOT throw on 4xx/5xx status codes automatically!
+                if (!res.ok) {
+                    const errorText = await res.text();
+                    let errorJson;
+                    try {
+                        errorJson = JSON.parse(errorText);
+                    } catch {
+                        errorJson = errorText;
+                    }
+                    // Throw structured error to trigger catch block
+                    throw new Error(JSON.stringify({
+                        status: res.status,
+                        statusText: res.statusText,
+                        errorBody: errorJson
+                    }, null, 2));
+                }
+
+const data = await res.json();
+                console.log("✅ [API Output Success]:", data);
+                this.itineraryData = data;
+                this.destCurrencyCode = data?.destinationCurrencyCode || '';
+                this.tripId = data.tripId || null;
+                this.tripSaved = false;
+                this.result = true;
+                this.resultError = false;
+                this.resultIcon = '✅';
+                this.resultTitle = 'Trip Itinerary Generated!';
+this.resultMessage = 'Your ' + (data.days || []).length + '-day ' + this.form.city + ' trip is ready.';
+                this.loading = false;
+
+                // Notify the notification bell to refresh. Guarded so a failure
+                // here can never crash the trip generation flow.
+                try {
+                    window.dispatchEvent(new CustomEvent('notifications-updated'));
+                } catch (notifError) {
+                    console.warn("Notification refresh skipped:", notifError);
+                }
+            } catch (e) {
+                // 3. Print FULL diagnostic logs to browser console
+                console.error("❌ [API Execution Failed at Prompt/Call Stage]");
+                console.error("Stack Trace:", e.stack || e);
+                if (e.message) {
+                    console.error("Detailed Error Payload:", e.message);
+                }
+                this.result = true;
+                this.resultError = true;
+                this.resultIcon = '⚠️';
+                this.resultTitle = 'Generation Failed';
+                this.resultMessage = e.message || 'Failed to generate trip itinerary';
+                this.loading = false;
+            }
+        },
+async saveTrip() {
+            if (!this.tripId) return;
+            try {
+                const res = await fetch('/api/trips/' + this.tripId + '/save', { method: 'POST' });
+                if (!res.ok) throw new Error('Failed to save trip');
+                this.tripSaved = true;
+            } catch (e) {
+                alert('Failed to save trip: ' + (e.message || 'Please try again'));
+            }
+        },
+        retry() {
+            this.result = false;
+            this.generateTrip();
+        },
+reset() {
+            this.result = false;
+            this.itineraryData = null;
+            this.tripId = null;
+            this.tripSaved = false;
+            this.form = { city: 'Santorini, Greece', numberOfDays: 5, budget: 'Moderate', travelers: 'Just Me', interests: ['food', 'culture'], accommodationPreference: 'Boutique Hotel', countryCode: '', countryName: '' };
+            this.picked = ['food', 'culture'];
+        }
+    }
+}
+</script>
+</body>
+</html>
+

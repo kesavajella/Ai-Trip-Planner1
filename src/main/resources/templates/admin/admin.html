@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="bg-background">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - intellitrip</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/output.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-background text-foreground font-sans antialiased">
+<div class="flex min-h-screen">
+    <div th:replace="~{fragments/sidebar-nav :: sidebar-nav(active='dashboard')}"></div>
+    <div class="flex-1 flex flex-col">
+        <div th:replace="~{fragments/topbar :: topbar(title='Admin Overview', subtitle='A quick pulse on intellitrip usage and growth.')}"></div>
+        <div class="flex-1 space-y-8 px-4 py-8 md:px-8">
+            <!-- Stats -->
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="rounded-3xl border border-border bg-card p-5">
+                    <div><p class="text-xs uppercase tracking-wide text-muted-foreground">Total users</p><p class="mt-2 font-serif text-3xl tracking-tight" th:text="${totalUsers}">0</p></div>
+                </div>
+                <div class="rounded-3xl border border-border bg-card p-5">
+                    <div><p class="text-xs uppercase tracking-wide text-muted-foreground">Trips created</p><p class="mt-2 font-serif text-3xl tracking-tight" th:text="${totalTrips}">0</p></div>
+                </div>
+                <div class="rounded-3xl border border-border bg-card p-5">
+                    <div><p class="text-xs uppercase tracking-wide text-muted-foreground">AI generations</p><p class="mt-2 font-serif text-3xl tracking-tight">84,012</p></div>
+                </div>
+                <div class="rounded-3xl border border-border bg-card p-5">
+                    <div><p class="text-xs uppercase tracking-wide text-muted-foreground">Avg trip days</p><p class="mt-2 font-serif text-3xl tracking-tight">6.4</p></div>
+                </div>
+            </div>
+            <!-- Recent trips -->
+            <section>
+                <div class="mb-5"><h2 class="font-serif text-2xl tracking-tight md:text-3xl">Recent trips</h2><p class="mt-1 text-sm text-muted-foreground">Latest itineraries generated across the platform.</p></div>
+                <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+<div th:each="trip : ${recentTrips}" class="rounded-3xl border border-border bg-card overflow-hidden">
+                        <div class="aspect-[16/10] overflow-hidden"><img th:src="${trip.image ?: '/images/placeholder.jpg'}" th:alt="${trip.destination}" onerror="this.onerror=null;this.src='/images/placeholder.jpg';" class="h-full w-full object-cover"></div>
+                        <div class="p-5"><h3 class="font-serif text-xl" th:text="${trip.destination}"></h3><p class="text-sm text-muted-foreground" th:text="${trip.country}"></p></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+</html>
