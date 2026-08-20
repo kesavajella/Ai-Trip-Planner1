@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      x-data="{ mobileOpen: false }"
+      class="bg-background">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - intellitrip</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/output.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-background text-foreground font-sans antialiased">
+<div class="flex min-h-screen">
+    <div th:replace="~{fragments/sidebar-nav :: sidebar-nav(active='dashboard')}"></div>
+    <div class="flex min-h-screen flex-1 flex-col">
+        <div th:replace="~{fragments/topbar :: topbar(title=${dashboardTitle}, subtitle=${dashboardSubtitle})}"></div>
+        <div class="flex-1 px-4 py-8 md:px-8">
+            <!-- Stats -->
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="rounded-3xl border border-border bg-card p-5">
+                    <div class="flex items-start justify-between">
+                        <div><p class="text-xs uppercase tracking-wide text-muted-foreground">Total trips</p><p class="mt-2 font-serif text-3xl tracking-tight" th:text="${totalTrips}">0</p></div>
+                        <span class="grid h-9 w-9 place-items-center rounded-xl bg-primary/10 text-primary">
+                            <svg class="h-[1.05rem] w-[1.05rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49"/></svg>
+                        </span>
+                    </div>
+                    <p class="mt-2 text-xs text-muted-foreground">+<span th:text="${totalTrips}">0</span> total</p>
+                </div>
+                <div class="rounded-3xl border border-border bg-card p-5">
+                    <div class="flex items-start justify-between">
+                        <div><p class="text-xs uppercase tracking-wide text-muted-foreground">Upcoming days</p><p class="mt-2 font-serif text-3xl tracking-tight" th:text="${upcomingDays}">0</p></div>
+                        <span class="grid h-9 w-9 place-items-center rounded-xl bg-primary/10 text-primary">
+                            <svg class="h-[1.05rem] w-[1.05rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="rounded-3xl border border-border bg-card p-5">
+                    <div class="flex items-start justify-between">
+                        <div><p class="text-xs uppercase tracking-wide text-muted-foreground">Budget tracked</p><p class="mt-2 font-serif text-3xl tracking-tight" th:text="${userCountryCurrencyCode != null && !userCountryCurrencyCode.isBlank() ? @currencyService.formatInCurrency(totalBudget, userCountryCurrencyCode, userLocale) : @currencyService.format(totalBudget, userLocale)}">$0</p></div>
+                        <span class="grid h-9 w-9 place-items-center rounded-xl bg-primary/10 text-primary">
+                            <svg class="h-[1.05rem] w-[1.05rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="rounded-3xl border border-border bg-card p-5">
+                    <div class="flex items-start justify-between">
+                        <div><p class="text-xs uppercase tracking-wide text-muted-foreground">Saved trips</p><p class="mt-2 font-serif text-3xl tracking-tight" th:text="${#lists.size(saved)}">0</p></div>
+                        <span class="grid h-9 w-9 place-items-center rounded-xl bg-primary/10 text-primary">
+                            <svg class="h-[1.05rem] w-[1.05rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                        </span>
+                    </div>
+                </div>
+                    <p class="mt-2 text-xs text-muted-foreground">of unlimited</p>
+                </div>
+            </div>
+
+            <!-- Upcoming -->
+            <section class="mt-12">
+                <div class="mb-5 flex items-end justify-between">
+                    <div><h2 class="font-serif text-2xl tracking-tight md:text-3xl">Upcoming trips <span class="text-muted-foreground" th:text="'(' + ${#lists.size(upcoming)} + ')'"></span></h2><p class="mt-1 text-sm text-muted-foreground">Your confirmed plans, in order of departure.</p></div>
+                </div>
+                <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" th:if="${!#lists.isEmpty(upcoming)}">
+                    <div th:each="trip : ${upcoming}" class="flex flex-col rounded-3xl border border-border bg-card overflow-hidden group transition-all hover:-translate-y-1 hover:soft-shadow-lg">
+                    <div class="relative aspect-[16/10] overflow-hidden">
+                        <img th:src="${trip.image != null && !trip.image.isBlank() ? trip.image : '/images/placeholder.jpg'}" th:alt="${trip.destination != null && !trip.destination.isBlank() ? trip.destination : 'Trip'}" onerror="this.onerror=null;this.src='/images/placeholder.jpg';" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <span class="absolute left-3 top-3 rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary capitalize" th:text="${trip.status}"></span>
+                    </div>
+                    <div class="flex flex-col p-5">
+                        <h3 class="font-serif text-2xl leading-tight tracking-tight" th:text="${trip.destination != null && !trip.destination.isBlank() ? trip.destination : 'Untitled Trip'}"></h3>
+                        <p class="mt-0.5 text-sm text-muted-foreground" th:text="${trip.country != null && !trip.country.isBlank() ? trip.country : ''}"></p>
+                        <div class="mt-5 grid grid-cols-3 gap-3">
+                            <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Days</dt><dd class="mt-0.5 text-sm font-medium" th:text="${trip.days}">0</dd></div>
+                            <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Budget</dt><dd class="mt-0.5 text-sm font-medium capitalize" th:text="${trip.budget != null && !trip.budget.isBlank() ? trip.budget : 'N/A'}"></dd></div>
+                            <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Type</dt><dd class="mt-0.5 text-sm font-medium capitalize" th:text="${trip.travelType != null && !trip.travelType.isBlank() ? trip.travelType : 'N/A'}"></dd></div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div th:if="${#lists.isEmpty(upcoming)}" class="mt-4 flex flex-col items-center justify-center rounded-3xl border border-dashed border-border bg-card/50 p-10 text-center">
+                    <span class="grid h-12 w-12 place-items-center rounded-2xl bg-primary/10 text-primary"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg></span>
+                    <p class="mt-4 font-medium">No upcoming trips yet</p>
+                    <p class="mt-1 max-w-[28ch] text-xs text-muted-foreground">Plan your next adventure and it will show up here.</p>
+                    <a href="/dashboard/generate" class="mt-4 inline-flex items-center justify-center rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">Plan a trip</a>
+                </div>
+            </section>
+
+            <!-- Drafts -->
+            <section class="mt-12">
+                <div class="mb-5 flex items-end justify-between">
+                    <div><h2 class="font-serif text-2xl tracking-tight md:text-3xl">Drafts <span class="text-muted-foreground" th:text="'(' + ${#lists.size(drafts)} + ')'"></span></h2><p class="mt-1 text-sm text-muted-foreground">Started but not yet booked.</p></div>
+                </div>
+                <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    <div th:each="trip : ${drafts}" class="flex flex-col rounded-3xl border border-border bg-card overflow-hidden group transition-all hover:-translate-y-1 hover:soft-shadow-lg">
+                    <div class="relative aspect-[16/10] overflow-hidden">
+                        <img th:src="${trip.image != null && !trip.image.isBlank() ? trip.image : '/images/placeholder.jpg'}" th:alt="${trip.destination != null && !trip.destination.isBlank() ? trip.destination : 'Trip'}" onerror="this.onerror=null;this.src='/images/placeholder.jpg';" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <span class="absolute left-3 top-3 rounded-full border border-border bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground capitalize" th:text="${trip.status}"></span>
+                    </div>
+                    <div class="flex flex-col p-5">
+                        <h3 class="font-serif text-2xl leading-tight tracking-tight" th:text="${trip.destination != null && !trip.destination.isBlank() ? trip.destination : 'Untitled Trip'}"></h3>
+                        <p class="mt-0.5 text-sm text-muted-foreground" th:text="${trip.country != null && !trip.country.isBlank() ? trip.country : ''}"></p>
+                        <div class="mt-5 grid grid-cols-3 gap-3">
+                            <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Days</dt><dd class="mt-0.5 text-sm font-medium" th:text="${trip.days}">0</dd></div>
+                            <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Budget</dt><dd class="mt-0.5 text-sm font-medium capitalize" th:text="${trip.budget != null && !trip.budget.isBlank() ? trip.budget : 'N/A'}"></dd></div>
+                            <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Type</dt><dd class="mt-0.5 text-sm font-medium capitalize" th:text="${trip.travelType != null && !trip.travelType.isBlank() ? trip.travelType : 'N/A'}"></dd></div>
+                        </div>
+                    </div>
+                </div>
+                    <a href="/dashboard/generate" class="flex min-h-[18rem] flex-col items-center justify-center rounded-3xl border-2 border-dashed border-border bg-card/50 p-6 text-center text-muted-foreground transition-colors hover:border-primary/40 hover:bg-card hover:text-foreground">
+                        <span class="grid h-12 w-12 place-items-center rounded-2xl bg-primary/10 text-primary"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span>
+                        <p class="mt-4 font-medium">Plan a new trip</p>
+                        <p class="mt-1 max-w-[18ch] text-xs">Generate a complete day-by-day in under a minute.</p>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Completed -->
+            <section class="mt-12">
+                <div class="mb-5 flex items-end justify-between">
+                    <div><h2 class="font-serif text-2xl tracking-tight md:text-3xl">Memories <span class="text-muted-foreground" th:text="'(' + ${#lists.size(completed)} + ')'"></span></h2><p class="mt-1 text-sm text-muted-foreground">Past adventures.</p></div>
+                </div>
+                <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" th:if="${!#lists.isEmpty(completed)}">
+                    <div th:each="trip : ${completed}" class="flex flex-col rounded-3xl border border-border bg-card overflow-hidden group transition-all hover:-translate-y-1 hover:soft-shadow-lg">
+                    <div class="relative aspect-[16/10] overflow-hidden">
+                        <img th:src="${trip.image != null && !trip.image.isBlank() ? trip.image : '/images/placeholder.jpg'}" th:alt="${trip.destination != null && !trip.destination.isBlank() ? trip.destination : 'Trip'}" onerror="this.onerror=null;this.src='/images/placeholder.jpg';" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <span class="absolute left-3 top-3 rounded-full border border-accent/40 bg-accent/30 px-2.5 py-0.5 text-xs font-medium text-accent-foreground capitalize" th:text="${trip.status}"></span>
+                    </div>
+                    <div class="flex flex-col p-5">
+                        <h3 class="font-serif text-2xl leading-tight tracking-tight" th:text="${trip.destination != null && !trip.destination.isBlank() ? trip.destination : 'Untitled Trip'}"></h3>
+                        <p class="mt-0.5 text-sm text-muted-foreground" th:text="${trip.country != null && !trip.country.isBlank() ? trip.country : ''}"></p>
+                        <div class="mt-5 grid grid-cols-3 gap-3">
+                            <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Days</dt><dd class="mt-0.5 text-sm font-medium" th:text="${trip.days}">0</dd></div>
+                            <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Budget</dt><dd class="mt-0.5 text-sm font-medium capitalize" th:text="${trip.budget != null && !trip.budget.isBlank() ? trip.budget : 'N/A'}"></dd></div>
+                            <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Type</dt><dd class="mt-0.5 text-sm font-medium capitalize" th:text="${trip.travelType != null && !trip.travelType.isBlank() ? trip.travelType : 'N/A'}"></dd></div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div th:if="${#lists.isEmpty(completed)}" class="mt-4 flex flex-col items-center justify-center rounded-3xl border border-dashed border-border bg-card/50 p-10 text-center">
+                    <span class="grid h-12 w-12 place-items-center rounded-2xl bg-accent/10 text-accent"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
+                    <p class="mt-4 font-medium">No memories yet</p>
+                    <p class="mt-1 max-w-[28ch] text-xs text-muted-foreground">Trips you mark as completed will appear here as memories.</p>
+                </div>
+            </section>
+
+            <!-- Saved -->
+            <section class="mt-12">
+                <div class="mb-5 flex items-end justify-between">
+                    <div><h2 class="font-serif text-2xl tracking-tight md:text-3xl">Saved trips <span class="text-muted-foreground" th:text="'(' + ${#lists.size(saved)} + ')'"></span></h2><p class="mt-1 text-sm text-muted-foreground">Your bookmarked itineraries.</p></div>
+                </div>
+                <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" th:if="${!#lists.isEmpty(saved)}">
+                    <div th:each="trip : ${saved}" class="flex flex-col rounded-3xl border border-border bg-card overflow-hidden group transition-all hover:-translate-y-1 hover:soft-shadow-lg">
+                    <div class="relative aspect-[16/10] overflow-hidden">
+                        <img th:src="${trip.image != null && !trip.image.isBlank() ? trip.image : '/images/placeholder.jpg'}" th:alt="${trip.destination != null && !trip.destination.isBlank() ? trip.destination : 'Trip'}" onerror="this.onerror=null;this.src='/images/placeholder.jpg';" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <span class="absolute left-3 top-3 rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary capitalize" th:text="${trip.status}"></span>
+                    </div>
+                    <div class="flex flex-col p-5">
+                        <h3 class="font-serif text-2xl leading-tight tracking-tight" th:text="${trip.destination != null && !trip.destination.isBlank() ? trip.destination : 'Untitled Trip'}"></h3>
+                        <p class="mt-0.5 text-sm text-muted-foreground" th:text="${trip.country != null && !trip.country.isBlank() ? trip.country : ''}"></p>
+                        <div class="mt-5 grid grid-cols-3 gap-3">
+                            <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Days</dt><dd class="mt-0.5 text-sm font-medium" th:text="${trip.days}">0</dd></div>
+                            <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Budget</dt><dd class="mt-0.5 text-sm font-medium capitalize" th:text="${trip.budget != null && !trip.budget.isBlank() ? trip.budget : 'N/A'}"></dd></div>
+                            <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Type</dt><dd class="mt-0.5 text-sm font-medium capitalize" th:text="${trip.travelType != null && !trip.travelType.isBlank() ? trip.travelType : 'N/A'}"></dd></div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div th:if="${#lists.isEmpty(saved)}" class="mt-4 flex flex-col items-center justify-center rounded-3xl border border-dashed border-border bg-card/50 p-10 text-center">
+                    <span class="grid h-12 w-12 place-items-center rounded-2xl bg-primary/10 text-primary"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 0 1 1-9-9Z"/></svg></span>
+                    <p class="mt-4 font-medium">No saved trips yet</p>
+                    <p class="mt-1 max-w-[28ch] text-xs text-muted-foreground">Save trips you love and they will show up here.</p>
+                    <a href="/dashboard/trips" class="mt-4 inline-flex items-center justify-center rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">Browse trips</a>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/chatbot :: chatbot}"></div>
+</body>
+</html>

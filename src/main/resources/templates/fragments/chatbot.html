@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+<div th:fragment="chatbot">
+    <div x-data="chatbot()" x-init="init()" class="fixed bottom-5 right-5 z-50">
+        <!-- Toggle button -->
+        <button type="button"
+                @click="toggle()"
+                class="grid h-14 w-14 place-items-center rounded-full bg-primary text-primary-foreground soft-shadow-lg transition-transform hover:scale-105"
+                :class="{'animate-float': !open}"
+                :aria-label="open ? 'Close trip assistant' : 'Open trip assistant'">
+            <svg x-show="!open" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+            <svg x-show="open" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+
+        <!-- Chat panel -->
+        <div x-show="open" x-cloak
+             class="fixed bottom-24 right-5 flex w-[min(92vw,22rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card text-card-foreground soft-shadow-lg"
+             x-transition:enter="animate-fade-up">
+            
+            <header class="flex items-center gap-3 border-b border-border bg-gradient-to-br from-primary to-primary/80 p-4 text-primary-foreground">
+                <div class="grid h-9 w-9 place-items-center rounded-full bg-primary-foreground/15">
+                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/><path d="M9.5 14c0 1 .5 2 2.5 2s2.5-1 2.5-2"/><path d="M9.5 9.5h.01"/><path d="M14.5 9.5h.01"/></svg>
+                </div>
+                <div>
+                    <p class="text-sm font-medium leading-tight">Trip Assistant</p>
+                    <p class="text-xs opacity-80">Online · usually replies instantly</p>
+                </div>
+            </header>
+
+            <div x-ref="scrollRef" class="h-72 overflow-y-auto p-4">
+                <div class="space-y-3">
+                    <template x-for="(msg, i) in messages" :key="i">
+                        <div :class="msg.role === 'user' ? 'flex justify-end' : 'flex justify-start'">
+                            <div :class="msg.role === 'user' 
+                                ? 'max-w-[85%] rounded-2xl px-3.5 py-2 text-sm leading-relaxed rounded-br-sm bg-primary text-primary-foreground' 
+                                : 'max-w-[85%] rounded-2xl px-3.5 py-2 text-sm leading-relaxed rounded-bl-sm bg-muted text-foreground'"
+                                x-text="msg.text">
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <form @submit.prevent="send" class="flex items-center gap-2 border-t border-border bg-background p-3">
+                <input type="text" x-model="input" placeholder="Ask about a destination…"
+                       class="flex h-10 w-full rounded-full border border-input bg-background px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                <button type="submit" class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground hover:bg-primary/90" aria-label="Send message">
+                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4Z"/></svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function chatbot() {
+            return {
+                open: false,
+                input: '',
+                messages: [
+                    { role: 'ai', text: "Hey! I'm your travel sidekick. Ask me anything — destinations, packing, pacing, food spots…" }
+                ],
+                toggle() {
+                    this.open = !this.open;
+                    if (this.open) {
+                        this.$nextTick(() => this.scrollDown());
+                    }
+                },
+                send() {
+                    const text = this.input.trim();
+                    if (!text) return;
+                    this.messages.push({ role: 'user', text });
+                    this.input = '';
+                    this.$nextTick(() => this.scrollDown());
+                    setTimeout(() => {
+                        this.messages.push({ role: 'ai', text: this.getReply(text) });
+                        this.$nextTick(() => this.scrollDown());
+                    }, 700);
+                },
+                getReply(input) {
+                    const lower = input.toLowerCase();
+                    if (lower.includes('beach')) return "For a beach escape, I'd suggest Tulum, Phú Quốc, or the Algarve coast — all stunning in late spring.";
+                    if (lower.includes('budget')) return "Tell me your total budget and length, and I'll suggest 3 destinations that fit comfortably.";
+                    if (lower.includes('food')) return "Tokyo, Lisbon, and Mexico City are my top picks for food-first trips this year.";
+                    if (lower.includes('family')) return "Iceland, Costa Rica, and Slovenia are all family-friendly with great variety for kids and adults.";
+                    return "I can suggest destinations based on your vibe, budget, or season. Try: 'beach trip in May under $2k'.";
+                },
+                scrollDown() {
+                    const el = this.$refs.scrollRef;
+                    if (el) el.scrollTop = el.scrollHeight;
+                },
+                init() {}
+            }
+        }
+    </script>
+</div>
+</body>
+</html>
+

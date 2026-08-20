@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="bg-background">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create account - intellitrip</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/output.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Firebase App (compat) -->
+    <script defer src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/11.6.0/firebase-auth-compat.js"></script>
+</head>
+<body x-data="signupApp()" class="bg-background text-foreground font-sans antialiased">
+<div class="grid min-h-screen lg:grid-cols-2">
+    <div class="flex flex-col px-6 py-8 md:px-12">
+        <div th:replace="~{fragments/logo :: logo(href='/')}"></div>
+        <div class="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center py-12">
+            <h1 class="font-serif text-4xl tracking-tight text-balance md:text-5xl">Start planning, free.</h1>
+            <p class="mt-3 text-pretty text-muted-foreground">Create your account in seconds — no credit card required.</p>
+            <div class="mt-8">
+                <!-- Firebase Google Sign-Up Button -->
+                 <button @click="googleSignUp()" type="button" class="inline-flex w-full items-center justify-center gap-3 rounded-full border border-border px-6 py-3 text-sm font-medium hover:bg-muted transition-colors">
+                        <svg class="h-5 w-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                        Sign up with Google
+                    </button>
+                    <div class="relative my-4">
+                        <div class="absolute inset-0 flex items-center"><span class="w-full border-t border-border"></span></div>
+                        <div class="relative flex justify-center text-xs uppercase"><span class="bg-background px-2 text-muted-foreground">Or sign up with email</span></div>
+                    </div>
+
+                 <form th:action="@{/signup}" method="post" class="space-y-4">
+                    <div x-show="googleError" x-transition class="rounded-md bg-destructive/10 p-3 text-sm text-destructive" x-text="googleError"></div>
+                    <div th:if="${error}" class="rounded-md bg-destructive/10 p-3 text-sm text-destructive" th:text="${error}"></div>
+                    <div class="space-y-2">
+                        <label for="name" class="text-sm font-medium">Full name</label>
+                        <input id="name" name="name" type="text" autocomplete="name" placeholder="Your full name" required
+                               class="flex h-11 w-full rounded-xl border border-input bg-background px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                    </div>
+                    <div class="space-y-2">
+                        <label for="email" class="text-sm font-medium">Email</label>
+                        <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required
+                               class="flex h-11 w-full rounded-xl border border-input bg-background px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                    </div>
+<div class="space-y-2">
+                        <label for="password" class="text-sm font-medium">Password</label>
+                        <input id="password" name="password" type="password" autocomplete="new-password" placeholder="At least 6 characters" required
+                               class="flex h-11 w-full rounded-xl border border-input bg-background px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                    </div>
+<div class="space-y-2">
+                        <label for="country" class="text-sm font-medium">Country</label>
+                        <select id="country" name="country" required onchange="updateCountryCode(this)"
+                                class="flex h-11 w-full rounded-xl border border-input bg-background px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                            <option value="" disabled selected>Select your country</option>
+                            <option th:each="c : ${countries}" th:value="${c['name']}" th:data-code="${c['alpha2']}" th:text="${c['name']}"></option>
+                        </select>
+                        <input type="hidden" name="countryCode" id="countryCode" value="">
+                    </div>
+                    <button type="submit" class="inline-flex w-full items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">Create account</button>
+                </form>
+                <p class="text-center text-sm text-muted-foreground">
+                    Already have an account? <a href="/login" class="font-medium text-foreground underline-offset-4 hover:underline">Sign in</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <aside class="relative hidden lg:block">
+        <img src="/images/hero-travel.jpg" alt="Coastal village at golden hour" class="h-full w-full object-cover">
+        <div aria-hidden class="absolute inset-0 bg-gradient-to-t from-foreground/40 to-transparent"></div>
+        <div class="absolute bottom-10 left-10 right-10 max-w-md rounded-2xl border border-white/15 bg-background/85 p-5 backdrop-blur-md">
+            <p class="font-serif text-xl leading-snug">"intellitrip planned the most thoughtful 9-day Greece trip I've ever taken — and saved me a weekend of tabs."</p>
+        </div>
+        <a href="/" class="absolute right-6 top-6 rounded-full bg-background/85 px-3 py-1.5 text-xs font-medium backdrop-blur hover:bg-background">← Back to home</a>
+    </aside>
+</div>
+
+<script>
+function updateCountryCode(selectEl) {
+    const code = selectEl.options[selectEl.selectedIndex]?.dataset?.code || '';
+    document.getElementById('countryCode').value = code;
+}
+function signupApp() {
+    return {
+        googleError: null,
+        initFirebase() {
+            const firebaseConfig = {
+                apiKey: "AIzaSyAVXERfKCvvksT-arUETgjL15SE97Mfjd0",
+                authDomain: "aitripplanner-9bd38.firebaseapp.com",
+                projectId: "aitripplanner-9bd38",
+                storageBucket: "aitripplanner-9bd38.firebasestorage.app",
+                messagingSenderId: "416631612500",
+                appId: "1:416631612500:web:4ec9e921e4471e979d39c1",
+                measurementId: "G-5XL21G1X5Q"
+            };
+            if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+        },
+        async googleSignUp() {
+            this.googleError = null;
+            try {
+                this.initFirebase();
+                const provider = new firebase.auth.GoogleAuthProvider();
+                const result = await firebase.auth().signInWithPopup(provider);
+                const idToken = await result.user.getIdToken();
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/auth/firebase';
+                const tokenInput = document.createElement('input');
+                tokenInput.type = 'hidden';
+                tokenInput.name = 'idToken';
+                tokenInput.value = idToken;
+                form.appendChild(tokenInput);
+                document.body.appendChild(form);
+                form.submit();
+            } catch (error) {
+                console.error('Google sign-up error:', error);
+                this.googleError = error.message || 'Google sign-up failed. Please try again.';
+            }
+        }
+    }
+}
+</script>
+</body>
+</html>

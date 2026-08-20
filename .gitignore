@@ -1,0 +1,13 @@
+target/
+.gradle/
+*.class
+*.jar
+.settings/
+.project
+.classpath
+.idea/
+*.iml
+node_modules/
+app.log
+.vscode/
+trip images/

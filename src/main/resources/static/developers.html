@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Makers - IntelliTrip</title>
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], serif: ['Instrument Serif', 'Times New Roman', 'serif'] },
+                colors: {
+                    background: '#fcfbf8', foreground: '#1a1e2e',
+                    card: '#ffffff', 'card-foreground': '#1a1e2e',
+                    primary: '#3b8a8a', 'primary-foreground': '#fcfbf8',
+                    'muted': '#f2f4f5', 'muted-foreground': '#7a7f8a',
+                    'accent': '#e8b84b', 'accent-foreground': '#3a2e0a',
+                    'border': '#e5e7eb', 'destructive': '#c24141',
+                },
+                borderRadius: { '2xl': '1rem', '3xl': '1.5rem' }
+            }
+        }
+    }
+    </script>
+    <style>
+    body { background: #fcfbf8; color: #1a1e2e; font-family: 'Inter', system-ui, sans-serif; }
+    .soft-shadow { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.04), 0 8px 24px -8px rgb(0 0 0 / 0.08); }
+    .soft-shadow-lg { box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.04), 0 24px 48px -16px rgb(0 0 0 / 0.12); }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+    .animate-float { animation: float 3s ease-in-out infinite; }
+    @keyframes fade-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-up { animation: fade-up 0.5s ease-out both; }
+    .shimmer { background: linear-gradient(90deg,#f2f4f5 0%,#f8f9fa 50%,#f2f4f5 100%); background-size:200% 100%; animation: shimmer 1.6s ease-in-out infinite; }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="antialiased min-h-screen" x-data="app()" x-init="init()">
+    <header class="sticky top-0 z-50 w-full border-b transition-all duration-200" :class="scrolled ? 'border-[#e5e7eb] bg-white/85 backdrop-blur-md' : 'border-transparent bg-transparent'">
+        <div class="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 md:px-6">
+            <a href="/" class="inline-flex items-center gap-2.5 group">
+                <img src="/images/logo.png" alt="IntelliTrip Logo" class="h-10 w-10 rounded-xl object-contain soft-shadow transition-all duration-300 group-hover:scale-105" onerror="this.src='/favicon.ico'" />
+                <span class="font-serif text-[1.7rem] leading-none tracking-[-0.03em] font-normal" style="font-family:'Instrument Serif',serif">IntelliTrip<span class="text-[#3b8a8a]">.</span></span>
+            </a>
+            <nav class="hidden md:flex items-center gap-1">
+                <a href="/#features" class="rounded-full px-4 py-2 text-sm text-[#7a7f8a] hover:bg-[#f2f4f5] hover:text-[#1a1e2e] transition-colors">Features</a>
+                <a href="/#how-it-works" class="rounded-full px-4 py-2 text-sm text-[#7a7f8a] hover:bg-[#f2f4f5] hover:text-[#1a1e2e] transition-colors">How it works</a>
+                <a href="/#testimonials" class="rounded-full px-4 py-2 text-sm text-[#7a7f8a] hover:bg-[#f2f4f5] hover:text-[#1a1e2e] transition-colors">Stories</a>
+                <a href="/developers" class="rounded-full px-4 py-2 text-sm text-[#7a7f8a] hover:bg-[#f2f4f5] hover:text-[#1a1e2e] transition-colors">Makers</a>
+            </nav>
+            <div class="hidden md:flex items-center gap-2">
+                <a href="/login" class="inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium text-[#1a1e2e] hover:bg-[#f2f4f5] transition-colors">Log in</a>
+                <a href="/signup" class="inline-flex items-center justify-center rounded-full bg-[#3b8a8a] px-4 py-2 text-sm font-medium text-white hover:bg-[#3b8a8a]/90 transition-colors">Get started</a>
+            </div>
+            <button type="button" @click="mobileOpen = !mobileOpen" class="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-lg text-[#7a7f8a] hover:bg-[#f2f4f5]">
+                <svg x-show="!mobileOpen" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
+                <svg x-show="mobileOpen" x-cloak class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+            </button>
+        </div>
+        <div x-show="mobileOpen" x-cloak class="border-t border-[#e5e7eb] bg-white md:hidden">
+            <nav class="mx-auto flex max-w-6xl flex-col px-4 py-3">
+                <a href="/#features" @click="mobileOpen=false" class="rounded-lg px-3 py-2.5 text-sm text-[#7a7f8a] hover:bg-[#f2f4f5] hover:text-[#1a1e2e]">Features</a>
+                <a href="/#how-it-works" @click="mobileOpen=false" class="rounded-lg px-3 py-2.5 text-sm text-[#7a7f8a] hover:bg-[#f2f4f5] hover:text-[#1a1e2e]">How it works</a>
+                <a href="/#testimonials" @click="mobileOpen=false" class="rounded-lg px-3 py-2.5 text-sm text-[#7a7f8a] hover:bg-[#f2f4f5] hover:text-[#1a1e2e]">Stories</a>
+                <a href="/developers" @click="mobileOpen=false" class="rounded-lg px-3 py-2.5 text-sm text-[#7a7f8a] hover:bg-[#f2f4f5] hover:text-[#1a1e2e]">Makers</a>
+                <div class="mt-2 pt-2 flex flex-col gap-2">
+                    <a href="/login" class="inline-flex w-full items-center justify-center rounded-full border border-[#e5e7eb] px-4 py-2 text-sm font-medium hover:bg-[#f2f4f5]">Log in</a>
+                    <a href="/signup" class="inline-flex w-full items-center justify-center rounded-full bg-[#3b8a8a] px-4 py-2 text-sm font-medium text-white">Get started</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="min-h-screen bg-[#fcfbf8]">
+        <section class="relative overflow-hidden border-t border-[#e5e7eb] bg-[#fcfbf8] py-20 md:py-28">
+            <div class="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center" aria-hidden="true">
+                <span class="text-[8rem] md:text-[14rem] font-bold text-[#3b8a8a]/[0.06] select-none">IntelliTrip</span>
+            </div>
+
+            <div class="mx-auto max-w-5xl px-4 md:px-6">
+                <div class="text-center">
+                    <p class="text-xs font-extrabold uppercase tracking-widest text-orange-500 md:text-sm">The Team</p>
+                    <h2 class="mt-4 font-serif text-4xl tracking-tight text-balance md:text-5xl" style="font-family:'Instrument Serif',serif">
+                        The Minds Behind <span class="text-[#3b8a8a] font-bold">IntelliTrip</span>
+                    </h2>
+                </div>
+
+                <div class="mt-14 flex flex-wrap justify-center gap-6">
+                    <div class="group relative h-72 w-56 md:h-80 md:w-64 overflow-hidden rounded-2xl md:rounded-3xl">
+                         <img src="images/member1.png" alt="Kesava" class="h-full w-full object-contain bg-white transition duration-300 group-hover:scale-105" onerror="this.style.background='#ddd'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 text-left">
+                            <h3 class="text-base font-semibold text-white md:text-lg">Kesava</h3>
+                             <p class="text-xs text-gray-300 md:text-sm">Team Lead (Backend Developer)</p>
+                        </div>
+                    </div>
+                    <div class="group relative h-72 w-56 md:h-80 md:w-64 overflow-hidden rounded-2xl md:rounded-3xl">
+                         <img src="images/member 2.png" alt="Bhadra" class="h-full w-full object-contain bg-white transition duration-300 group-hover:scale-105" onerror="this.style.background='#ddd'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 text-left">
+                            <h3 class="text-base font-semibold text-white md:text-lg">Bhadra</h3>
+                            <p class="text-xs text-gray-300 md:text-sm">AI/ML Engineer</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex flex-wrap justify-center gap-6">
+                    <div class="group relative h-72 w-56 md:h-80 md:w-64 overflow-hidden rounded-2xl md:rounded-3xl">
+                         <img src="images/member3.png" alt="Tarak" class="h-full w-full object-contain bg-white transition duration-300 group-hover:scale-105" onerror="this.style.background='#ddd'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 text-left">
+                            <h3 class="text-base font-semibold text-white md:text-lg">Tarak</h3>
+                            <p class="text-xs text-gray-300 md:text-sm">Frontend Developer</p>
+                        </div>
+                    </div>
+                    <div class="group relative h-72 w-56 md:h-80 md:w-64 overflow-hidden rounded-2xl md:rounded-3xl">
+                         <img src="images/member4.jpeg" alt="Durgaprasad" class="h-full w-full object-cover object-center transition duration-300 group-hover:scale-105" onerror="this.style.background='#ddd'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 text-left">
+                             <h3 class="text-base font-semibold text-white md:text-lg">Durgaprasad</h3>
+                             <p class="text-xs text-gray-300 md:text-sm">UI/UX Designer</p>
+                        </div>
+                    </div>
+                    <div class="group relative h-72 w-56 md:h-80 md:w-64 overflow-hidden rounded-2xl md:rounded-3xl">
+                         <img src="images/member5.jpeg" alt="Varun" class="h-full w-full object-cover object-center transition duration-300 group-hover:scale-105" onerror="this.style.background='#ddd'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 text-left">
+                            <h3 class="text-base font-semibold text-white md:text-lg">Varun</h3>
+                            <p class="text-xs text-gray-300 md:text-sm">Database Manager</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 text-center">
+                    <p class="text-xs font-extrabold uppercase tracking-widest text-[#1a1e2e] md:text-sm">5 People. One Obsession.</p>
+                    <p class="mt-2 text-xs font-extrabold uppercase tracking-widest text-[#3b8a8a] md:text-sm">Building What Matters</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-[#e5e7eb] bg-white">
+        <div class="mx-auto max-w-6xl px-4 py-14 md:px-6">
+            <div class="grid gap-10 md:grid-cols-12">
+                <div class="md:col-span-4">
+                    <a href="/" class="inline-flex items-center gap-2.5 group">
+                        <img src="/images/logo.png" alt="IntelliTrip Logo" class="h-10 w-10 rounded-xl object-contain soft-shadow" onerror="this.src='/favicon.ico'" />
+                        <span class="font-serif text-[1.7rem] leading-none tracking-[-0.03em]" style="font-family:'Instrument Serif',serif">IntelliTrip<span class="text-[#3b8a8a]">.</span></span>
+                    </a>
+                    <p class="mt-4 max-w-xs text-sm leading-relaxed text-[#7a7f8a]">IntelliTrip is the AI travel planner that turns scattered ideas into thoughtful, day-by-day itineraries.</p>
+                    <a href="mailto:hello@intellitrip.app" class="mt-4 inline-flex items-center gap-2 text-sm text-[#7a7f8a] hover:text-[#1a1e2e]"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> hello@intellitrip.app</a>
+                </div>
+                <div class="grid grid-cols-2 gap-6 md:col-span-8">
+                    <div><h3 class="text-sm font-medium">Product</h3><ul class="mt-3 space-y-2.5"><li><a href="/#features" class="text-sm text-[#7a7f8a] hover:text-[#1a1e2e]">Features</a></li><li><a href="/#how-it-works" class="text-sm text-[#7a7f8a] hover:text-[#1a1e2e]">How it works</a></li><li><a href="#" class="text-sm text-[#7a7f8a] hover:text-[#1a1e2e]">Pricing</a></li></ul></div>
+                    <div><h3 class="text-sm font-medium">Resources</h3><ul class="mt-3 space-y-2.5"><li><a href="#" class="text-sm text-[#7a7f8a] hover:text-[#1a1e2e]">Help center</a></li><li><a href="#" class="text-sm text-[#7a7f8a] hover:text-[#1a1e2e]">Travel guides</a></li><li><a href="#" class="text-sm text-[#7a7f8a] hover:text-[#1a1e2e]">Privacy</a></li><li><a href="#" class="text-sm text-[#7a7f8a] hover:text-[#1a1e2e]">Terms</a></li></ul></div>
+                </div>
+            </div>
+            <div class="mt-10 flex flex-col items-start justify-between gap-4 border-t border-[#e5e7eb] pt-6 md:flex-row md:items-center">
+                <p class="text-xs text-[#7a7f8a]">&copy; 2026 IntelliTrip Travel, Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

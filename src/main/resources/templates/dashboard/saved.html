@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      x-data="generateApp()"
+      x-init="fetchSavedData()"
+      class="bg-background">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Trips - intellitrip</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/output.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-background text-foreground font-sans antialiased">
+<div class="flex min-h-screen">
+    <div th:replace="~{fragments/sidebar-nav :: sidebar-nav(active='saved')}"></div>
+    <div class="flex min-h-screen flex-1 flex-col">
+        <div th:replace="~{fragments/topbar :: topbar(title='Saved Trips', subtitle='Your saved itineraries and places.')}"></div>
+        <div class="flex-1 px-4 py-8 md:px-8">
+            <div class="flex gap-2 mb-6">
+                <button @click="activeTab = 'trips'" :class="activeTab === 'trips' ? 'bg-primary text-primary-foreground' : 'border border-border bg-card text-muted-foreground hover:bg-muted'" class="inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-medium transition-colors">Saved Trips</button>
+                <button @click="activeTab = 'places'" :class="activeTab === 'places' ? 'bg-primary text-primary-foreground' : 'border border-border bg-card text-muted-foreground hover:bg-muted'" class="inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-medium transition-colors">Saved Places</button>
+            </div>
+
+            <!-- Saved Trips -->
+            <div x-show="activeTab === 'trips'" x-cloak>
+                <!-- Loading -->
+                <div x-show="loading" class="flex items-center justify-center py-20">
+                    <svg class="h-8 w-8 animate-spin text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="10" stroke-width="4" class="opacity-25"/><path d="M4 12a8 8 0 0 1 8-8" stroke-width="4" class="opacity-75"/>
+                    </svg>
+                </div>
+
+                <!-- Saved Trips Grid -->
+                <div x-show="!loading && savedTrips.length > 0" x-cloak class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    <template x-for="trip in savedTrips" :key="trip.id">
+                        <div class="flex flex-col rounded-3xl border border-border bg-card overflow-hidden group transition-all hover:-translate-y-1 hover:soft-shadow-lg">
+                            <div class="relative aspect-[16/10] w-full overflow-hidden">
+                                <img :src="trip.image || '/images/placeholder.jpg'" :alt="trip.destination || 'Trip'" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                <span class="absolute left-3 top-3 rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary capitalize" x-text="trip.status"></span>
+                            </div>
+                            <div class="flex flex-col p-5">
+                                <div class="flex items-start justify-between gap-2">
+                                    <div>
+                                        <h3 class="font-serif text-2xl leading-tight tracking-tight" x-text="trip.destination || 'Untitled Trip'"></h3>
+                                        <p class="mt-0.5 text-sm text-muted-foreground" x-text="trip.country || ''"></p>
+                                    </div>
+                                    <button @click="deleteTrip(trip.id)" class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors" title="Delete trip">
+                                        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                    </button>
+                                </div>
+                                <div class="mt-5 grid grid-cols-3 gap-3">
+                                    <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Days</dt><dd class="mt-0.5 text-sm font-medium" x-text="trip.days || 0"></dd></div>
+                                    <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Budget</dt><dd class="mt-0.5 text-sm font-medium capitalize" x-text="trip.budget || 'N/A'"></dd></div>
+                                    <div><dt class="text-[11px] uppercase tracking-wide text-muted-foreground">Type</dt><dd class="mt-0.5 text-sm font-medium capitalize" x-text="trip.travelType || 'N/A'"></dd></div>
+                                </div>
+                                <div class="mt-5 flex items-center justify-between border-t border-border pt-4">
+                                    <p class="text-sm"><span class="text-muted-foreground">Total</span> <span class="font-medium" x-text="formatCost(trip.budgetUsd)"></span></p>
+                                    <a :href="'/dashboard/trips/' + trip.id" class="inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium hover:bg-muted transition-colors">View details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Empty State -->
+                <div x-show="!loading && savedTrips.length === 0" x-cloak class="flex flex-col items-center justify-center py-20 text-center">
+                    <span class="grid h-16 w-16 place-items-center rounded-3xl bg-muted text-muted-foreground">
+                        <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                    </span>
+                    <h2 class="mt-4 font-serif text-2xl">No saved trips yet</h2>
+                    <p class="mt-2 max-w-md text-sm text-muted-foreground">Trips you generate will appear here automatically.</p>
+                    <a href="/dashboard/generate" class="mt-6 inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">Generate a Trip</a>
+                </div>
+            </div>
+
+            <!-- Saved Places -->
+            <div x-show="activeTab === 'places'" x-cloak>
+                <!-- Loading -->
+                <div x-show="loading" class="flex items-center justify-center py-20">
+                    <svg class="h-8 w-8 animate-spin text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="10" stroke-width="4" class="opacity-25"/><path d="M4 12a8 8 0 0 1 8-8" stroke-width="4" class="opacity-75"/>
+                    </svg>
+                </div>
+
+                <!-- Saved Places Grid -->
+                <div x-show="!loading && savedPlaces.length > 0" x-cloak class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    <template x-for="place in savedPlaces" :key="place.id">
+                        <div class="flex flex-col rounded-3xl border border-border bg-card overflow-hidden group transition-all hover:-translate-y-1 hover:soft-shadow-lg">
+                            <div class="relative aspect-[4/3] overflow-hidden">
+                                <img :src="place.image || '/images/placeholder.jpg'" :alt="place.name || 'Place'" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                <span class="absolute left-3 top-3 rounded-full border border-border bg-background/80 px-2.5 py-0.5 text-xs font-medium backdrop-blur" x-text="place.category"></span>
+                            </div>
+                            <div class="flex flex-col p-5">
+                                <h3 class="font-serif text-xl leading-tight tracking-tight" x-text="place.name || 'Untitled Place'"></h3>
+                                <p class="mt-0.5 text-sm text-muted-foreground" x-text="place.location || ''"></p>
+                                <div class="mt-4 flex items-center gap-3 text-sm">
+                                    <span class="flex items-center gap-1">
+                                        <svg class="h-4 w-4 fill-accent text-accent" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                        <span x-text="place.rating"></span>
+                                    </span>
+                                    <span class="text-muted-foreground" x-text="place.price"></span>
+                                </div>
+                                <p class="mt-3 text-sm text-muted-foreground line-clamp-2" x-text="place.description"></p>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Empty State -->
+                <div x-show="!loading && savedPlaces.length === 0" x-cloak class="flex flex-col items-center justify-center py-20 text-center">
+                    <span class="grid h-16 w-16 place-items-center rounded-3xl bg-muted text-muted-foreground">
+                        <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                    </span>
+                    <h2 class="mt-4 font-serif text-2xl">No saved places yet</h2>
+                    <p class="mt-2 max-w-md text-sm text-muted-foreground">Saved places will appear here when you add them from your trip itineraries.</p>
+                    <a href="/dashboard/generate" class="mt-6 inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">Generate a Trip</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function formatCost(amount) {
+    try {
+        return new Intl.NumberFormat(undefined, {style:'currency', currency: 'USD', maximumFractionDigits: 0}).format(amount);
+    } catch (e) {
+        return '$' + amount;
+    }
+}
+function generateApp() {
+    return {
+        savedTrips: [],
+        savedPlaces: [],
+        loading: true,
+        activeTab: 'trips',
+fetchSavedData() {
+            Promise.all([
+                fetch('/api/saved-places').then(r => r.ok ? r.json() : []),
+                fetch('/api/trips/saved').then(r => r.ok ? r.json() : [])
+            ]).then(([places, trips]) => {
+                this.savedPlaces = places;
+                this.savedTrips = trips;
+                this.loading = false;
+            }).catch(() => {
+                this.loading = false;
+            });
+        },
+        deleteTrip(id) {
+            if (!confirm('Delete this trip?')) return;
+            fetch('/dashboard/trips/delete/' + id, { method: 'POST' })
+                .then(() => { this.savedTrips = this.savedTrips.filter(t => t.id !== id); })
+                .catch(() => { alert('Failed to delete trip'); });
+        }
+    }
+}
+</script>
+</body>
+</html>
