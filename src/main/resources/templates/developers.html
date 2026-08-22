@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="bg-background">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Makers - IntelliTrip</title>
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/output.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-background text-foreground font-sans antialiased min-h-screen">
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="min-h-screen bg-background">
+        <section class="relative overflow-hidden border-t border-border bg-background py-20 md:py-28">
+            <div class="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center" aria-hidden="true">
+                <span class="text-[8rem] md:text-[14rem] font-bold text-primary/[0.06] select-none">IntelliTrip</span>
+            </div>
+
+            <div class="mx-auto max-w-5xl px-4 md:px-6">
+                <div class="text-center">
+                    <p class="text-xs font-extrabold uppercase tracking-widest text-orange-500 md:text-sm">The Team</p>
+                    <h2 class="mt-4 font-serif text-4xl tracking-tight text-balance md:text-5xl">
+                        The Minds Behind <span class="text-primary font-bold">IntelliTrip</span>
+                    </h2>
+                </div>
+
+                <div class="mt-14 flex flex-wrap justify-center gap-6">
+                    <div class="group relative h-72 w-56 md:h-80 md:w-64 overflow-hidden rounded-2xl md:rounded-3xl">
+                         <img src="/images/member1.png" alt="Kesava" class="h-full w-full object-contain bg-white transition duration-300 group-hover:scale-105" onerror="this.style.background='#ddd'">
+                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                         <div class="absolute bottom-4 left-4 text-left">
+                             <h3 class="text-base font-semibold text-white md:text-lg">Kesava</h3>
+                             <p class="text-xs text-gray-300 md:text-sm">Team Lead (Backend Developer)</p>
+                         </div>
+                    </div>
+                    <div class="group relative h-72 w-56 md:h-80 md:w-64 overflow-hidden rounded-2xl md:rounded-3xl">
+                         <img src="/images/member 2.png" alt="Bhadra" class="h-full w-full object-contain bg-white transition duration-300 group-hover:scale-105" onerror="this.style.background='#ddd'">
+                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                         <div class="absolute bottom-4 left-4 text-left">
+                             <h3 class="text-base font-semibold text-white md:text-lg">Bhadra</h3>
+                             <p class="text-xs text-gray-300 md:text-sm">AI/ML Engineer</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex flex-wrap justify-center gap-6">
+                    <div class="group relative h-72 w-56 md:h-80 md:w-64 overflow-hidden rounded-2xl md:rounded-3xl">
+                         <img src="/images/member3.png" alt="Tarak" class="h-full w-full object-contain bg-white transition duration-300 group-hover:scale-105" onerror="this.style.background='#ddd'">
+                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                         <div class="absolute bottom-4 left-4 text-left">
+                             <h3 class="text-base font-semibold text-white md:text-lg">Tarak</h3>
+                             <p class="text-xs text-gray-300 md:text-sm">Frontend Developer</p>
+                        </div>
+                    </div>
+                    <div class="group relative h-72 w-56 md:h-80 md:w-64 overflow-hidden rounded-2xl md:rounded-3xl">
+                         <img src="/images/member4.jpeg" alt="Durgaprasad" class="h-full w-full object-cover object-center transition duration-300 group-hover:scale-105" onerror="this.style.background='#ddd'">
+                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                         <div class="absolute bottom-4 left-4 text-left">
+                             <h3 class="text-base font-semibold text-white md:text-lg">Durgaprasad</h3>
+                             <p class="text-xs text-gray-300 md:text-sm">UI/UX Designer</p>
+                        </div>
+                    </div>
+                    <div class="group relative h-72 w-56 md:h-80 md:w-64 overflow-hidden rounded-2xl md:rounded-3xl">
+                         <img src="/images/member5.jpeg" alt="Varun" class="h-full w-full object-cover object-center transition duration-300 group-hover:scale-105" onerror="this.style.background='#ddd'">
+                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                         <div class="absolute bottom-4 left-4 text-left">
+                             <h3 class="text-base font-semibold text-white md:text-lg">Varun</h3>
+                             <p class="text-xs text-gray-300 md:text-sm">Database Manager</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 text-center">
+                    <p class="text-xs font-extrabold uppercase tracking-widest text-foreground md:text-sm">5 People. One Obsession.</p>
+                    <p class="mt-2 text-xs font-extrabold uppercase tracking-widest text-primary md:text-sm">Building What Matters</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <div th:replace="~{fragments/chatbot :: chatbot}"></div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="bg-background">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Something went wrong - intellitrip</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/output.css">
+</head>
+<body class="bg-background text-foreground font-sans antialiased min-h-screen flex items-center justify-center">
+    <div class="mx-auto max-w-lg px-4 text-center">
+        <span class="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-destructive/10 text-destructive mb-6">
+            <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+        </span>
+        <h1 class="font-serif text-4xl tracking-tight md:text-5xl">Something went wrong</h1>
+        <p class="mt-4 text-muted-foreground">We encountered an unexpected error. Our team has been notified.</p>
+        <div th:if="${errorMessage}" class="mt-6 rounded-2xl border border-destructive/20 bg-destructive/5 p-4 text-left">
+            <p class="text-xs font-medium text-destructive uppercase tracking-wide">Error details</p>
+            <p class="mt-1 text-sm text-muted-foreground" th:text="${errorMessage}">Unknown error</p>
+            <p th:if="${exceptionClass}" class="mt-1 text-xs text-muted-foreground" th:text="${exceptionClass}"></p>
+        </div>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="/" class="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">Go home</a>
+            <a href="javascript:window.location.reload()" class="inline-flex items-center justify-center rounded-full border border-border px-6 py-3 text-sm font-medium hover:bg-muted transition-colors">Try again</a>
+        </div>
+    </div>
+</body>
+</html>

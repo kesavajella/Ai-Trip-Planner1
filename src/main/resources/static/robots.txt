@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ai-trip-planner1-29ts.onrender.com/sitemap.xml

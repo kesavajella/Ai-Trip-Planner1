@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="bg-background">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select your country - intellitrip</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/output.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="countryApp()" class="bg-background text-foreground font-sans antialiased">
+<div class="grid min-h-screen lg:grid-cols-2">
+    <div class="flex flex-col px-6 py-8 md:px-12">
+        <div th:replace="~{fragments/logo :: logo(href='/')}"></div>
+        <div class="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center py-12">
+            <h1 class="font-serif text-4xl tracking-tight text-balance md:text-5xl">Where are you?</h1>
+            <p class="mt-3 text-pretty text-muted-foreground">Select your country to see trip costs in your local currency.</p>
+            <div class="mt-8">
+                <div x-show="error" x-transition class="rounded-md bg-destructive/10 p-3 text-sm text-destructive" x-text="error"></div>
+                <div th:if="${error}" class="rounded-md bg-destructive/10 p-3 text-sm text-destructive" th:text="${error}"></div>
+                <form th:action="@{/select-country}" method="post" class="space-y-4">
+                    <div class="space-y-2">
+                        <label for="country" class="text-sm font-medium">Country</label>
+                        <select id="country" name="country" required onchange="updateCountryCode(this)"
+                                class="flex h-11 w-full rounded-xl border border-input bg-background px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                            <option value="" disabled selected>Select your country</option>
+                            <option th:each="c : ${countries}" th:value="${c['name']}" th:data-code="${c['alpha2']}" th:text="${c['name']}"></option>
+                        </select>
+                        <input type="hidden" name="countryCode" id="countryCode" value="">
+                    </div>
+                    <button type="submit" class="inline-flex w-full items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">Save & Continue</button>
+                </form>
+                <p class="mt-4 text-center text-sm text-muted-foreground">
+                    <a href="/dashboard" class="font-medium text-foreground underline-offset-4 hover:underline">Skip for now</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <aside class="relative hidden lg:block">
+        <img src="/images/hero-travel.jpg" alt="Coastal village at golden hour" class="h-full w-full object-cover">
+        <div aria-hidden class="absolute inset-0 bg-gradient-to-t from-foreground/40 to-transparent"></div>
+        <div class="absolute bottom-10 left-10 right-10 max-w-md rounded-2xl border border-white/15 bg-background/85 p-5 backdrop-blur-md">
+            <p class="font-serif text-xl leading-snug">"intellitrip planned the most thoughtful 9-day Greece trip I've ever taken — and saved me a weekend of tabs."</p>
+        </div>
+        <a href="/" class="absolute right-6 top-6 rounded-full bg-background/85 px-3 py-1.5 text-xs font-medium backdrop-blur hover:bg-background">← Back to home</a>
+    </aside>
+</div>
+
+<script>
+function updateCountryCode(selectEl) {
+    const code = selectEl.options[selectEl.selectedIndex]?.dataset?.code || '';
+    document.getElementById('countryCode').value = code;
+}
+function countryApp() {
+    return {
+        error: null
+    }
+}
+</script>
+</body>
+</html>
+
