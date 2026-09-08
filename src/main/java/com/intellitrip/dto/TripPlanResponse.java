@@ -212,7 +212,7 @@ public class TripPlanResponse {
         private double estimatedAccommodationTotal;
         private double estimatedFoodTotal;
         private double estimatedTransportTotal;
-        private double estimatedInterestsTotal;
+        private double estimatedActivitiesTotal;
         private double estimatedOtherTotal;
         private double grandTotal;
 
@@ -225,8 +225,8 @@ public class TripPlanResponse {
         public void setEstimatedFoodTotal(double estimatedFoodTotal) { this.estimatedFoodTotal = estimatedFoodTotal; }
         public double getEstimatedTransportTotal() { return estimatedTransportTotal; }
         public void setEstimatedTransportTotal(double estimatedTransportTotal) { this.estimatedTransportTotal = estimatedTransportTotal; }
-        public double getEstimatedInterestsTotal() { return estimatedInterestsTotal; }
-        public void setEstimatedInterestsTotal(double estimatedInterestsTotal) { this.estimatedInterestsTotal = estimatedInterestsTotal; }
+        public double getEstimatedActivitiesTotal() { return estimatedActivitiesTotal; }
+        public void setEstimatedActivitiesTotal(double estimatedActivitiesTotal) { this.estimatedActivitiesTotal = estimatedActivitiesTotal; }
         public double getEstimatedOtherTotal() { return estimatedOtherTotal; }
         public void setEstimatedOtherTotal(double estimatedOtherTotal) { this.estimatedOtherTotal = estimatedOtherTotal; }
         public double getGrandTotal() { return grandTotal; }

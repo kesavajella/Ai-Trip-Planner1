@@ -70,7 +70,7 @@ public class ItineraryGeneratorService {
                 "estimatedAccommodationTotal": Number,
                 "estimatedFoodTotal": Number,
                 "estimatedTransportTotal": Number,
-                "estimatedInterestsTotal": Number,
+                "estimatedActivitiesTotal": Number,
                 "estimatedOtherTotal": Number,
                 "grandTotal": Number
               },

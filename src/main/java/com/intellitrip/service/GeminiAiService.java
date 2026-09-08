@@ -91,11 +91,11 @@ public class GeminiAiService {
                 "estimatedAccommodationTotal": {"type": "number"},
                 "estimatedFoodTotal": {"type": "number"},
                 "estimatedTransportTotal": {"type": "number"},
-                "estimatedInterestsTotal": {"type": "number"},
+                "estimatedActivitiesTotal": {"type": "number"},
                 "estimatedOtherTotal": {"type": "number"},
                 "grandTotal": {"type": "number"}
               },
-              "required": ["currency", "estimatedAccommodationTotal", "estimatedFoodTotal", "estimatedTransportTotal", "estimatedInterestsTotal", "estimatedOtherTotal", "grandTotal"]
+              "required": ["currency", "estimatedAccommodationTotal", "estimatedFoodTotal", "estimatedTransportTotal", "estimatedActivitiesTotal", "estimatedOtherTotal", "grandTotal"]
             },
             "itinerary": {
               "type": "array",
