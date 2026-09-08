@@ -177,6 +177,12 @@ public class DashboardController {
             }
         }
         data.setDays(days);
+
+        if (raw.getHotels() != null) data.setHotels(raw.getHotels());
+        if (raw.getTransport() != null) data.setTransport(raw.getTransport());
+        if (raw.getBudget() != null) data.setBudgetBreakdown(raw.getBudget());
+        if (raw.getTripOverview() != null) data.setTripOverview(raw.getTripOverview());
+
         return data;
     }
 

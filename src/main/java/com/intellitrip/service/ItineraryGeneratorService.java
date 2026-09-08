@@ -380,6 +380,10 @@ public class ItineraryGeneratorService {
         data.setTravelers(request.getTravelers());
         data.setBudgetTier(request.getBudget());
         data.setDestinationCurrencyCode(resolveCurrencyCode(request.getCountryCode(), request.getCity()));
+        data.setHotels(response.getHotels());
+        data.setTransport(response.getTransport());
+        data.setBudgetBreakdown(response.getBudget());
+        data.setTripOverview(response.getTripOverview());
 
         List<ItineraryData.DayData> days = new ArrayList<>();
         List<TripPlanResponse.DayItinerary> dayItinerary = response.getItinerary() != null ? response.getItinerary() : response.getDays();

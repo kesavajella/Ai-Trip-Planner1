@@ -55,80 +55,33 @@
                             </a>
                         </div>
 
-                        <!-- Settings Categories -->
-                        <div class="py-2 text-xs space-y-3">
-                            
-                            <!-- 👤 Account -->
-                            <div>
-                                <div class="px-4 py-1 font-semibold text-foreground/80 flex items-center gap-1.5 uppercase tracking-wider text-[11px]">
-                                    <span>👤</span> Account
-                                </div>
-                                <div class="pl-7 pr-3 space-y-0.5 mt-0.5">
-                                    <a href="/dashboard/settings?tab=account" class="block rounded-lg px-2.5 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
-                                        Edit Profile
-                                    </a>
-                                    <a href="/dashboard/settings?tab=account" class="block rounded-lg px-2.5 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
-                                        Change Email
-                                    </a>
-                                    <a href="/dashboard/settings?tab=account" class="block rounded-lg px-2.5 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
-                                        Change Password
-                                    </a>
-                                </div>
-                            </div>
+                        <!-- Settings Categories (main categories only) -->
+                        <div class="py-1">
 
-                            <!-- ✈️ Travel Preferences -->
-                            <div>
-                                <div class="px-4 py-1 font-semibold text-foreground/80 flex items-center gap-1.5 uppercase tracking-wider text-[11px]">
-                                    <span>✈️</span> Travel Preferences
-                                </div>
-                                <div class="pl-7 pr-3 space-y-0.5 mt-0.5">
-                                    <a href="/dashboard/settings?tab=preferences" class="block rounded-lg px-2.5 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
-                                        Preferred Budget
-                                    </a>
-                                    <a href="/dashboard/settings?tab=preferences" class="block rounded-lg px-2.5 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
-                                        Travel Style
-                                    </a>
-                                    <a href="/dashboard/settings?tab=preferences" class="block rounded-lg px-2.5 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
-                                        Accommodation
-                                    </a>
-                                    <a href="/dashboard/settings?tab=preferences" class="block rounded-lg px-2.5 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
-                                        Interests
-                                    </a>
-                                    <a href="/dashboard/settings?tab=preferences" class="block rounded-lg px-2.5 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
-                                        Food Preference
-                                    </a>
-                                </div>
-                            </div>
+                            <a href="/dashboard/settings?tab=account" class="flex items-center gap-2.5 rounded-lg px-4 py-2.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
+                                <span class="text-base">👤</span>
+                                <span>Account</span>
+                            </a>
 
-                            <!-- 🔔 Notifications -->
-                            <div>
-                                <div class="px-4 py-1 font-semibold text-foreground/80 flex items-center gap-1.5 uppercase tracking-wider text-[11px]">
-                                    <span>🔔</span> Notifications
-                                </div>
-                                <div class="pl-7 pr-3 space-y-0.5 mt-0.5">
-                                    <a href="/dashboard/settings?tab=notifications" class="block rounded-lg px-2.5 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
-                                        Trip Reminders
-                                    </a>
-                                    <a href="/dashboard/settings?tab=notifications" class="block rounded-lg px-2.5 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
-                                        Travel Recommendations
-                                    </a>
-                                </div>
-                            </div>
+                            <a href="/dashboard/settings?tab=preferences" class="flex items-center gap-2.5 rounded-lg px-4 py-2.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
+                                <span class="text-base">✈️</span>
+                                <span>Travel Preferences</span>
+                            </a>
 
-                            <!-- 🔒 Privacy & Security -->
-                            <div>
-                                <div class="px-4 py-1 font-semibold text-foreground/80 flex items-center gap-1.5 uppercase tracking-wider text-[11px]">
-                                    <span>🔒</span> Privacy & Security
-                                </div>
-                                <div class="pl-7 pr-3 space-y-0.5 mt-0.5">
-                                    <a href="/dashboard/settings?tab=privacy" class="block rounded-lg px-2.5 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
-                                        Change Password
-                                    </a>
-                                    <a href="/dashboard/settings?tab=privacy" class="block rounded-lg px-2.5 py-1.5 text-destructive/80 hover:bg-destructive/10 hover:text-destructive transition-colors">
-                                        Delete Account
-                                    </a>
-                                </div>
-                            </div>
+                            <a href="/dashboard/settings?tab=appearance" class="flex items-center gap-2.5 rounded-lg px-4 py-2.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
+                                <span class="text-base">🎨</span>
+                                <span>Appearance</span>
+                            </a>
+
+                            <a href="/dashboard/settings?tab=notifications" class="flex items-center gap-2.5 rounded-lg px-4 py-2.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
+                                <span class="text-base">🔔</span>
+                                <span>Notifications</span>
+                            </a>
+
+                            <a href="/dashboard/settings?tab=privacy" class="flex items-center gap-2.5 rounded-lg px-4 py-2.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
+                                <span class="text-base">🔒</span>
+                                <span>Privacy &amp; Security</span>
+                            </a>
 
                         </div>
 

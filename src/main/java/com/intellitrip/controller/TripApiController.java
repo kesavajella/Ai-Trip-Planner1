@@ -236,6 +236,27 @@ public class TripApiController {
             payload.put("source", source);
             payload.put("startDate", startDate);
 
+            if (rawGeminiResponse != null) {
+                if (rawGeminiResponse.getTripOverview() != null) {
+                    payload.put("tripOverview", rawGeminiResponse.getTripOverview());
+                }
+                if (rawGeminiResponse.getHotels() != null) {
+                    payload.put("hotels", rawGeminiResponse.getHotels());
+                }
+                if (rawGeminiResponse.getTransport() != null) {
+                    payload.put("transport", rawGeminiResponse.getTransport());
+                }
+                if (rawGeminiResponse.getBudget() != null) {
+                    payload.put("budgetBreakdown", rawGeminiResponse.getBudget());
+                }
+                if (rawGeminiResponse.getEstimatedDailyCosts() != null) {
+                    payload.put("estimatedDailyCosts", rawGeminiResponse.getEstimatedDailyCosts());
+                }
+                if (rawGeminiResponse.getItinerary() != null && !rawGeminiResponse.getItinerary().isEmpty()) {
+                    payload.put("rawItinerary", rawGeminiResponse.getItinerary());
+                }
+            }
+
             if (userId != null) {
                 java.util.Optional<User> maybeUser = userRepository.findById(userId);
                 if (maybeUser.isPresent()) {
@@ -358,6 +379,11 @@ public class TripApiController {
             itineraryMap.put("budgetTier", itinerary.getBudgetTier());
             itineraryMap.put("destinationCurrencyCode", itinerary.getDestinationCurrencyCode());
             itineraryMap.put("days", daysList);
+
+            if (itinerary.getHotels() != null) itineraryMap.put("hotels", itinerary.getHotels());
+            if (itinerary.getTransport() != null) itineraryMap.put("transport", itinerary.getTransport());
+            if (itinerary.getBudgetBreakdown() != null) itineraryMap.put("budgetBreakdown", itinerary.getBudgetBreakdown());
+            if (itinerary.getTripOverview() != null) itineraryMap.put("tripOverview", itinerary.getTripOverview());
 
             return new com.fasterxml.jackson.databind.ObjectMapper().writeValueAsString(itineraryMap);
         } catch (Exception e) {

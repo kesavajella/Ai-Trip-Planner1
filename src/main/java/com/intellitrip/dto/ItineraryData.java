@@ -15,6 +15,10 @@ public class ItineraryData {
     private String travelers;
     private String budgetTier;
     private String destinationCurrencyCode;
+    private Object hotels;
+    private Object transport;
+    private Object budgetBreakdown;
+    private Object tripOverview;
 
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
@@ -40,6 +44,14 @@ public class ItineraryData {
     public void setBudgetTier(String budgetTier) { this.budgetTier = budgetTier; }
     public String getDestinationCurrencyCode() { return destinationCurrencyCode; }
     public void setDestinationCurrencyCode(String destinationCurrencyCode) { this.destinationCurrencyCode = destinationCurrencyCode; }
+    public Object getHotels() { return hotels; }
+    public void setHotels(Object hotels) { this.hotels = hotels; }
+    public Object getTransport() { return transport; }
+    public void setTransport(Object transport) { this.transport = transport; }
+    public Object getBudgetBreakdown() { return budgetBreakdown; }
+    public void setBudgetBreakdown(Object budgetBreakdown) { this.budgetBreakdown = budgetBreakdown; }
+    public Object getTripOverview() { return tripOverview; }
+    public void setTripOverview(Object tripOverview) { this.tripOverview = tripOverview; }
 
     public static class DayData {
         private int day;

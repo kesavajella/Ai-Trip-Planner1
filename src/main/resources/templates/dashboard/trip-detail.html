@@ -101,7 +101,127 @@
                         <dd class="mt-1 text-sm font-medium" th:text="${trip.startDate}"></dd>
                     </div>
                 </div>
-            </div>
+             </div>
+
+             <!-- Hotels -->
+             <div x-data="{
+                 itinerary: null,
+                 currencyCode: 'USD',
+                 rate: 1,
+                 userCountryCurrencyCode: '',
+                 userCountryRate: 1,
+                 destCurrencyCode: '',
+                 formatCost(amount) {
+                     var code = (this.itinerary && this.itinerary.destinationCurrencyCode) || this.currencyCode;
+                     var rate = (this.itinerary && this.itinerary.destinationCurrencyCode) ? 1 : this.rate;
+                     var v = (Number(amount) || 0) * rate;
+                     try { return new Intl.NumberFormat(undefined, {style:'currency', currency: code, maximumFractionDigits: 0}).format(v); }
+                     catch (e) { return '$' + v; }
+                 },
+                 formatCostInCurrency(amount, code, rate) {
+                     var v = (Number(amount) || 0) * (rate || 1);
+                     var c = code || 'USD';
+                     try { return new Intl.NumberFormat(undefined, {style:'currency', currency: c, maximumFractionDigits: 0}).format(v); }
+                     catch (e) { return c + ' ' + v; }
+                 },
+                 init() {
+                     this.currencyCode = this.$el.dataset.currencyCode || 'USD';
+                     this.rate = parseFloat(this.$el.dataset.rate || '1') || 1;
+                     this.userCountryCurrencyCode = this.$el.dataset.userCountryCurrencyCode || '';
+                     this.userCountryRate = parseFloat(this.$el.dataset.userCountryRate || '1') || 1;
+                     this.destCurrencyCode = this.$el.dataset.destinationCurrencyCode || '';
+                     try {
+                         var raw = this.$el.dataset.itinerary;
+                         if (raw && raw !== 'null' && raw !== '') {
+                             this.itinerary = JSON.parse(raw);
+                         }
+                     } catch(e) { console.error('Failed to parse itinerary JSON:', e); }
+                 }
+             }"
+             th:attr="data-currency-code=${userCurrencyCode}, data-rate=${usdRate}, data-destination-currency-code=${trip.destinationCurrencyCode}, data-user-country-currency-code=${userCountryCurrencyCode}, data-user-country-rate=${userCountryRate}, data-itinerary=${trip.itineraryJson}">
+
+                 <!-- Hotels Section -->
+                 <div x-show="itinerary && itinerary.hotels && itinerary.hotels.length" x-cloak class="mt-8 rounded-3xl border border-border bg-card p-6 md:p-8">
+                     <h2 class="font-serif text-2xl tracking-tight mb-5">Recommended Hotels</h2>
+                     <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                         <template x-for="(h, i) in (itinerary.hotels || [])" :key="i">
+                             <div class="rounded-2xl border border-border bg-background/50 p-5">
+                                 <h3 class="font-semibold text-base" x-text="h.name"></h3>
+                                 <p class="text-sm text-muted-foreground mt-0.5" x-text="h.area"></p>
+                                 <p class="mt-3 text-sm font-medium text-primary" x-text="formatCost(h.pricePerNight)"></p>
+                                 <p class="text-xs text-muted-foreground mt-1" x-text="h.bestFor"></p>
+                             </div>
+                         </template>
+                     </div>
+                 </div>
+
+                 <!-- Transport Section -->
+                 <div x-show="itinerary && itinerary.transport && itinerary.transport.roundTrip" x-cloak class="mt-8 rounded-3xl border border-border bg-card p-6 md:p-8">
+                     <h2 class="font-serif text-2xl tracking-tight mb-5">Transport</h2>
+
+                     <!-- Round Trip -->
+                     <div class="rounded-2xl border border-border bg-background/50 p-5 mb-4">
+                         <h3 class="font-semibold text-base flex items-center gap-2"><span>??</span> Round-Trip Travel</h3>
+                         <div class="mt-3 grid gap-2 text-sm">
+                             <div class="flex justify-between"><span class="text-muted-foreground">Mode</span><span x-text="itinerary.transport.roundTrip.mode"></span></div>
+                             <div class="flex justify-between"><span class="text-muted-foreground">Route</span><span x-text="itinerary.transport.roundTrip.route"></span></div>
+                             <div class="flex justify-between"><span class="text-muted-foreground">Duration</span><span x-text="itinerary.transport.roundTrip.duration"></span></div>
+                             <div class="flex justify-between"><span class="text-muted-foreground">Est. Cost</span><span x-text="formatCost(itinerary.transport.roundTrip.estimatedCost)"></span></div>
+                             <div class="flex justify-between"><span class="text-muted-foreground">Book via</span><span x-text="itinerary.transport.roundTrip.recommendedBookingApp"></span></div>
+                         </div>
+                     </div>
+
+                     <!-- Local Transport Apps -->
+                     <div x-show="itinerary.transport.localTransportApps && itinerary.transport.localTransportApps.length" x-cloak>
+                         <h3 class="font-semibold text-base flex items-center gap-2 mb-3"><span>??</span> Local Transport Apps</h3>
+                         <div class="grid gap-3 sm:grid-cols-2">
+                             <template x-for="(app, j) in (itinerary.transport.localTransportApps || [])" :key="j">
+                                 <div class="rounded-xl border border-border bg-background/50 p-4">
+                                     <p class="font-medium text-sm" x-text="app.name"></p>
+                                     <p class="text-xs text-muted-foreground mt-0.5" x-text="app.purpose"></p>
+                                 </div>
+                             </template>
+                         </div>
+                     </div>
+                 </div>
+
+                 <!-- Budget Breakdown -->
+                 <div x-show="itinerary && itinerary.budgetBreakdown" x-cloak class="mt-8 rounded-3xl border border-border bg-card p-6 md:p-8">
+                     <h2 class="font-serif text-2xl tracking-tight mb-5">Budget Breakdown</h2>
+                     <p class="text-xs uppercase tracking-wide text-muted-foreground mb-4" x-text="(itinerary.budgetBreakdown.currency || destCurrencyCode || 'USD') + ' • ' + (itinerary.days?.length || 0) + ' days'"></p>
+
+                     <div class="space-y-4">
+                         <div class="flex items-center justify-between rounded-xl bg-background/50 p-4">
+                             <span class="text-sm font-medium text-muted-foreground">Accommodation</span>
+                             <span class="font-medium" x-text="formatCostInCurrency(itinerary.budgetBreakdown.estimatedAccommodationTotal, itinerary.budgetBreakdown.currency || destCurrencyCode || currencyCode, 1)"></span>
+                         </div>
+                         <div class="flex items-center justify-between rounded-xl bg-background/50 p-4">
+                             <span class="text-sm font-medium text-muted-foreground">Food</span>
+                             <span class="font-medium" x-text="formatCostInCurrency(itinerary.budgetBreakdown.estimatedFoodTotal, itinerary.budgetBreakdown.currency || destCurrencyCode || currencyCode, 1)"></span>
+                         </div>
+                         <div class="flex items-center justify-between rounded-xl bg-background/50 p-4">
+                             <span class="text-sm font-medium text-muted-foreground">Activities</span>
+                             <span class="font-medium" x-text="formatCostInCurrency(itinerary.budgetBreakdown.estimatedActivitiesTotal, itinerary.budgetBreakdown.currency || destCurrencyCode || currencyCode, 1)"></span>
+                         </div>
+                         <div class="flex items-center justify-between rounded-xl bg-background/50 p-4">
+                             <span class="text-sm font-medium text-muted-foreground">Transport</span>
+                             <span class="font-medium" x-text="formatCostInCurrency(itinerary.budgetBreakdown.estimatedTransportTotal, itinerary.budgetBreakdown.currency || destCurrencyCode || currencyCode, 1)"></span>
+                         </div>
+                         <div class="flex items-center justify-between rounded-xl bg-background/50 p-4">
+                             <span class="text-sm font-medium text-muted-foreground">Other</span>
+                             <span class="font-medium" x-text="formatCostInCurrency(itinerary.budgetBreakdown.estimatedOtherTotal, itinerary.budgetBreakdown.currency || destCurrencyCode || currencyCode, 1)"></span>
+                         </div>
+                         <div class="flex items-center justify-between rounded-xl border-t border-border pt-4 mt-2">
+                             <span class="font-semibold">Grand Total</span>
+                             <span class="font-serif text-2xl text-primary" x-text="formatCostInCurrency(itinerary.budgetBreakdown.grandTotal, itinerary.budgetBreakdown.currency || destCurrencyCode || currencyCode, 1)"></span>
+                         </div>
+                     </div>
+
+                     <div x-show="userCountryCurrencyCode && userCountryCurrencyCode !== destCurrencyCode" class="mt-4 text-right">
+                          <p class="text-xs text-muted-foreground" x-text="'? ' + formatCostInCurrency(itinerary.totalBudget, userCountryCurrencyCode, userCountryRate) + ' (' + userCountryCurrencyCode + ')'"></p>
+                     </div>
+                 </div>
+             </div>
 
              <!-- Itinerary Section -->
              <div class="mt-8"
@@ -114,8 +234,10 @@
                       userCountryRate: 1,
                       destCurrencyCode: '',
                       formatCost(amount) {
-                          var v = (Number(amount) || 0) * this.rate;
-                          try { return new Intl.NumberFormat(undefined, {style:'currency', currency: this.currencyCode, maximumFractionDigits: 0}).format(v); }
+                          var code = (this.itinerary && this.itinerary.destinationCurrencyCode) || this.currencyCode;
+                          var rate = (this.itinerary && this.itinerary.destinationCurrencyCode) ? 1 : this.rate;
+                          var v = (Number(amount) || 0) * rate;
+                          try { return new Intl.NumberFormat(undefined, {style:'currency', currency: code, maximumFractionDigits: 0}).format(v); }
                           catch (e) { return '$' + v; }
                       },
                       formatCostInCurrency(amount, code, rate) {
