@@ -1,0 +1,40 @@
+# Render Blueprint - AI Trip Planner
+# Deploy as a Web Service on Render
+services:
+  - type: web
+    name: ai-trip-planner
+    env: docker
+    repo: https://github.com/kesavajella/Ai-Trip-Planner1.git
+    branch: main
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false  # Gemini API key for AI trip generation
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: SERVER_PORT
+        value: "8080"
+      # TiDB Cloud (MySQL-compatible) - Set these in Render dashboard
+      # Use the FULL JDBC URL from TiDB Cloud console (replace sslMode with useSSL/requireSSL):
+      #   jdbc:mysql://gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com:4000/aitripplanner?useSSL=true&requireSSL=true&verifyServerCertificate=true&enabledTLSProtocols=TLSv1.2
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_USERNAME
+        sync: false
+      - key: DATABASE_PASSWORD
+        sync: false
+      # Firebase Admin SDK (JSON service account key as single string)
+      - key: FIREBASE_CONFIG_JSON
+        sync: false  # Paste the full Firebase service account JSON here
+      # SMTP Mail (for password reset - optional, Firebase handles it)
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        sync: false
+      - key: SMTP_USERNAME
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      # App URL (used in reset links)
+      - key: APP_URL
+        value: "https://ai-trip-planner-1-x26d.onrender.com"

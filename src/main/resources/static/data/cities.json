@@ -1,0 +1,3755 @@
+[
+  {
+    "name": "Tokyo",
+    "country": "Japan",
+    "countryCode": "JP",
+    "coordinates": { "lat": 35.6762, "lng": 139.6503 },
+    "population": "megacity",
+    "timezone": "Asia/Tokyo",
+    "famousPlaces": [
+      "Senso-ji Temple",
+      "Shibuya Crossing",
+      "Tokyo Skytree",
+      "Meiji Shrine",
+      "Tsukiji Outer Market",
+      "Akihabara Electric Town",
+      "Shinjuku Gyoen National Garden",
+      "Imperial Palace",
+      "Harajuku Takeshita Street",
+      "teamLab Borderless"
+    ],
+    "localFoods": [
+      "Sushi",
+      "Ramen",
+      "Tempura",
+      "Okonomiyaki",
+      "Takoyaki",
+      "Yakitori",
+      "Soba",
+      "Tonkatsu",
+      "Matcha desserts",
+      "Mochi"
+    ]
+  },
+  {
+    "name": "Kyoto",
+    "country": "Japan",
+    "countryCode": "JP",
+    "coordinates": { "lat": 35.0116, "lng": 135.7681 },
+    "population": "large",
+    "timezone": "Asia/Tokyo",
+    "famousPlaces": [
+      "Fushimi Inari Shrine",
+      "Kinkaku-ji (Golden Pavilion)",
+      "Arashiyama Bamboo Grove",
+      "Kiyomizu-dera Temple",
+      "Nijo Castle",
+      "Gion District",
+      "Ryoan-ji Temple",
+      "Philosopher's Path",
+      "Nishiki Market",
+      "Tenryu-ji Temple"
+    ],
+    "localFoods": [
+      "Kaiseki",
+      "Yudofu",
+      "Matcha sweets",
+      "Kyo-ryori (Kyoto cuisine)",
+      "Yatsuhashi",
+      "Tofu dishes",
+      "Sake"
+    ]
+  },
+  {
+    "name": "Osaka",
+    "country": "Japan",
+    "countryCode": "JP",
+    "coordinates": { "lat": 34.6937, "lng": 135.5023 },
+    "population": "megacity",
+    "timezone": "Asia/Tokyo",
+    "famousPlaces": [
+      "Osaka Castle",
+      "Dotonbori",
+      "Universal Studios Japan",
+      "Shitenno-ji Temple",
+      "Umeda Sky Building",
+      "Kuromon Market",
+      "Sumiyoshi Taisha Shrine",
+      "Tsutenkaku Tower",
+      "Osaka Aquarium Kaiyukan"
+    ],
+    "localFoods": [
+      "Okonomiyaki",
+      "Takoyaki",
+      "Kushikatsu",
+      "Osaka-style sushi",
+      "Fugu",
+      "Udon"
+    ]
+  },
+  {
+    "name": "Seoul",
+    "country": "South Korea",
+    "countryCode": "KR",
+    "coordinates": { "lat": 37.5665, "lng": 126.978 },
+    "population": "megacity",
+    "timezone": "Asia/Seoul",
+    "famousPlaces": [
+      "Gyeongbokgung Palace",
+      "Bukchon Hanok Village",
+      "N Seoul Tower",
+      "Myeongdong Shopping District",
+      "Gangnam District",
+      "Changdeokgung Palace",
+      "Hongdae Street",
+      "War Memorial of Korea",
+      "Lotte World Tower",
+      "Insadong Cultural Street"
+    ],
+    "localFoods": [
+      "Kimchi",
+      "Bibimbap",
+      "Korean BBQ",
+      "Tteokbokki",
+      "Korean Fried Chicken",
+      "Jjigae (stew)",
+      "Kimbap",
+      "Japchae",
+      "Soju",
+      "Bingsu"
+    ]
+  },
+  {
+    "name": "Beijing",
+    "country": "China",
+    "countryCode": "CN",
+    "coordinates": { "lat": 39.9042, "lng": 116.4074 },
+    "population": "megacity",
+    "timezone": "Asia/Shanghai",
+    "famousPlaces": [
+      "Great Wall of China",
+      "Forbidden City",
+      "Temple of Heaven",
+      "Tiananmen Square",
+      "Summer Palace",
+      "798 Art Zone",
+      "Jingshan Park",
+      "Lama Temple",
+      "Wangfujing Street",
+      "National Museum of China"
+    ],
+    "localFoods": [
+      "Peking Duck",
+      "Zhajiangmian",
+      "Jianbing",
+      "Beijing Hot Pot",
+      "Douzhi",
+      "Mongolian BBQ",
+      "Peking Ravioli"
+    ]
+  },
+  {
+    "name": "Shanghai",
+    "country": "China",
+    "countryCode": "CN",
+    "coordinates": { "lat": 31.2304, "lng": 121.4737 },
+    "population": "megacity",
+    "timezone": "Asia/Shanghai",
+    "famousPlaces": [
+      "The Bund",
+      "Shanghai Tower",
+      "Yu Garden",
+      "Oriental Pearl Tower",
+      "Nanjing Road",
+      "French Concession",
+      "Shanghai Disneyland",
+      "Jade Buddha Temple",
+      "Huangpu River Cruise",
+      "Xintiandi"
+    ],
+    "localFoods": [
+      "Xiaolongbao (Soup Dumplings)",
+      "Shengjianbao",
+      "Shanghai hairy crab",
+      "Red braised pork",
+      "Scallion oil noodles",
+      "Steamed buns"
+    ]
+  },
+  {
+    "name": "Hong Kong",
+    "country": "China",
+    "countryCode": "HK",
+    "coordinates": { "lat": 22.3193, "lng": 114.1694 },
+    "population": "megacity",
+    "timezone": "Asia/Hong_Kong",
+    "famousPlaces": [
+      "Victoria Peak",
+      "Hong Kong Disneyland",
+      "Tsim Sha Tsui Promenade",
+      "Star Ferry",
+      "Tian Tan Buddha",
+      "Lantau Island",
+      "Mong Kok Markets",
+      "Ocean Park",
+      "Nan Lian Garden",
+      "Wong Tai Sin Temple"
+    ],
+    "localFoods": [
+      "Dim Sum",
+      "Egg waffles",
+      "Roast goose",
+      "Wonton noodles",
+      "Milk tea",
+      "Pineapple bun",
+      "Congee"
+    ]
+  },
+  {
+    "name": "Bangkok",
+    "country": "Thailand",
+    "countryCode": "TH",
+    "coordinates": { "lat": 13.7563, "lng": 100.5018 },
+    "population": "megacity",
+    "timezone": "Asia/Bangkok",
+    "famousPlaces": [
+      "Grand Palace",
+      "Wat Phra Kaew",
+      "Wat Arun",
+      "Chatuchak Weekend Market",
+      "Khao San Road",
+      "Jim Thompson House",
+      "Floating Markets",
+      "Siam Paragon",
+      "Asiatique Night Market",
+      "Wat Pho"
+    ],
+    "localFoods": [
+      "Pad Thai",
+      "Tom Yum Goong",
+      "Green Curry",
+      "Som Tam",
+      "Mango Sticky Rice",
+      "Satay",
+      "Khao Pad",
+      "Massaman Curry",
+      "Pad Krapao",
+      "Thai Iced Tea"
+    ]
+  },
+  {
+    "name": "Singapore",
+    "country": "Singapore",
+    "countryCode": "SG",
+    "coordinates": { "lat": 1.3521, "lng": 103.8198 },
+    "population": "megacity",
+    "timezone": "Asia/Singapore",
+    "famousPlaces": [
+      "Marina Bay Sands",
+      "Gardens by the Bay",
+      "Sentosa Island",
+      "Orchard Road",
+      "Chinatown",
+      "Little India",
+      "Singapore Botanic Gardens",
+      "Universal Studios Singapore",
+      "Clarke Quay",
+      "Merlion Park"
+    ],
+    "localFoods": [
+      "Chicken Rice",
+      "Laksa",
+      "Chili Crab",
+      "Hokkien Mee",
+      "Satay",
+      "Carrot Cake",
+      "Roti Prata",
+      "Bak Kut Teh",
+      "Kaya Toast",
+      "Ice Kachang"
+    ]
+  },
+  {
+    "name": "Kuala Lumpur",
+    "country": "Malaysia",
+    "countryCode": "MY",
+    "coordinates": { "lat": 3.139, "lng": 101.6869 },
+    "population": "megacity",
+    "timezone": "Asia/Kuala_Lumpur",
+    "famousPlaces": [
+      "Petronas Twin Towers",
+      "Batu Caves",
+      "KL Tower",
+      "Bukit Bintang",
+      "Merdeka Square",
+      "Central Market",
+      "KLCC Park",
+      "Thean Hou Temple",
+      "Aquaria KLCC",
+      "Kuala Lumpur Bird Park"
+    ],
+    "localFoods": [
+      "Nasi Lemak",
+      "Satay",
+      "Rendang",
+      "Laksa",
+      "Char Kway Teow",
+      "Roti Canai",
+      "Cendol",
+      "Nasi Kandar",
+      "Popiah",
+      "Durian"
+    ]
+  },
+  {
+    "name": "Bali",
+    "country": "Indonesia",
+    "countryCode": "ID",
+    "coordinates": { "lat": -8.3405, "lng": 115.092 },
+    "population": "medium",
+    "timezone": "Asia/Makassar",
+    "famousPlaces": [
+      "Ubud Monkey Forest",
+      "Tegallalang Rice Terraces",
+      "Tanah Lot Temple",
+      "Uluwatu Temple",
+      "Seminyak Beach",
+      "Mount Batur",
+      "Gili Islands",
+      "Sacred Monkey Forest Sanctuary",
+      "Besakih Mother Temple",
+      "Tirta Empul Temple"
+    ],
+    "localFoods": [
+      "Nasi Goreng",
+      "Babi Guling",
+      "Sate Lilit",
+      "Lawar",
+      "Nasi Campur",
+      "Mie Goreng",
+      "Pepes Ikan",
+      "Laklak",
+      "Bubur Injin",
+      "Es Campur"
+    ]
+  },
+  {
+    "name": "Mumbai",
+    "country": "India",
+    "countryCode": "IN",
+    "coordinates": { "lat": 19.076, "lng": 72.8777 },
+    "population": "megacity",
+    "timezone": "Asia/Kolkata",
+    "famousPlaces": [
+      "Gateway of India",
+      "Marine Drive",
+      "Chhatrapati Shivaji Terminus",
+      "Taj Mahal Palace Hotel",
+      "Elephanta Caves",
+      "Siddhivinayak Temple",
+      "Juhu Beach",
+      "Colaba Causeway",
+      "Haji Ali Dargah",
+      "Sanjay Gandhi National Park"
+    ],
+    "localFoods": [
+      "Vada Pav",
+      "Pav Bhaji",
+      "Bhel Puri",
+      "Sev Puri",
+      "Pani Puri",
+      "Bombay Sandwich",
+      "Misal Pav",
+      "Modak",
+      "Kulfi",
+      "Iranian Chai"
+    ]
+  },
+  {
+    "name": "Delhi",
+    "country": "India",
+    "countryCode": "IN",
+    "coordinates": { "lat": 28.7041, "lng": 77.1025 },
+    "population": "megacity",
+    "timezone": "Asia/Kolkata",
+    "famousPlaces": [
+      "Red Fort",
+      "India Gate",
+      "Qutub Minar",
+      "Humayun's Tomb",
+      "Lotus Temple",
+      "Akshardham Temple",
+      "Chandni Chowk",
+      "Jama Masjid",
+      "Rashtrapati Bhavan",
+      "Lodhi Garden"
+    ],
+    "localFoods": [
+      "Butter Chicken",
+      "Chole Bhature",
+      "Paratha",
+      "Biryani",
+      "Kebabs",
+      "Dahi Bhalla",
+      "Aloo Tikki",
+      "Gulab Jamun",
+      "Jalebi",
+      "Chaat"
+    ]
+  },
+  {
+    "name": "Paris",
+    "country": "France",
+    "countryCode": "FR",
+    "coordinates": { "lat": 48.8566, "lng": 2.3522 },
+    "population": "megacity",
+    "timezone": "Europe/Paris",
+    "famousPlaces": [
+      "Eiffel Tower",
+      "Louvre Museum",
+      "Notre-Dame Cathedral",
+      "Arc de Triomphe",
+      "Sacré-Cœur Basilica",
+      "Champs-Élysées",
+      "Musée d'Orsay",
+      "Montmartre",
+      "Palace of Versailles",
+      "Luxembourg Gardens"
+    ],
+    "localFoods": [
+      "Croissant",
+      "Baguette",
+      "Macarons",
+      "Escargot",
+      "Coq au Vin",
+      "Bouillabaisse",
+      "Crème Brûlée",
+      "Ratatouille",
+      "French Onion Soup",
+      "Tarte Tatin"
+    ]
+  },
+  {
+    "name": "London",
+    "country": "United Kingdom",
+    "countryCode": "GB",
+    "coordinates": { "lat": 51.5074, "lng": -0.1278 },
+    "population": "megacity",
+    "timezone": "Europe/London",
+    "famousPlaces": [
+      "Big Ben",
+      "London Eye",
+      "Tower of London",
+      "Buckingham Palace",
+      "British Museum",
+      "Westminster Abbey",
+      "Tower Bridge",
+      "Hyde Park",
+      "Covent Garden",
+      "Natural History Museum"
+    ],
+    "localFoods": [
+      "Fish and Chips",
+      "Sunday Roast",
+      "Full English Breakfast",
+      "Shepherd's Pie",
+      "Afternoon Tea",
+      "Bangers and Mash",
+      "Yorkshire Pudding",
+      "Pie and Mash",
+      "Chicken Tikka Masala",
+      "Sticky Toffee Pudding"
+    ]
+  },
+  {
+    "name": "New York",
+    "country": "United States",
+    "countryCode": "US",
+    "coordinates": { "lat": 40.7128, "lng": -74.006 },
+    "population": "megacity",
+    "timezone": "America/New_York",
+    "famousPlaces": [
+      "Statue of Liberty",
+      "Times Square",
+      "Central Park",
+      "Empire State Building",
+      "Broadway",
+      "Brooklyn Bridge",
+      "One World Trade Center",
+      "Metropolitan Museum of Art",
+      "Rockefeller Center",
+      "Fifth Avenue"
+    ],
+    "localFoods": [
+      "New York Pizza",
+      "Bagels with Lox",
+      "Hot Dogs",
+      "Pastrami Sandwich",
+      "Cheesecake",
+      "Black and White Cookie",
+      "Egg Cream",
+      "Ramen Burger",
+      "Cronut",
+      "Knish"
+    ]
+  },
+  {
+    "name": "Los Angeles",
+    "country": "United States",
+    "countryCode": "US",
+    "coordinates": { "lat": 34.0522, "lng": -118.2437 },
+    "population": "megacity",
+    "timezone": "America/Los_Angeles",
+    "famousPlaces": [
+      "Hollywood Walk of Fame",
+      "Universal Studios Hollywood",
+      "Santa Monica Pier",
+      "Griffith Observatory",
+      "Beverly Hills",
+      "Venice Beach",
+      "Disneyland Resort",
+      "Getty Center",
+      "Rodeo Drive",
+      "Sunset Strip"
+    ],
+    "localFoods": [
+      "Avocado Toast",
+      "In-N-Out Burger",
+      "Street Tacos",
+      "Acai Bowls",
+      "Sushi",
+      "Korean BBQ",
+      "Food Truck fare",
+      "California Roll"
+    ]
+  },
+  {
+    "name": "Rome",
+    "country": "Italy",
+    "countryCode": "IT",
+    "coordinates": { "lat": 41.9028, "lng": 12.4964 },
+    "population": "megacity",
+    "timezone": "Europe/Rome",
+    "famousPlaces": [
+      "Colosseum",
+      "Vatican City",
+      "Trevi Fountain",
+      "Pantheon",
+      "Roman Forum",
+      "Sistine Chapel",
+      "St. Peter's Basilica",
+      "Spanish Steps",
+      "Piazza Navona",
+      "Borghese Gallery"
+    ],
+    "localFoods": [
+      "Pasta Carbonara",
+      "Pizza al Taglio",
+      "Cacio e Pepe",
+      "Gelato",
+      "Saltimbocca",
+      "Supplì",
+      "Carciofi alla Romana",
+      "Osso Buco",
+      "Tiramisù",
+      "Espresso"
+    ]
+  },
+  {
+    "name": "Venice",
+    "country": "Italy",
+    "countryCode": "IT",
+    "coordinates": { "lat": 45.4408, "lng": 12.3155 },
+    "population": "medium",
+    "timezone": "Europe/Rome",
+    "famousPlaces": [
+      "Grand Canal",
+      "St. Mark's Basilica",
+      "Rialto Bridge",
+      "Doge's Palace",
+      "Piazza San Marco",
+      "Bridge of Sighs",
+      "Murano Island",
+      "Burano Island",
+      "Gondola Rides",
+      "Peggy Guggenheim Collection"
+    ],
+    "localFoods": [
+      "Cicchetti",
+      "Sarde in Saor",
+      "Fegato alla Veneziana",
+      "Bigoli in Salsa",
+      "Risi e Bisi",
+      "Tiramisù",
+      "Spritz Cocktail",
+      "Gelato"
+    ]
+  },
+  {
+    "name": "Florence",
+    "country": "Italy",
+    "countryCode": "IT",
+    "coordinates": { "lat": 43.7696, "lng": 11.2558 },
+    "population": "medium",
+    "timezone": "Europe/Rome",
+    "famousPlaces": [
+      "Duomo Santa Maria del Fiore",
+      "Uffizi Gallery",
+      "Ponte Vecchio",
+      "David by Michelangelo",
+      "Piazzale Michelangelo",
+      "Boboli Gardens",
+      "Basilica of Santa Croce",
+      "Galleria dell'Accademia",
+      "Pitti Palace",
+      "San Lorenzo Market"
+    ],
+    "localFoods": [
+      "Bistecca alla Fiorentina",
+      "Ribollita",
+      "Pappa al Pomodoro",
+      "Lampredotto",
+      "Cantucci with Vin Santo",
+      "Schiacciata",
+      "Gelato Artigianale"
+    ]
+  },
+  {
+    "name": "Milan",
+    "country": "Italy",
+    "countryCode": "IT",
+    "coordinates": { "lat": 45.4642, "lng": 9.19 },
+    "population": "megacity",
+    "timezone": "Europe/Rome",
+    "famousPlaces": [
+      "Duomo di Milano",
+      "Last Supper by Da Vinci",
+      "Galleria Vittorio Emanuele II",
+      "Sforza Castle",
+      "La Scala Opera House",
+      "Navigli District",
+      "Brera Art Gallery",
+      "Porta Nuova",
+      "San Siro Stadium",
+      "Pinacoteca Ambrosiana"
+    ],
+    "localFoods": [
+      "Cotoletta alla Milanese",
+      "Risotto alla Milanese",
+      "Panettone",
+      "Ossobuco",
+      "Cassoeula",
+      "Michetta bread",
+      "Aperitivo"
+    ]
+  },
+  {
+    "name": "Barcelona",
+    "country": "Spain",
+    "countryCode": "ES",
+    "coordinates": { "lat": 41.3874, "lng": 2.1686 },
+    "population": "megacity",
+    "timezone": "Europe/Madrid",
+    "famousPlaces": [
+      "Sagrada Familia",
+      "Park Güell",
+      "Gothic Quarter",
+      "Casa Batlló",
+      "La Rambla",
+      "Barcelona Cathedral",
+      "Montjuïc",
+      "Picasso Museum",
+      "Casa Milà",
+      "Barceloneta Beach"
+    ],
+    "localFoods": [
+      "Paella",
+      "Tapas",
+      "Patatas Bravas",
+      "Jamón Ibérico",
+      "Crema Catalana",
+      "Pan con Tomate",
+      "Calçots",
+      "Fideuà",
+      "Churros con Chocolate",
+      "Cava"
+    ]
+  },
+  {
+    "name": "Madrid",
+    "country": "Spain",
+    "countryCode": "ES",
+    "coordinates": { "lat": 40.4168, "lng": -3.7038 },
+    "population": "megacity",
+    "timezone": "Europe/Madrid",
+    "famousPlaces": [
+      "Royal Palace",
+      "Prado Museum",
+      "Plaza Mayor",
+      "Retiro Park",
+      "Santiago Bernabéu Stadium",
+      "Puerta del Sol",
+      "Thyssen-Bornemisza Museum",
+      "Temple of Debod",
+      "Gran Via",
+      "Plaza de Cibeles"
+    ],
+    "localFoods": [
+      "Cocido Madrileño",
+      "Churros con Chocolate",
+      "Bocadillo de Calamares",
+      "Tortilla Española",
+      "Callos a la Madrileña",
+      "Croquetas",
+      "Gambas al Ajillo",
+      "Sangria"
+    ]
+  },
+  {
+    "name": "Lisbon",
+    "country": "Portugal",
+    "countryCode": "PT",
+    "coordinates": { "lat": 38.7223, "lng": -9.1393 },
+    "population": "megacity",
+    "timezone": "Europe/Lisbon",
+    "famousPlaces": [
+      "Belém Tower",
+      "Jerónimos Monastery",
+      "Alfama District",
+      "São Jorge Castle",
+      "Commerce Square",
+      "LX Factory",
+      "Rossio Square",
+      "Oceanário de Lisboa",
+      "Santa Justa Lift",
+      "Padrão dos Descobrimentos"
+    ],
+    "localFoods": [
+      "Pastéis de Nata",
+      "Bacalhau dishes",
+      "Caldo Verde",
+      "Piri-Piri Chicken",
+      "Sardinhas Assadas",
+      "Francesinha",
+      "Arroz de Marisco",
+      "Port Wine"
+    ]
+  },
+  {
+    "name": "Amsterdam",
+    "country": "Netherlands",
+    "countryCode": "NL",
+    "coordinates": { "lat": 52.3676, "lng": 4.9041 },
+    "population": "megacity",
+    "timezone": "Europe/Amsterdam",
+    "famousPlaces": [
+      "Anne Frank House",
+      "Rijksmuseum",
+      "Van Gogh Museum",
+      "Dam Square",
+      "Canal Cruise",
+      "Vondelpark",
+      "Jordaan District",
+      "Heineken Experience",
+      "Stedelijk Museum",
+      "Albert Cuyp Market"
+    ],
+    "localFoods": [
+      "Stroopwafel",
+      "Bitterballen",
+      "Poffertjes",
+      "Dutch Cheese",
+      "Haring",
+      "Patat",
+      "Erwtensoep",
+      "Appeltaart"
+    ]
+  },
+  {
+    "name": "Berlin",
+    "country": "Germany",
+    "countryCode": "DE",
+    "coordinates": { "lat": 52.52, "lng": 13.405 },
+    "population": "megacity",
+    "timezone": "Europe/Berlin",
+    "famousPlaces": [
+      "Brandenburg Gate",
+      "Berlin Wall Memorial",
+      "Reichstag Building",
+      "Museum Island",
+      "Checkpoint Charlie",
+      "East Side Gallery",
+      "Potsdamer Platz",
+      "Tiergarten Park",
+      "Charlottenburg Palace",
+      "Berlin Cathedral"
+    ],
+    "localFoods": [
+      "Currywurst",
+      "Berliner Pfannkuchen",
+      "Döner Kebab",
+      "Schnitzel",
+      "Bratwurst",
+      "Königsberger Klopse",
+      "Käsekuchen",
+      "Berliner Weisse"
+    ]
+  },
+  {
+    "name": "Munich",
+    "country": "Germany",
+    "countryCode": "DE",
+    "coordinates": { "lat": 48.1351, "lng": 11.582 },
+    "population": "large",
+    "timezone": "Europe/Berlin",
+    "famousPlaces": [
+      "Marienplatz",
+      "Neuschwanstein Castle",
+      "English Garden",
+      "Nymphenburg Palace",
+      "Oktoberfest Grounds",
+      "BMW Museum",
+      "Deutsches Museum",
+      "Hofbräuhaus",
+      "Olympiapark"
+    ],
+    "localFoods": [
+      "Weisswurst",
+      "Bretzel",
+      "Schweinshaxe",
+      "Leberkäse",
+      "Sauerbraten",
+      "Apfelstrudel",
+      "Weißbier"
+    ]
+  },
+  {
+    "name": "Vienna",
+    "country": "Austria",
+    "countryCode": "AT",
+    "coordinates": { "lat": 48.2082, "lng": 16.3738 },
+    "population": "large",
+    "timezone": "Europe/Vienna",
+    "famousPlaces": [
+      "Schönbrunn Palace",
+      "St. Stephen's Cathedral",
+      "Hofburg Palace",
+      "Belvedere Palace",
+      "Prater Park",
+      "Rathaus",
+      "Kunsthistorisches Museum",
+      "Naschmarkt",
+      "State Opera House"
+    ],
+    "localFoods": [
+      "Wiener Schnitzel",
+      "Sachertorte",
+      "Apfelstrudel",
+      "Tafelspitz",
+      "Kaiserschmarrn",
+      "Knödel",
+      "Linzer Torte",
+      "Melange coffee"
+    ]
+  },
+  {
+    "name": "Prague",
+    "country": "Czech Republic (Czechia)",
+    "countryCode": "CZ",
+    "coordinates": { "lat": 50.0755, "lng": 14.4378 },
+    "population": "large",
+    "timezone": "Europe/Prague",
+    "famousPlaces": [
+      "Charles Bridge",
+      "Prague Castle",
+      "Old Town Square",
+      "Astronomical Clock",
+      "St. Vitus Cathedral",
+      "Petřín Lookout Tower",
+      "John Lennon Wall",
+      "Vyšehrad",
+      "Jewish Quarter",
+      "Wenceslas Square"
+    ],
+    "localFoods": [
+      "Trdelník",
+      "Svíčková",
+      "Vepřo-knedlo-zelo",
+      "Goulash",
+      "Kulajda",
+      "Chlebíčky",
+      "Pilsner beer"
+    ]
+  },
+  {
+    "name": "Budapest",
+    "country": "Hungary",
+    "countryCode": "HU",
+    "coordinates": { "lat": 47.4979, "lng": 19.0402 },
+    "population": "large",
+    "timezone": "Europe/Budapest",
+    "famousPlaces": [
+      "Buda Castle",
+      "Fisherman's Bastion",
+      "Hungarian Parliament",
+      "Széchenyi Thermal Bath",
+      "Heroes' Square",
+      "Chain Bridge",
+      "St. Stephen's Basilica",
+      "Great Market Hall",
+      "Danube River Cruise",
+      "Gellért Hill"
+    ],
+    "localFoods": [
+      "Goulash",
+      "Lángos",
+      "Chimney Cake",
+      "Paprikás Csirke",
+      "Halászlé",
+      "Töltött Káposzta",
+      "Dobos Torte",
+      "Tokaji wine"
+    ]
+  },
+  {
+    "name": "Istanbul",
+    "country": "Turkey",
+    "countryCode": "TR",
+    "coordinates": { "lat": 41.0082, "lng": 28.9784 },
+    "population": "megacity",
+    "timezone": "Europe/Istanbul",
+    "famousPlaces": [
+      "Hagia Sophia",
+      "Blue Mosque",
+      "Topkapi Palace",
+      "Grand Bazaar",
+      "Basilica Cistern",
+      "Sultanahmet Square",
+      "Galata Tower",
+      "Spice Bazaar",
+      "Bosphorus Cruise",
+      "Dolmabahçe Palace"
+    ],
+    "localFoods": [
+      "Kebab",
+      "Baklava",
+      "Turkish Delight",
+      "Meze",
+      "Lahmacun",
+      "Pide",
+      "Manti",
+      "Döner",
+      "Turkish Coffee",
+      "Ayran"
+    ]
+  },
+  {
+    "name": "Dubai",
+    "country": "United Arab Emirates",
+    "countryCode": "AE",
+    "coordinates": { "lat": 25.2048, "lng": 55.2708 },
+    "population": "megacity",
+    "timezone": "Asia/Dubai",
+    "famousPlaces": [
+      "Burj Khalifa",
+      "Burj Al Arab",
+      "Palm Jumeirah",
+      "Dubai Mall",
+      "Dubai Marina",
+      "Mall of the Emirates",
+      "Atlantis The Palm",
+      "Dubai Creek",
+      "Gold Souk",
+      "La Mer Beach"
+    ],
+    "localFoods": [
+      "Shawarma",
+      "Falafel",
+      "Al Harees",
+      "Machboos",
+      "Luqaimat",
+      "Khubz",
+      "Arabic Coffee",
+      "Dates"
+    ]
+  },
+  {
+    "name": "Sydney",
+    "country": "Australia",
+    "countryCode": "AU",
+    "coordinates": { "lat": -33.8688, "lng": 151.2093 },
+    "population": "megacity",
+    "timezone": "Australia/Sydney",
+    "famousPlaces": [
+      "Sydney Opera House",
+      "Sydney Harbour Bridge",
+      "Bondi Beach",
+      "Taronga Zoo",
+      "Royal Botanic Garden",
+      "The Rocks",
+      "Darling Harbour",
+      "Manly Beach",
+      "Blue Mountains",
+      "Sydney Tower Eye"
+    ],
+    "localFoods": [
+      "Meat Pies",
+      "Fish and Chips",
+      "Pavlova",
+      "Lamington",
+      "Vegemite on Toast",
+      "Barramundi",
+      "Chiko Roll",
+      "Flat White coffee"
+    ]
+  },
+  {
+    "name": "Melbourne",
+    "country": "Australia",
+    "countryCode": "AU",
+    "coordinates": { "lat": -37.8136, "lng": 144.9631 },
+    "population": "megacity",
+    "timezone": "Australia/Melbourne",
+    "famousPlaces": [
+      "Federation Square",
+      "Royal Botanic Gardens",
+      "Great Ocean Road",
+      "Melbourne Cricket Ground",
+      "Queen Victoria Market",
+      "St Kilda Beach",
+      "Yarra River Cruise",
+      "Phillip Island",
+      "National Gallery of Victoria",
+      "Eureka Skydeck"
+    ],
+    "localFoods": [
+      "Brunch culture",
+      "Coffee flat white",
+      "Lamb roast",
+      "Parma",
+      "Dim Sims",
+      "Halal Snack Pack",
+      "Bagel"
+    ]
+  },
+  {
+    "name": "Santorini",
+    "country": "Greece",
+    "countryCode": "GR",
+    "coordinates": { "lat": 36.3932, "lng": 25.4615 },
+    "population": "small",
+    "timezone": "Europe/Athens",
+    "famousPlaces": [
+      "Oia Village",
+      "Red Beach",
+      "Akrotiri Ruins",
+      "Fira Town",
+      "Santo Winery",
+      "Kamari Beach",
+      "Perissa Beach",
+      "Amoudi Bay",
+      "Volcanic Crater",
+      "Blue Dome Churches"
+    ],
+    "localFoods": [
+      "Fava",
+      "Tomatokeftedes",
+      "Santorini Salad",
+      "Fresh Seafood",
+      "Vinsanto Wine",
+      "Assyrtiko Wine",
+      "Chlorotyri Cheese",
+      "Melitinia"
+    ]
+  },
+  {
+    "name": "Athens",
+    "country": "Greece",
+    "countryCode": "GR",
+    "coordinates": { "lat": 37.9838, "lng": 23.7275 },
+    "population": "megacity",
+    "timezone": "Europe/Athens",
+    "famousPlaces": [
+      "Acropolis",
+      "Parthenon",
+      "Plaka District",
+      "Temple of Olympian Zeus",
+      "Ancient Agora",
+      "Acropolis Museum",
+      "Monastiraki Flea Market",
+      "Mount Lycabettus",
+      "Panathenaic Stadium",
+      "National Archaeological Museum"
+    ],
+    "localFoods": [
+      "Moussaka",
+      "Souvlaki",
+      "Greek Salad",
+      "Spanakopita",
+      "Baklava",
+      "Tzatziki",
+      "Gyros",
+      "Dolmades",
+      "Loukoumades",
+      "Ouzo"
+    ]
+  },
+  {
+    "name": "Cairo",
+    "country": "Egypt",
+    "countryCode": "EG",
+    "coordinates": { "lat": 30.0444, "lng": 31.2357 },
+    "population": "megacity",
+    "timezone": "Africa/Cairo",
+    "famousPlaces": [
+      "Pyramids of Giza",
+      "Sphinx",
+      "Egyptian Museum",
+      "Khan El Khalili",
+      "Al-Azhar Mosque",
+      "Coptic Cairo",
+      "Cairo Citadel",
+      "Nile River Cruise",
+      "Grand Egyptian Museum",
+      "Saqqara Pyramids"
+    ],
+    "localFoods": [
+      "Koshari",
+      "Falafel (Ta'amiya)",
+      "Ful Medames",
+      "Molokhia",
+      "Mahshi",
+      "Kebab",
+      "Baklava",
+      "Umm Ali",
+      "Shawarma",
+      "Egyptian Tea"
+    ]
+  },
+  {
+    "name": "Marrakech",
+    "country": "Morocco",
+    "countryCode": "MA",
+    "coordinates": { "lat": 31.6295, "lng": -7.9811 },
+    "population": "large",
+    "timezone": "Africa/Casablanca",
+    "famousPlaces": [
+      "Jemaa el-Fnaa",
+      "Bahia Palace",
+      "Koutoubia Mosque",
+      "Majorelle Garden",
+      "Saadian Tombs",
+      "Medina of Marrakech",
+      "Menara Gardens",
+      "El Badi Palace",
+      "Mouassine Mosque",
+      "Toubkal National Park"
+    ],
+    "localFoods": [
+      "Tagine",
+      "Couscous",
+      "Pastilla",
+      "Harira",
+      "Mechoui",
+      "Zaalouk",
+      "Moroccan Mint Tea",
+      "Chebakia",
+      "Bissara"
+    ]
+  },
+  {
+    "name": "Cape Town",
+    "country": "South Africa",
+    "countryCode": "ZA",
+    "coordinates": { "lat": -33.9249, "lng": 18.4241 },
+    "population": "large",
+    "timezone": "Africa/Johannesburg",
+    "famousPlaces": [
+      "Table Mountain",
+      "Cape of Good Hope",
+      "Robben Island",
+      "V&A Waterfront",
+      "Boulders Beach",
+      "Kirstenbosch Garden",
+      "Chapman's Peak Drive",
+      "Bo-Kaap",
+      "Stellenbosch Winelands",
+      "Signal Hill"
+    ],
+    "localFoods": [
+      "Biltong",
+      "Bobotie",
+      "Braai",
+      "Bunny Chow",
+      "Malva Pudding",
+      "Koeksisters",
+      "Samoosas",
+      "Rooibos Tea",
+      "Pinotage Wine"
+    ]
+  },
+  {
+    "name": "Rio de Janeiro",
+    "country": "Brazil",
+    "countryCode": "BR",
+    "coordinates": { "lat": -22.9068, "lng": -43.1729 },
+    "population": "megacity",
+    "timezone": "America/Sao_Paulo",
+    "famousPlaces": [
+      "Christ the Redeemer",
+      "Sugarloaf Mountain",
+      "Copacabana Beach",
+      "Ipanema Beach",
+      "Maracanã Stadium",
+      "Lapa Arches",
+      "Santa Teresa",
+      "Tijuca Forest",
+      "Escadaria Selarón",
+      "Botanical Garden"
+    ],
+    "localFoods": [
+      "Feijoada",
+      "Churrasco",
+      "Caipirinha",
+      "Pão de Queijo",
+      "Coxinha",
+      "Açaí",
+      "Brigadeiro",
+      "Moqueca",
+      "Pastel",
+      "Empadão"
+    ]
+  },
+  {
+    "name": "Buenos Aires",
+    "country": "Argentina",
+    "countryCode": "AR",
+    "coordinates": { "lat": -34.6037, "lng": -58.3816 },
+    "population": "megacity",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "famousPlaces": [
+      "Obelisco",
+      "La Boca",
+      "Recoleta Cemetery",
+      "Plaza de Mayo",
+      "Casa Rosada",
+      "Puerto Madero",
+      "Palermo Soho",
+      "Teatro Colón",
+      "San Telmo Market",
+      "Tigre Delta"
+    ],
+    "localFoods": [
+      "Asado",
+      "Empanadas",
+      "Milanesa",
+      "Dulce de Leche",
+      "Alfajores",
+      "Mate",
+      "Provoleta",
+      "Choripán",
+      "Fernet con Coca",
+      "Malbec Wine"
+    ]
+  },
+  {
+    "name": "Mexico City",
+    "country": "Mexico",
+    "countryCode": "MX",
+    "coordinates": { "lat": 19.4326, "lng": -99.1332 },
+    "population": "megacity",
+    "timezone": "America/Mexico_City",
+    "famousPlaces": [
+      "Zócalo",
+      "Chapultepec Castle",
+      "Frida Kahlo Museum",
+      "Teotihuacán Pyramids",
+      "Xochimilco",
+      "Palacio de Bellas Artes",
+      "Coyoacán",
+      "National Museum of Anthropology",
+      "Paseo de la Reforma",
+      "Torre Latinoamericana"
+    ],
+    "localFoods": [
+      "Tacos al Pastor",
+      "Tamales",
+      "Chiles en Nogada",
+      "Guacamole",
+      "Mole",
+      "Pozole",
+      "Elote",
+      "Churros",
+      "Tequila",
+      "Mezcal"
+    ]
+  },
+  {
+    "name": "Cancun",
+    "country": "Mexico",
+    "countryCode": "MX",
+    "coordinates": { "lat": 21.1619, "lng": -86.8515 },
+    "population": "large",
+    "timezone": "America/Cancun",
+    "famousPlaces": [
+      "Chichen Itza",
+      "Tulum Ruins",
+      "Hotel Zone Beaches",
+      "Isla Mujeres",
+      "Cenote Ik Kil",
+      "Xcaret Park",
+      "Cozumel",
+      "Coba Ruins",
+      "El Rey Ruins",
+      "Xel-Ha Park"
+    ],
+    "localFoods": [
+      "Ceviche",
+      "Cochinita Pibil",
+      "Panuchos",
+      "Salbutes",
+      "Huevos Motuleños",
+      "Sopa de Lima",
+      "Marquesitas",
+      "Horchata"
+    ]
+  },
+  {
+    "name": "Toronto",
+    "country": "Canada",
+    "countryCode": "CA",
+    "coordinates": { "lat": 43.6532, "lng": -79.3832 },
+    "population": "megacity",
+    "timezone": "America/Toronto",
+    "famousPlaces": [
+      "CN Tower",
+      "Niagara Falls",
+      "Royal Ontario Museum",
+      "Toronto Islands",
+      "Distillery District",
+      "St. Lawrence Market",
+      "Kensington Market",
+      "Art Gallery of Ontario",
+      "Ripley's Aquarium",
+      "Scarborough Bluffs"
+    ],
+    "localFoods": [
+      "Poutine",
+      "Peameal Bacon Sandwich",
+      "Butter Tart",
+      "Maple Syrup",
+      "Smoked Meat",
+      "Beavertails",
+      "Nanaimo Bar"
+    ]
+  },
+  {
+    "name": "Vancouver",
+    "country": "Canada",
+    "countryCode": "CA",
+    "coordinates": { "lat": 49.2827, "lng": -123.1207 },
+    "population": "large",
+    "timezone": "America/Vancouver",
+    "famousPlaces": [
+      "Stanley Park",
+      "Granville Island",
+      "Capilano Suspension Bridge",
+      "Grouse Mountain",
+      "Whistler",
+      "English Bay Beach",
+      "Gastown",
+      "Vancouver Aquarium",
+      "Queen Elizabeth Park",
+      "VanDusen Garden"
+    ],
+    "localFoods": [
+      "Sushi",
+      "Pacific Salmon",
+      "Poutine",
+      "Maple Syrup treats",
+      "B.C. Roll",
+      "Japadog",
+      "Nanaimo Bar"
+    ]
+  },
+  {
+    "name": "San Francisco",
+    "country": "United States",
+    "countryCode": "US",
+    "coordinates": { "lat": 37.7749, "lng": -122.4194 },
+    "population": "large",
+    "timezone": "America/Los_Angeles",
+    "famousPlaces": [
+      "Golden Gate Bridge",
+      "Alcatraz Island",
+      "Fisherman's Wharf",
+      "Union Square",
+      "Chinatown",
+      "Cable Cars",
+      "Lombard Street",
+      "Golden Gate Park",
+      "Painted Ladies",
+      "Pier 39"
+    ],
+    "localFoods": [
+      "Clam Chowder in Sourdough Bread",
+      "Dungeness Crab",
+      "Mission Burrito",
+      "Dim Sum",
+      "It's-It Ice Cream",
+      "Cioppino",
+      "Fortune Cookies"
+    ]
+  },
+  {
+    "name": "Chicago",
+    "country": "United States",
+    "countryCode": "US",
+    "coordinates": { "lat": 41.8781, "lng": -87.6298 },
+    "population": "megacity",
+    "timezone": "America/Chicago",
+    "famousPlaces": [
+      "Willis Tower",
+      "Navy Pier",
+      "Millennium Park",
+      "Art Institute of Chicago",
+      "Magnificent Mile",
+      "Wrigley Field",
+      "Lincoln Park Zoo",
+      "Museum of Science and Industry",
+      "Shedd Aquarium",
+      "Field Museum"
+    ],
+    "localFoods": [
+      "Deep Dish Pizza",
+      "Chicago Hot Dog",
+      "Italian Beef Sandwich",
+      "Garrett Popcorn",
+      "Giardiniera",
+      "Rainbow Cone",
+      "Chicago-style Ribs"
+    ]
+  },
+  {
+    "name": "Reykjavik",
+    "country": "Iceland",
+    "countryCode": "IS",
+    "coordinates": { "lat": 64.1466, "lng": -21.9426 },
+    "population": "medium",
+    "timezone": "Atlantic/Reykjavik",
+    "famousPlaces": [
+      "Hallgrímskirkja",
+      "Blue Lagoon",
+      "Golden Circle",
+      "Northern Lights",
+      "Thingvellir National Park",
+      "Gullfoss Waterfall",
+      "Geysir Hot Springs",
+      "Seljalandsfoss",
+      "Skogafoss",
+      "Reykjavik Harbor"
+    ],
+    "localFoods": [
+      "Icelandic Lamb",
+      "Skyr",
+      "Hot Dog (Bæjarins beztu)",
+      "Plokkfiskur",
+      "Fermented Shark (Hákarl)",
+      "Rye Bread",
+      "Liquorice",
+      "Brennivín"
+    ]
+  },
+  {
+    "name": "Dublin",
+    "country": "Ireland",
+    "countryCode": "IE",
+    "coordinates": { "lat": 53.3498, "lng": -6.2603 },
+    "population": "megacity",
+    "timezone": "Europe/Dublin",
+    "famousPlaces": [
+      "Guinness Storehouse",
+      "Temple Bar",
+      "Dublin Castle",
+      "Trinity College",
+      "Book of Kells",
+      "St. Patrick's Cathedral",
+      "Phoenix Park",
+      "Kilmainham Gaol",
+      "Ha'penny Bridge",
+      "Dublin Zoo"
+    ],
+    "localFoods": [
+      "Irish Stew",
+      "Guinness",
+      "Boxty",
+      "Coddle",
+      "Soda Bread",
+      "Colcannon",
+      "Irish Breakfast",
+      "Barmbrack"
+    ]
+  },
+  {
+    "name": "Edinburgh",
+    "country": "United Kingdom",
+    "countryCode": "GB",
+    "coordinates": { "lat": 55.9533, "lng": -3.1883 },
+    "population": "medium",
+    "timezone": "Europe/London",
+    "famousPlaces": [
+      "Edinburgh Castle",
+      "Arthur's Seat",
+      "Royal Mile",
+      "Holyrood Palace",
+      "National Museum of Scotland",
+      "Princes Street Gardens",
+      "Scottish Parliament",
+      "Camera Obscura",
+      "Mary King's Close",
+      "Calton Hill"
+    ],
+    "localFoods": [
+      "Haggis",
+      "Scotch Whisky",
+      "Cullen Skink",
+      "Shortbread",
+      "Cranachan",
+      "Scotch Pie",
+      "Tablet",
+      "Irn-Bru"
+    ]
+  },
+  {
+    "name": "Stockholm",
+    "country": "Sweden",
+    "countryCode": "SE",
+    "coordinates": { "lat": 59.3293, "lng": 18.0686 },
+    "population": "large",
+    "timezone": "Europe/Stockholm",
+    "famousPlaces": [
+      "Gamla Stan",
+      "Vasa Museum",
+      "ABBA Museum",
+      "Royal Palace",
+      "Skansen",
+      "Drottningholm Palace",
+      "Fotografiska",
+      "Södermalm",
+      "Djurgården",
+      "Stortorget Square"
+    ],
+    "localFoods": [
+      "Swedish Meatballs",
+      "Gravlax",
+      "Cinnamon Buns (Kanelbullar)",
+      "Smörgåsbord",
+      "Smörgåstårta",
+      "Lingonberry Jam",
+      "Surströmming",
+      "Aquavit"
+    ]
+  },
+  {
+    "name": "Copenhagen",
+    "country": "Denmark",
+    "countryCode": "DK",
+    "coordinates": { "lat": 55.6761, "lng": 12.5683 },
+    "population": "large",
+    "timezone": "Europe/Copenhagen",
+    "famousPlaces": [
+      "Nyhavn",
+      "Tivoli Gardens",
+      "Little Mermaid Statue",
+      "Christiansborg Palace",
+      "Rosenborg Castle",
+      "Amalienborg Palace",
+      "Strøget",
+      "National Museum of Denmark",
+      "Freetown Christiania",
+      "Round Tower"
+    ],
+    "localFoods": [
+      "Smørrebrød",
+      "Danish Pastry",
+      "Frikadeller",
+      "Flæskesteg",
+      "Rødgrød med Fløde",
+      "Leverpostej",
+      "Hot Dogs",
+      "Akvavit"
+    ]
+  },
+  {
+    "name": "Oslo",
+    "country": "Norway",
+    "countryCode": "NO",
+    "coordinates": { "lat": 59.9139, "lng": 10.7522 },
+    "population": "large",
+    "timezone": "Europe/Oslo",
+    "famousPlaces": [
+      "Vigeland Sculpture Park",
+      "Viking Ship Museum",
+      "Royal Palace",
+      "Akershus Fortress",
+      "Holmenkollen Ski Jump",
+      "Munch Museum",
+      "Opera House",
+      "Bygdøy Peninsula",
+      "Fram Museum",
+      "Karl Johans Gate"
+    ],
+    "localFoods": [
+      "Salmon",
+      "Lefse",
+      "Brunost",
+      "Kjøttkaker",
+      "Raspeballer",
+      "Lapskaus",
+      "Krumkake",
+      "Aquavit"
+    ]
+  },
+  {
+    "name": "Helsinki",
+    "country": "Finland",
+    "countryCode": "FI",
+    "coordinates": { "lat": 60.1699, "lng": 24.9384 },
+    "population": "large",
+    "timezone": "Europe/Helsinki",
+    "famousPlaces": [
+      "Suomenlinna Fortress",
+      "Helsinki Cathedral",
+      "Uspenski Cathedral",
+      "Temppeliaukio Church",
+      "Market Square",
+      "Esplanadi Park",
+      "Seurasaari Island",
+      "Kiasma Museum",
+      "Linnanmäki Park",
+      "Design District"
+    ],
+    "localFoods": [
+      "Salmon Soup",
+      "Karelian Pie",
+      "Ruisleipä",
+      "Poronkäristys",
+      "Mustikkapiirakka",
+      "Korvapuusti",
+      "Lihapullat",
+      "Salmiakki"
+    ]
+  },
+  {
+    "name": "Warsaw",
+    "country": "Poland",
+    "countryCode": "PL",
+    "coordinates": { "lat": 52.2297, "lng": 21.0122 },
+    "population": "megacity",
+    "timezone": "Europe/Warsaw",
+    "famousPlaces": [
+      "Old Town Market Square",
+      "Royal Castle",
+      "Palace of Culture",
+      "Wilanów Palace",
+      "Lazienki Park",
+      "Polin Museum",
+      "Warsaw Uprising Museum",
+      "Barbican Fortress",
+      "Nowy Świat Street",
+      "Copernicus Science Centre"
+    ],
+    "localFoods": [
+      "Pierogi",
+      "Bigos",
+      "Zurek",
+      "Gołąbki",
+      "Kielbasa",
+      "Placki Ziemniaczane",
+      "Paczki",
+      "Kompot"
+    ]
+  },
+  {
+    "name": "Krakow",
+    "country": "Poland",
+    "countryCode": "PL",
+    "coordinates": { "lat": 50.0647, "lng": 19.945 },
+    "population": "large",
+    "timezone": "Europe/Warsaw",
+    "famousPlaces": [
+      "Wawel Castle",
+      "Main Market Square",
+      "St. Mary's Basilica",
+      "Auschwitz-Birkenau",
+      "Wieliczka Salt Mine",
+      "Kazimierz District",
+      "Cloth Hall",
+      "Barbican",
+      "Oskar Schindler Factory",
+      "Planty Park"
+    ],
+    "localFoods": [
+      "Obwarzanek Krakowski",
+      "Pierogi",
+      "Zapiekanka",
+      "Kielbasa",
+      "Bigos",
+      "Żurek",
+      "Makowiec",
+      "Polish Vodka"
+    ]
+  },
+  {
+    "name": "Dubrovnik",
+    "country": "Croatia",
+    "countryCode": "HR",
+    "coordinates": { "lat": 42.6507, "lng": 18.0944 },
+    "population": "medium",
+    "timezone": "Europe/Zagreb",
+    "famousPlaces": [
+      "Old Town Walls",
+      "Stradun",
+      "Fort Lovrijenac",
+      "Dubrovnik Cable Car",
+      "Lokrum Island",
+      "Banje Beach",
+      "St. Blaise Church",
+      "Onophrian Fountain",
+      "Pile Gate",
+      "Rector's Palace"
+    ],
+    "localFoods": [
+      "Black Risotto",
+      "Peka",
+      "Dalmatian Prosciutto",
+      "Pašticada",
+      "Fritule",
+      "Oysters",
+      "Rozata"
+    ]
+  },
+  {
+    "name": "Zurich",
+    "country": "Switzerland",
+    "countryCode": "CH",
+    "coordinates": { "lat": 47.3769, "lng": 8.5417 },
+    "population": "large",
+    "timezone": "Europe/Zurich",
+    "famousPlaces": [
+      "Bahnhofstrasse",
+      "Lake Zurich",
+      "Old Town (Altstadt)",
+      "Swiss National Museum",
+      "Grossmünster Church",
+      "Fraumünster Church",
+      "Lindenhof",
+      "Zurich Zoo",
+      "Kunsthaus Zürich",
+      "Uetliberg Mountain"
+    ],
+    "localFoods": [
+      "Fondue",
+      "Rösti",
+      "Zürcher Geschnetzeltes",
+      "Raclette",
+      "Chocolate",
+      "Birchermüesli",
+      "Luxemburgerli",
+      "Rivella"
+    ]
+  },
+  {
+    "name": "Brussels",
+    "country": "Belgium",
+    "countryCode": "BE",
+    "coordinates": { "lat": 50.8503, "lng": 4.3517 },
+    "population": "megacity",
+    "timezone": "Europe/Brussels",
+    "famousPlaces": [
+      "Grand Place",
+      "Manneken Pis",
+      "Atomium",
+      "Royal Palace",
+      "European Parliament",
+      "Mont des Arts",
+      "Sainte-Catherine District",
+      "Belgian Comic Strip Center",
+      "Cinquantenaire Park",
+      "Museum of Fine Arts"
+    ],
+    "localFoods": [
+      "Belgian Waffles",
+      "Moules-Frites",
+      "Belgian Chocolate",
+      "Fries",
+      "Carbonade Flamande",
+      "Waterzooi",
+      "Speculoos",
+      "Belgian Beer"
+    ]
+  },
+  {
+    "name": "Moscow",
+    "country": "Russia",
+    "countryCode": "RU",
+    "coordinates": { "lat": 55.7558, "lng": 37.6173 },
+    "population": "megacity",
+    "timezone": "Europe/Moscow",
+    "famousPlaces": [
+      "Red Square",
+      "Kremlin",
+      "St. Basil's Cathedral",
+      "Bolshoi Theatre",
+      "GUM Department Store",
+      "Moscow Metro",
+      "Cathedral of Christ the Saviour",
+      "Tretyakov Gallery",
+      "Arbat Street",
+      "Gorky Park"
+    ],
+    "localFoods": [
+      "Borscht",
+      "Pelmeni",
+      "Blini",
+      "Beef Stroganoff",
+      "Kasha",
+      "Pirozhki",
+      "Olivier Salad",
+      "Kvass"
+    ]
+  },
+  {
+    "name": "St. Petersburg",
+    "country": "Russia",
+    "countryCode": "RU",
+    "coordinates": { "lat": 59.9343, "lng": 30.3351 },
+    "population": "megacity",
+    "timezone": "Europe/Moscow",
+    "famousPlaces": [
+      "Hermitage Museum",
+      "Winter Palace",
+      "Peterhof Palace",
+      "Church of the Savior on Spilled Blood",
+      "St. Isaac's Cathedral",
+      "Nevsky Prospect",
+      "Catherine Palace",
+      "Russian Museum",
+      "Peter and Paul Fortress",
+      "Vasilievsky Island"
+    ],
+    "localFoods": [
+      "Borscht",
+      "Blini",
+      "Pelmeni",
+      "Stroganoff",
+      "Kulebyaka",
+      "Sbiten",
+      "Pirozhki"
+    ]
+  },
+  {
+    "name": "Tel Aviv",
+    "country": "Israel",
+    "countryCode": "IL",
+    "coordinates": { "lat": 32.0853, "lng": 34.7818 },
+    "population": "large",
+    "timezone": "Asia/Jerusalem",
+    "famousPlaces": [
+      "Jaffa Old City",
+      "White City",
+      "Carmel Market",
+      "Tel Aviv Beachfront",
+      "Neve Tzedek",
+      "Rothschild Boulevard",
+      "Yitzhak Rabin Square",
+      "Eretz Israel Museum",
+      "Charles Clore Park",
+      "Port of Tel Aviv"
+    ],
+    "localFoods": [
+      "Falafel",
+      "Hummus",
+      "Shakshuka",
+      "Sabich",
+      "Shawarma",
+      "Israeli Salad",
+      "Bourekas",
+      "Malabi"
+    ]
+  },
+  {
+    "name": "Jerusalem",
+    "country": "Israel",
+    "countryCode": "IL",
+    "coordinates": { "lat": 31.7683, "lng": 35.2137 },
+    "population": "large",
+    "timezone": "Asia/Jerusalem",
+    "famousPlaces": [
+      "Western Wall",
+      "Church of the Holy Sepulchre",
+      "Dome of the Rock",
+      "Al-Aqsa Mosque",
+      "Old City Walls",
+      "Yad Vashem Holocaust Museum",
+      "Mount of Olives",
+      "Mahane Yehuda Market",
+      "Tower of David",
+      "Israel Museum"
+    ],
+    "localFoods": [
+      "Hummus",
+      "Falafel",
+      "Knafeh",
+      "Jerusalem Bagel",
+      "Shawarma",
+      "Jachnun",
+      "Halva"
+    ]
+  },
+  {
+    "name": "Lima",
+    "country": "Peru",
+    "countryCode": "PE",
+    "coordinates": { "lat": -12.0464, "lng": -77.0428 },
+    "population": "megacity",
+    "timezone": "America/Lima",
+    "famousPlaces": [
+      "Plaza de Armas",
+      "Miraflores",
+      "Huaca Pucllana",
+      "Larco Museum",
+      "San Francisco Monastery",
+      "Barranco District",
+      "Parque Kennedy",
+      "Circuit of Beaches",
+      "Cathedral of Lima",
+      "Magic Water Circuit"
+    ],
+    "localFoods": [
+      "Ceviche",
+      "Lomo Saltado",
+      "Aji de Gallina",
+      "Causa",
+      "Anticuchos",
+      "Papa a la Huancaina",
+      "Rocoto Relleno",
+      "Pisco Sour"
+    ]
+  },
+  {
+    "name": "Hanoi",
+    "country": "Vietnam",
+    "countryCode": "VN",
+    "coordinates": { "lat": 21.0278, "lng": 105.8342 },
+    "population": "megacity",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "famousPlaces": [
+      "Hoan Kiem Lake",
+      "Old Quarter",
+      "Temple of Literature",
+      "Ho Chi Minh Mausoleum",
+      "One Pillar Pagoda",
+      "Hoa Lo Prison",
+      "Vietnam Museum of Ethnology",
+      "Tran Quoc Pagoda",
+      "West Lake",
+      "Long Bien Bridge"
+    ],
+    "localFoods": [
+      "Pho",
+      "Bun Cha",
+      "Cha Ca",
+      "Spring Rolls",
+      "Banh Mi",
+      "Egg Coffee",
+      "Bun Bo Nam Bo",
+      "Vietnamese Iced Coffee"
+    ]
+  },
+  {
+    "name": "Ho Chi Minh City",
+    "country": "Vietnam",
+    "countryCode": "VN",
+    "coordinates": { "lat": 10.8231, "lng": 106.6297 },
+    "population": "megacity",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "famousPlaces": [
+      "Cu Chi Tunnels",
+      "War Remnants Museum",
+      "Ben Thanh Market",
+      "Notre-Dame Cathedral",
+      "Saigon Central Post Office",
+      "Bitexco Financial Tower",
+      "Jade Emperor Pagoda",
+      "Saigon Opera House",
+      "Pham Ngu Lao Street",
+      "Bui Vien Walking Street"
+    ],
+    "localFoods": [
+      "Pho",
+      "Banh Mi",
+      "Com Tam",
+      "Bun Thit Nuong",
+      "Goi Cuon",
+      "Hu Tieu",
+      "Vietnamese Coffee",
+      "Che"
+    ]
+  },
+  {
+    "name": "Cusco",
+    "country": "Peru",
+    "countryCode": "PE",
+    "coordinates": { "lat": -13.532, "lng": -71.9675 },
+    "population": "medium",
+    "timezone": "America/Lima",
+    "famousPlaces": [
+      "Machu Picchu",
+      "Sacred Valley",
+      "Plaza de Armas",
+      "Sacsayhuamán",
+      "San Pedro Market",
+      "Rainbow Mountain",
+      "Moray Terraces",
+      "Ollantaytambo",
+      "Qorikancha Temple",
+      "Humantay Lake"
+    ],
+    "localFoods": [
+      "Ceviche",
+      "Lomo Saltado",
+      "Cuy (Guinea Pig)",
+      "Rocoto Relleno",
+      "Choclo con Queso",
+      "Alpaca Steak",
+      "Mate de Coca",
+      "Chicha Morada"
+    ]
+  },
+  {
+    "name": "Kathmandu",
+    "country": "Nepal",
+    "countryCode": "NP",
+    "coordinates": { "lat": 27.7172, "lng": 85.324 },
+    "population": "large",
+    "timezone": "Asia/Kathmandu",
+    "famousPlaces": [
+      "Boudhanath Stupa",
+      "Pashupatinath Temple",
+      "Swayambhunath Stupa",
+      "Durbar Square",
+      "Thamel District",
+      "Patan Durbar Square",
+      "Bhaktapur Durbar Square",
+      "Garden of Dreams",
+      "Chandragiri Hills",
+      "Nagarkot"
+    ],
+    "localFoods": [
+      "Momo",
+      "Dal Bhat",
+      "Newari Cuisine",
+      "Sel Roti",
+      "Lassi",
+      "Chow Mein",
+      "Gundruk",
+      "Tongba"
+    ]
+  },
+  {
+    "name": "Colombo",
+    "country": "Sri Lanka",
+    "countryCode": "LK",
+    "coordinates": { "lat": 6.9271, "lng": 79.8612 },
+    "population": "megacity",
+    "timezone": "Asia/Colombo",
+    "famousPlaces": [
+      "Galle Face Green",
+      "Temple of the Tooth",
+      "Pettah Market",
+      "Viharamahadevi Park",
+      "National Museum",
+      "Gangaramaya Temple",
+      "Mount Lavinia Beach",
+      "Dutch Hospital District",
+      "Beira Lake",
+      "Sigiriya Rock Fortress"
+    ],
+    "localFoods": [
+      "Rice and Curry",
+      "Kottu Roti",
+      "String Hoppers",
+      "Hoppers",
+      "Lamprais",
+      "Coconut Sambol",
+      "Pol Sambol",
+      "Ceylon Tea"
+    ]
+  },
+  {
+    "name": "Manila",
+    "country": "Philippines",
+    "countryCode": "PH",
+    "coordinates": { "lat": 14.5995, "lng": 120.9842 },
+    "population": "megacity",
+    "timezone": "Asia/Manila",
+    "famousPlaces": [
+      "Intramuros",
+      "Rizal Park",
+      "Fort Santiago",
+      "National Museum Complex",
+      "Binondo Chinatown",
+      "San Agustin Church",
+      "SM Mall of Asia",
+      "Tagaytay Ridge",
+      "Philippine Arena",
+      "Manila Bay Sunset"
+    ],
+    "localFoods": [
+      "Adobo",
+      "Sinigang",
+      "Lechon",
+      "Halo-Halo",
+      "Lumpia",
+      "Pancit",
+      "Sisig",
+      "Tapsilog"
+    ]
+  },
+  {
+    "name": "Jakarta",
+    "country": "Indonesia",
+    "countryCode": "ID",
+    "coordinates": { "lat": -6.2088, "lng": 106.8456 },
+    "population": "megacity",
+    "timezone": "Asia/Jakarta",
+    "famousPlaces": [
+      "National Monument",
+      "Istiqlal Mosque",
+      "Kota Tua",
+      "Ancol Dreamland",
+      "Taman Mini Indonesia Indah",
+      "Grand Indonesia Mall",
+      "Museum MACAN",
+      "Thousand Islands",
+      "Sunda Kelapa Harbor",
+      "Ragunan Zoo"
+    ],
+    "localFoods": [
+      "Nasi Goreng",
+      "Sate",
+      "Gado-Gado",
+      "Rendang",
+      "Soto Betawi",
+      "Bakso",
+      "Mie Ayam",
+      "Es Teler"
+    ]
+  },
+  {
+    "name": "Yangon",
+    "country": "Myanmar",
+    "countryCode": "MM",
+    "coordinates": { "lat": 16.8661, "lng": 96.1951 },
+    "population": "megacity",
+    "timezone": "Asia/Yangon",
+    "famousPlaces": [
+      "Shwedagon Pagoda",
+      "Sule Pagoda",
+      "Bogyoke Aung San Market",
+      "Kandawgyi Lake",
+      "National Museum",
+      "Botataung Pagoda",
+      "Chaukhtatgyi Buddha",
+      "Dala Township",
+      "Strand Hotel",
+      "Maha Bandula Park"
+    ],
+    "localFoods": [
+      "Mohinga",
+      "Shan Noodles",
+      "Tea Leaf Salad",
+      "Htamin Jin",
+      "Ohn No Khao Swe",
+      "Pickled Tea Leaves",
+      "Pork Offal Skewers",
+      "Fried Tofu"
+    ]
+  },
+  {
+    "name": "Phnom Penh",
+    "country": "Cambodia",
+    "countryCode": "KH",
+    "coordinates": { "lat": 11.5564, "lng": 104.9282 },
+    "population": "megacity",
+    "timezone": "Asia/Phnom_Penh",
+    "famousPlaces": [
+      "Angkor Wat",
+      "Royal Palace",
+      "Silver Pagoda",
+      "Tuol Sleng Genocide Museum",
+      "Killing Fields",
+      "National Museum of Cambodia",
+      "Wat Phnom",
+      "Central Market",
+      "Sisowath Quay",
+      "Independence Monument"
+    ],
+    "localFoods": [
+      "Amok",
+      "Lok Lak",
+      "Khmer Noodles",
+      "Fish Soup with Prahok",
+      "Bai Sach Chrouk",
+      "Num Pang",
+      "Kuy Teav",
+      "Fruit Shakes"
+    ]
+  },
+  {
+    "name": "Vientiane",
+    "country": "Laos",
+    "countryCode": "LA",
+    "coordinates": { "lat": 17.9757, "lng": 102.6331 },
+    "population": "large",
+    "timezone": "Asia/Vientiane",
+    "famousPlaces": [
+      "Pha That Luang",
+      "Patuxai Victory Monument",
+      "Buddha Park",
+      "Wat Si Saket",
+      "Morning Market",
+      "Talat Sao",
+      "Mekong Riverfront",
+      "Lao National Museum",
+      "Wat Phra That Phanom",
+      "Kuang Si Falls"
+    ],
+    "localFoods": [
+      "Larb",
+      "Tam Mak Hoong",
+      "Khao Niew",
+      "Laap",
+      "Mok Pa",
+      "Or Lam",
+      "Beer Lao",
+      "Khao Piak Sen"
+    ]
+  },
+  {
+    "name": "Taipei",
+    "country": "Taiwan",
+    "countryCode": "TW",
+    "coordinates": { "lat": 25.033, "lng": 121.5654 },
+    "population": "megacity",
+    "timezone": "Asia/Taipei",
+    "famousPlaces": [
+      "Taipei 101",
+      "Chiang Kai-shek Memorial Hall",
+      "National Palace Museum",
+      "Shilin Night Market",
+      "Ximending District",
+      "Longshan Temple",
+      "Elephant Mountain",
+      "Maokong Gondola",
+      "Taipei Zoo",
+      "Beitou Hot Springs"
+    ],
+    "localFoods": [
+      "Beef Noodle Soup",
+      "Xiaolongbao",
+      "Bubble Tea",
+      "Oyster Omelette",
+      "Stinky Tofu",
+      "Braised Pork Rice",
+      "Mango Shaved Ice",
+      "Taiwanese Sausage"
+    ]
+  },
+  {
+    "name": "Ulaanbaatar",
+    "country": "Mongolia",
+    "countryCode": "MN",
+    "coordinates": { "lat": 47.8864, "lng": 106.9057 },
+    "population": "large",
+    "timezone": "Asia/Ulaanbaatar",
+    "famousPlaces": [
+      "Gandantegchinlen Monastery",
+      "National Museum of Mongolia",
+      "Sükhbaatar Square",
+      "Bogd Khan Palace",
+      "Zaisan Memorial",
+      "Gorkhi Terelj National Park",
+      "Winter Palace",
+      "Choijin Lama Temple",
+      "Mongolian Natural History Museum",
+      "Sky Resort"
+    ],
+    "localFoods": [
+      "Buuz",
+      "Khorkhog",
+      "Boodog",
+      "Khuushuur",
+      "Airag",
+      "Tsuivan",
+      "Bantan"
+    ]
+  },
+  {
+    "name": "Almaty",
+    "country": "Kazakhstan",
+    "countryCode": "KZ",
+    "coordinates": { "lat": 43.222, "lng": 76.8512 },
+    "population": "large",
+    "timezone": "Asia/Almaty",
+    "famousPlaces": [
+      "Zenkov Cathedral",
+      "Kök Töbe Hill",
+      "Medeu Skating Rink",
+      "Shymbulak Ski Resort",
+      "Central Park",
+      "Ascension Cathedral",
+      "Arbat Street",
+      "Kazakh National Museum",
+      "Big Almaty Lake",
+      "Park of 28 Panfilov Guardsmen"
+    ],
+    "localFoods": [
+      "Beshbarmak",
+      "Kazy",
+      "Lagman",
+      "Manti",
+      "Plov",
+      "Baursak",
+      "Shubat",
+      "Kumis"
+    ]
+  },
+  {
+    "name": "Nairobi",
+    "country": "Kenya",
+    "countryCode": "KE",
+    "coordinates": { "lat": -1.2921, "lng": 36.8219 },
+    "population": "megacity",
+    "timezone": "Africa/Nairobi",
+    "famousPlaces": [
+      "Nairobi National Park",
+      "David Sheldrick Elephant Orphanage",
+      "Giraffe Centre",
+      "Karen Blixen Museum",
+      "Kazuri Beads Factory",
+      "Nairobi National Museum",
+      "Bomas of Kenya",
+      "Karamu Village",
+      "Nairobi Arboretum",
+      "Westgate Shopping Mall"
+    ],
+    "localFoods": [
+      "Nyama Choma",
+      "Ugali",
+      "Sukuma Wiki",
+      "Githeri",
+      "Chapati",
+      "Samosa",
+      "Mandazi",
+      "Chai"
+    ]
+  },
+  {
+    "name": "Kigali",
+    "country": "Rwanda",
+    "countryCode": "RW",
+    "coordinates": { "lat": -1.9441, "lng": 30.0619 },
+    "population": "large",
+    "timezone": "Africa/Kigali",
+    "famousPlaces": [
+      "Kigali Genocide Memorial",
+      "Nyamirambo Mosque",
+      "Inema Arts Centre",
+      "Kandt House Museum",
+      "Caplaki Craft Village",
+      "Hotel des Mille Collines",
+      "Mount Kigali Viewpoint",
+      "Kimironko Market",
+      "Nyarutarama Golf Course",
+      "Akagera National Park"
+    ],
+    "localFoods": [
+      "Ugali",
+      "Brochettes",
+      "Isombe",
+      "Ibihaza",
+      "Matoke",
+      "Samosas",
+      "Ibiharage",
+      "Rwandan Coffee"
+    ]
+  },
+  {
+    "name": "Accra",
+    "country": "Ghana",
+    "countryCode": "GH",
+    "coordinates": { "lat": 5.6037, "lng": -0.187 },
+    "population": "megacity",
+    "timezone": "Africa/Accra",
+    "famousPlaces": [
+      "Kwame Nkrumah Mausoleum",
+      "Independence Arch",
+      "Makola Market",
+      "Labadi Beach",
+      "Osu Castle",
+      "Art Centre",
+      "Jamestown Lighthouse",
+      "National Museum of Ghana",
+      "W.E.B. Du Bois Centre",
+      "Aburi Botanical Gardens"
+    ],
+    "localFoods": [
+      "Jollof Rice",
+      "Fufu with Soup",
+      "Banku and Tilapia",
+      "Waakye",
+      "Kenkey",
+      "Red Red",
+      "Kelewele",
+      "Chichinga"
+    ]
+  },
+  {
+    "name": "Casablanca",
+    "country": "Morocco",
+    "countryCode": "MA",
+    "coordinates": { "lat": 33.5731, "lng": -7.5898 },
+    "population": "megacity",
+    "timezone": "Africa/Casablanca",
+    "famousPlaces": [
+      "Hassan II Mosque",
+      "Old Medina",
+      "Corniche",
+      "Place Mohammed V",
+      "Habbous District",
+      "Royal Palace of Casablanca",
+      "Morocco Mall",
+      "Twin Center",
+      "Parc de la Ligue Arabe",
+      "Villa des Arts"
+    ],
+    "localFoods": [
+      "Tagine",
+      "Couscous",
+      "Pastilla",
+      "Harira",
+      "Mechoui",
+      "Fish Chermoula",
+      "Mint Tea"
+    ]
+  },
+  {
+    "name": "Doha",
+    "country": "Qatar",
+    "countryCode": "QA",
+    "coordinates": { "lat": 25.2854, "lng": 51.531 },
+    "population": "megacity",
+    "timezone": "Asia/Qatar",
+    "famousPlaces": [
+      "Souq Waqif",
+      "Museum of Islamic Art",
+      "The Pearl-Qatar",
+      "Katara Cultural Village",
+      "Aspire Park",
+      "Doha Corniche",
+      "Villaggio Mall",
+      "National Museum of Qatar",
+      "Al Zubarah Fort",
+      "Khalifa International Stadium"
+    ],
+    "localFoods": [
+      "Machboos",
+      "Thareed",
+      "Madrouba",
+      "Samboosa",
+      "Luqaimat",
+      "Khabees",
+      "Arabic Coffee",
+      "Dates"
+    ]
+  },
+  {
+    "name": "Muscat",
+    "country": "Oman",
+    "countryCode": "OM",
+    "coordinates": { "lat": 23.588, "lng": 58.3829 },
+    "population": "large",
+    "timezone": "Asia/Muscat",
+    "famousPlaces": [
+      "Sultan Qaboos Grand Mosque",
+      "Mutrah Souq",
+      "Royal Opera House",
+      "Al Jalali Fort",
+      "Qurum Beach",
+      "Bait Al Zubair Museum",
+      "Al Alam Palace",
+      "Wadi Shab",
+      "Nizwa Fort",
+      "Jebel Akhdar"
+    ],
+    "localFoods": [
+      "Shuwa",
+      "Majboos",
+      "Omani Halwa",
+      "Qabuli",
+      "Harees",
+      "Mashuai",
+      "Omani Bread",
+      "Karak Tea"
+    ]
+  },
+  {
+    "name": "Tbilisi",
+    "country": "Georgia",
+    "countryCode": "GE",
+    "coordinates": { "lat": 41.7151, "lng": 44.8271 },
+    "population": "large",
+    "timezone": "Asia/Tbilisi",
+    "famousPlaces": [
+      "Narikala Fortress",
+      "Old Town Tbilisi",
+      "Sameba Cathedral",
+      "Metekhi Church",
+      "Sulfur Baths",
+      "Rustaveli Avenue",
+      "Bridge of Peace",
+      "Georgian National Museum",
+      "Mtatsminda Park",
+      "Mtskheta Old Town"
+    ],
+    "localFoods": [
+      "Khachapuri",
+      "Khinkali",
+      "Mtsvadi",
+      "Lobio",
+      "Badrijani Nigvzit",
+      "Pkhali",
+      "Chacha",
+      "Georgian Wine"
+    ]
+  },
+  {
+    "name": "Yerevan",
+    "country": "Armenia",
+    "countryCode": "AM",
+    "coordinates": { "lat": 40.1792, "lng": 44.4991 },
+    "population": "large",
+    "timezone": "Asia/Yerevan",
+    "famousPlaces": [
+      "Republic Square",
+      "Matenadaran",
+      "Cascade Complex",
+      "Echmiadzin Cathedral",
+      "Garni Temple",
+      "Geghard Monastery",
+      "Vernissage Market",
+      "Tsitsernakaberd Memorial",
+      "Swan Lake",
+      "Armenian Genocide Museum"
+    ],
+    "localFoods": [
+      "Dolma",
+      "Khorovats",
+      "Harissa",
+      "Lavash",
+      "Tolma",
+      "Basturma",
+      "Gata",
+      "Armenian Brandy"
+    ]
+  },
+  {
+    "name": "Havana",
+    "country": "Cuba",
+    "countryCode": "CU",
+    "coordinates": { "lat": 23.1136, "lng": -82.3666 },
+    "population": "megacity",
+    "timezone": "America/Havana",
+    "famousPlaces": [
+      "Old Havana",
+      "Malecon",
+      "Plaza de la Catedral",
+      "El Capitolio",
+      "Fusterlandia",
+      "Plaza Vieja",
+      "San Cristobal Cathedral",
+      "Museum of Revolution",
+      "Morro Castle",
+      "La Bodeguita del Medio"
+    ],
+    "localFoods": [
+      "Ropa Vieja",
+      "Cuban Sandwich",
+      "Moros y Cristianos",
+      "Lechon Asado",
+      "Tostones",
+      "Cuban Coffee",
+      "Mojito",
+      "Daiquiri"
+    ]
+  },
+  {
+    "name": "Santiago",
+    "country": "Chile",
+    "countryCode": "CL",
+    "coordinates": { "lat": -33.4489, "lng": -70.6693 },
+    "population": "megacity",
+    "timezone": "America/Santiago",
+    "famousPlaces": [
+      "Cerro San Cristóbal",
+      "Plaza de Armas",
+      "La Moneda Palace",
+      "Museo de la Memoria",
+      "Bellavista Neighborhood",
+      "Mercado Central",
+      "Sanhattan District",
+      "Sky Costanera",
+      "Santa Lucía Hill",
+      "Concha y Toro Winery"
+    ],
+    "localFoods": [
+      "Empanada",
+      "Completo",
+      "Pastel de Choclo",
+      "Cazuela",
+      "Chorrillana",
+      "Mote con Huesillo",
+      "Pisco Sour",
+      "Chilean Wine"
+    ]
+  },
+  {
+    "name": "Bogotá",
+    "country": "Colombia",
+    "countryCode": "CO",
+    "coordinates": { "lat": 4.711, "lng": -74.0721 },
+    "population": "megacity",
+    "timezone": "America/Bogota",
+    "famousPlaces": [
+      "Monserrate",
+      "La Candelaria",
+      "Gold Museum",
+      "Botero Museum",
+      "Plaza Bolívar",
+      "Simón Bolívar Park",
+      "Usaquén Market",
+      "Maloka Museum",
+      "Colombian National Museum",
+      "Zona T"
+    ],
+    "localFoods": [
+      "Ajiaco",
+      "Bandeja Paisa",
+      "Arepas",
+      "Tamales",
+      "Empanadas",
+      "Lechona",
+      "Mazamorra",
+      "Aguardiente"
+    ]
+  },
+  {
+    "name": "Nassau",
+    "country": "Bahamas",
+    "countryCode": "BS",
+    "coordinates": { "lat": 25.0343, "lng": -77.3963 },
+    "population": "medium",
+    "timezone": "America/Nassau",
+    "famousPlaces": [
+      "Paradise Island",
+      "Atlantis Resort",
+      "Straw Market",
+      "Queen's Staircase",
+      "Pirates Museum",
+      "Fort Charlotte",
+      "Cable Beach",
+      "Blue Lagoon Island",
+      "National Art Gallery",
+      "Ardastra Gardens"
+    ],
+    "localFoods": [
+      "Conch Salad",
+      "Bahamian Rock Lobster",
+      "Cracked Conch",
+      "Johnnycake",
+      "Guava Duff",
+      "Peas n' Rice",
+      "Bahamian Rum Cake"
+    ]
+  },
+  {
+    "name": "Seville",
+    "country": "Spain",
+    "countryCode": "ES",
+    "coordinates": { "lat": 37.3891, "lng": -5.9845 },
+    "population": "large",
+    "timezone": "Europe/Madrid",
+    "famousPlaces": [
+      "Alcázar of Seville",
+      "Seville Cathedral",
+      "Plaza de España",
+      "Giralda Tower",
+      "Metropol Parasol",
+      "Santa Cruz District",
+      "Torre del Oro",
+      "Maria Luisa Park",
+      "Flamenco Shows",
+      "Triana District"
+    ],
+    "localFoods": [
+      "Tapas",
+      "Gazpacho",
+      "Salmorejo",
+      "Pescaíto Frito",
+      "Jamón Ibérico",
+      "Tortilla Española",
+      "Seville Orange Marmalade",
+      "Manzanilla Sherry"
+    ]
+  },
+  {
+    "name": "Nice",
+    "country": "France",
+    "countryCode": "FR",
+    "coordinates": { "lat": 43.7102, "lng": 7.262 },
+    "population": "medium",
+    "timezone": "Europe/Paris",
+    "famousPlaces": [
+      "Promenade des Anglais",
+      "Old Town (Vieux Nice)",
+      "Castle Hill",
+      "Cours Saleya Market",
+      "Russian Orthodox Cathedral",
+      "Musée Matisse",
+      "Place Masséna",
+      "Phoenix Park",
+      "Chagall Museum",
+      "Marineland"
+    ],
+    "localFoods": [
+      "Salade Niçoise",
+      "Socca",
+      "Pan Bagnat",
+      "Ratatouille",
+      "Pissaladière",
+      "Farcis Niçoise",
+      "Bouillabaisse",
+      "Rosé Wine"
+    ]
+  },
+  {
+    "name": "Lyon",
+    "country": "France",
+    "countryCode": "FR",
+    "coordinates": { "lat": 45.764, "lng": 4.8357 },
+    "population": "megacity",
+    "timezone": "Europe/Paris",
+    "famousPlaces": [
+      "Basilica of Notre-Dame de Fourvière",
+      "Vieux Lyon",
+      "Parc de la Tête d'Or",
+      "Musée des Confluences",
+      "Place Bellecour",
+      "Traboules",
+      "Lyon Opera House",
+      "Hôtel de Ville",
+      "Lyon Cathedral",
+      "Presqu'île"
+    ],
+    "localFoods": [
+      "Lyonnaise Salad",
+      "Quenelle",
+      "Coq au Vin",
+      "Bouchon Lyonnaise cuisine",
+      "Tarte à la Praline",
+      "Saint-Marcellin Cheese",
+      "Beaujolais Wine"
+    ]
+  },
+  {
+    "name": "Porto",
+    "country": "Portugal",
+    "countryCode": "PT",
+    "coordinates": { "lat": 41.1579, "lng": -8.6291 },
+    "population": "large",
+    "timezone": "Europe/Lisbon",
+    "famousPlaces": [
+      "Dom Luís I Bridge",
+      "Ribeira District",
+      "Porto Cathedral",
+      "Livraria Lello",
+      "Clerigos Tower",
+      "Ponte de Dona Maria Pia",
+      "Serralves Museum",
+      "Porto Wine Cellars",
+      "Crystal Palace Gardens",
+      "Bolhão Market"
+    ],
+    "localFoods": [
+      "Francesinha",
+      "Port Wine",
+      "Bacalhau à Gomes de Sá",
+      "Tripas à Moda do Porto",
+      "Pastéis de Nata",
+      "Caldo Verde",
+      "Pasteis de Bacalhau"
+    ]
+  },
+  {
+    "name": "Sofia",
+    "country": "Bulgaria",
+    "countryCode": "BG",
+    "coordinates": { "lat": 42.6977, "lng": 23.3219 },
+    "population": "large",
+    "timezone": "Europe/Sofia",
+    "famousPlaces": [
+      "Alexander Nevsky Cathedral",
+      "Saint Sofia Monument",
+      "Vitosha Mountain",
+      "Boyana Church",
+      "National Palace of Culture",
+      "Serdica Ruins",
+      "Rotunda of St. George",
+      "Ivan Vazov National Theatre",
+      "National History Museum",
+      "Zoo Sofia"
+    ],
+    "localFoods": [
+      "Banitsa",
+      "Shopska Salad",
+      "Lyutenitsa",
+      "Kebapche",
+      "Tarator",
+      "Kavarma",
+      "Mekitsi",
+      "Rakia"
+    ]
+  },
+  {
+    "name": "Bucharest",
+    "country": "Romania",
+    "countryCode": "RO",
+    "coordinates": { "lat": 44.4268, "lng": 26.1025 },
+    "population": "megacity",
+    "timezone": "Europe/Bucharest",
+    "famousPlaces": [
+      "Palace of Parliament",
+      "Old Town (Lipscani)",
+      "Romanian Athenaeum",
+      "Herăstrău Park",
+      "Village Museum",
+      "Arcul de Triumf",
+      "Mogoșoaia Palace",
+      "Stavropoleos Monastery",
+      "Cotroceni Palace",
+      "Calea Victoriei"
+    ],
+    "localFoods": [
+      "Mămăligă",
+      "Sarmale",
+      "Mici",
+      "Ciorbă",
+      "Papanasi",
+      "Tochitură",
+      "Covrigi",
+      "Țuică"
+    ]
+  },
+  {
+    "name": "Belgrade",
+    "country": "Serbia",
+    "countryCode": "RS",
+    "coordinates": { "lat": 44.7866, "lng": 20.4489 },
+    "population": "megacity",
+    "timezone": "Europe/Belgrade",
+    "famousPlaces": [
+      "Kalemegdan Fortress",
+      "Skadarlija Street",
+      "Knez Mihailova Street",
+      "St. Sava Temple",
+      "Ada Ciganlija Island",
+      "Nikola Tesla Museum",
+      "Belgrade Waterfront",
+      "Zemun District",
+      "Museum of Yugoslav History",
+      "Republic Square"
+    ],
+    "localFoods": [
+      "Ćevapi",
+      "Pljeskavica",
+      "Sarma",
+      "Burek",
+      "Kajmak",
+      "Ajvar",
+      "Sopska Salad",
+      "Rakija"
+    ]
+  },
+  {
+    "name": "Antalya",
+    "country": "Turkey",
+    "countryCode": "TR",
+    "coordinates": { "lat": 36.8969, "lng": 30.7133 },
+    "population": "megacity",
+    "timezone": "Europe/Istanbul",
+    "famousPlaces": [
+      "Old Town (Kaleiçi)",
+      "Hadrian's Gate",
+      "Düden Waterfalls",
+      "Konyaaltı Beach",
+      "Lara Beach",
+      "Antalya Museum",
+      "Termessos Ruins",
+      "Aspendos Theatre",
+      "Olympos Mountain",
+      "Phaselis Ancient City"
+    ],
+    "localFoods": [
+      "Piyaz",
+      "Şiş Kebap",
+      "Antalya Böreği",
+      "Hibeş",
+      "Kabak Tatlısı",
+      "Tantuni",
+      "Ice Cream (Dondurma)"
+    ]
+  },
+  {
+    "name": "Sharm El Sheikh",
+    "country": "Egypt",
+    "countryCode": "EG",
+    "coordinates": { "lat": 27.9158, "lng": 34.3299 },
+    "population": "medium",
+    "timezone": "Africa/Cairo",
+    "famousPlaces": [
+      "Ras Mohammed National Park",
+      "Naama Bay",
+      "Soho Square",
+      "Old Market (Sharm El Maya)",
+      "Tiran Island",
+      "Ras Um Sid",
+      "Sharm Papyrus Museum",
+      "Aqua Park",
+      "Mount Sinai",
+      "St. Catherine's Monastery"
+    ],
+    "localFoods": [
+      "Seafood Grills",
+      "Koshari",
+      "Falafel",
+      "Ful Medames",
+      "Grilled Fish",
+      "Bedouin Tea",
+      "Egyptian BBQ"
+    ]
+  },
+  {
+    "name": "Maldives",
+    "country": "Maldives",
+    "countryCode": "MV",
+    "coordinates": { "lat": 3.2028, "lng": 73.2207 },
+    "population": "small",
+    "timezone": "Indian/Maldives",
+    "famousPlaces": [
+      "Male Atoll",
+      "Hulhumale Beach",
+      "Manta Point",
+      "Thulusdhoo Island",
+      "Banana Reef",
+      "BIKINI Beach",
+      "National Museum Maldives",
+      "Grand Friday Mosque",
+      "Artificial Beach",
+      "HP Reef"
+    ],
+    "localFoods": [
+      "Mas Huni",
+      "Garudhiya",
+      "Bis Keemiya",
+      "Fihunu Mas",
+      "Boshi Mashuni",
+      "Kulhi Boakiba",
+      "Maldivian Fish Curry",
+      "Raa (Palm Toddy)"
+    ]
+  },
+  {
+    "name": "Mauritius",
+    "country": "Mauritius",
+    "countryCode": "MU",
+    "coordinates": { "lat": -20.3484, "lng": 57.5522 },
+    "population": "medium",
+    "timezone": "Indian/Mauritius",
+    "famousPlaces": [
+      "Le Morne Brabant",
+      "Chamarel Coloured Earth",
+      "Black River Gorges National Park",
+      "Ile aux Cerfs",
+      "Pamplemousses Garden",
+      "Flic en Flac Beach",
+      "Blue Bay Marine Park",
+      "Port Louis Market",
+      "Trou aux Cerfs Volcano",
+      "Casela World of Adventures"
+    ],
+    "localFoods": [
+      "Dholl Puri",
+      "Briyani",
+      "Gateaux Piment",
+      "Rougaille",
+      "Mine Frites",
+      "Boiled Rice with Curry",
+      "Alouda",
+      "Vanilla Tea"
+    ]
+  },
+  {
+    "name": "Seychelles",
+    "country": "Seychelles",
+    "countryCode": "SC",
+    "coordinates": { "lat": -4.6796, "lng": 55.492 },
+    "population": "small",
+    "timezone": "Indian/Mahe",
+    "famousPlaces": [
+      "Anse Source d'Argent",
+      "Beau Vallon Beach",
+      "Vallée de Mai Nature Reserve",
+      "Aldabra Atoll",
+      "Morne Seychellois National Park",
+      "Curieuse Island",
+      "La Digue Island",
+      "Praslin Island",
+      "St. Anne Marine National Park",
+      "Victoria Market"
+    ],
+    "localFoods": [
+      "Grilled Fish",
+      "Coconut Curry",
+      "Samiya",
+      "Pwason ek diri",
+      "Bat Curry",
+      "Ladob",
+      "Seychelles Coffee"
+    ]
+  },
+  {
+    "name": "Fiji",
+    "country": "Fiji",
+    "countryCode": "FJ",
+    "coordinates": { "lat": -17.7134, "lng": 178.065 },
+    "population": "small",
+    "timezone": "Pacific/Fiji",
+    "famousPlaces": [
+      "Nadi",
+      "Denarau Island",
+      "Mamanuca Islands",
+      "Yasawa Islands",
+      "Coral Coast",
+      "Suva Municipal Market",
+      "Colo-I-Suva Forest Park",
+      "Sigatoka Sand Dunes",
+      "Tavoro Waterfalls",
+      "Sri Siva Subramaniya Temple"
+    ],
+    "localFoods": [
+      "Kokoda",
+      "Lovo",
+      "Palusami",
+      "Rourou",
+      "Kava",
+      "Fiji Biryani",
+      "Cassava Cake",
+      "Tropical Fruits"
+    ]
+  },
+  {
+    "name": "Bora Bora",
+    "country": "French Polynesia",
+    "countryCode": "PF",
+    "coordinates": { "lat": -16.5004, "lng": -151.7415 },
+    "population": "small",
+    "timezone": "Pacific/Tahiti",
+    "famousPlaces": [
+      "Mount Otemanu",
+      "Matira Beach",
+      "Coral Gardens",
+      "Bora Bora Lagoonarium",
+      "Bloody Mary's Beach",
+      "Shark and Ray Safari",
+      "Vaitape Village",
+      "Pofai Bay",
+      "Bora Bora Lighthouse",
+      "Motu Tour"
+    ],
+    "localFoods": [
+      "Poisson Cru",
+      "Firi Firi",
+      "Mahi Mahi",
+      "Tahitian Vanilla",
+      "Breadfruit",
+      "Uru",
+      "Po'e"
+    ]
+  },
+  {
+    "name": "Zanzibar",
+    "country": "Tanzania",
+    "countryCode": "TZ",
+    "coordinates": { "lat": -6.1659, "lng": 39.2026 },
+    "population": "medium",
+    "timezone": "Africa/Dar_es_Salaam",
+    "famousPlaces": [
+      "Stone Town",
+      "Prison Island",
+      "Nakupenda Beach",
+      "Jozani Forest",
+      "Mnemba Atoll",
+      "Nungwi Beach",
+      "Kendwa Beach",
+      "Spice Farms",
+      "Palace Museum",
+      "Old Fort"
+    ],
+    "localFoods": [
+      "Zanzibar Pizza",
+      "Biryani",
+      "Urojo Soup",
+      "Octopus Curry",
+      "Spiced Rice",
+      "Mishkaki",
+      "Zanzibar Coffee",
+      "Fresh Mango Juice"
+    ]
+  },
+  {
+    "name": "Riga",
+    "country": "Latvia",
+    "countryCode": "LV",
+    "coordinates": { "lat": 56.9496, "lng": 24.1052 },
+    "population": "large",
+    "timezone": "Europe/Riga",
+    "famousPlaces": [
+      "Old Town Riga",
+      "House of the Blackheads",
+      "Riga Central Market",
+      "St. Peter's Church",
+      "Riga Castle",
+      "Jugendstil Architecture",
+      "Daugava River Promenade",
+      "Latvian National Museum",
+      "Freedom Monument",
+      "Mežaparks"
+    ],
+    "localFoods": [
+      "Grey Peas with Bacon",
+      "Rye Bread",
+      "Pīrāgi",
+      "Cold Beetroot Soup",
+      "Sklandrausis",
+      "Rupjmaize",
+      "Latvian Beer",
+      "Baltic Sprats"
+    ]
+  },
+  {
+    "name": "Tallinn",
+    "country": "Estonia",
+    "countryCode": "EE",
+    "coordinates": { "lat": 59.437, "lng": 24.7536 },
+    "population": "medium",
+    "timezone": "Europe/Tallinn",
+    "famousPlaces": [
+      "Old Town (UNESCO)",
+      "Toompea Castle",
+      "Alexander Nevsky Cathedral",
+      "Town Hall Square",
+      "Kadriorg Palace",
+      "Song Festival Grounds",
+      "Seaplane Harbour",
+      "Kalamaja District",
+      "Tallinn TV Tower",
+      "Viru Gate"
+    ],
+    "localFoods": [
+      "Mulgipuder",
+      "Kama",
+      "Rye Bread",
+      "Verivorst",
+      "Sült",
+      "Vägina Sült",
+      "Leivasupp",
+      "Vana Tallinn Liqueur"
+    ]
+  },
+  {
+    "name": "Vilnius",
+    "country": "Lithuania",
+    "countryCode": "LT",
+    "coordinates": { "lat": 54.6872, "lng": 25.2797 },
+    "population": "medium",
+    "timezone": "Europe/Vilnius",
+    "famousPlaces": [
+      "Gediminas Tower",
+      "Vilnius Cathedral",
+      "Old Town Vilnius",
+      "Gate of Dawn",
+      "St. Anne's Church",
+      "Uzupis District",
+      "Trakai Island Castle",
+      "VBernardine Garden",
+      "National Museum of Lithuania",
+      "Three Crosses Hill"
+    ],
+    "localFoods": [
+      "Cepelinai",
+      "Šaltibarščiai",
+      "Kibinai",
+      "Balandėliai",
+      "Kugelis",
+      "Sakotis",
+      "Lithuanian Beer",
+      "Gira"
+    ]
+  },
+  {
+    "name": "Reunion Island",
+    "country": "France",
+    "countryCode": "RE",
+    "coordinates": { "lat": -21.1151, "lng": 55.5364 },
+    "population": "medium",
+    "timezone": "Indian/Reunion",
+    "famousPlaces": [
+      "Piton de la Fournaise",
+      "Cirque de Mafate",
+      "Cirque de Cilaos",
+      "Route des Laves",
+      "Saint-Denis Cathedral",
+      "Hell-Bourg Village",
+      "Trou de Fer Waterfall",
+      "Réunion Aquarium",
+      "Maïdo Peak",
+      "Plage de l'Ermitage"
+    ],
+    "localFoods": [
+      "Rougail Saucisse",
+      "Carri",
+      "Cari Poulet",
+      "Bouchons",
+      "Faratas",
+      "Samoussas",
+      "Riz Cantonais",
+      "Rhum Arrangé"
+    ]
+  },
+  {
+    "name": "Baku",
+    "country": "Azerbaijan",
+    "countryCode": "AZ",
+    "coordinates": { "lat": 40.4093, "lng": 49.8671 },
+    "population": "megacity",
+    "timezone": "Asia/Baku",
+    "famousPlaces": [
+      "Maiden Tower",
+      "Palace of the Shirvanshahs",
+      "Heydar Aliyev Center",
+      "Flame Towers",
+      "Old City (Icherisheher)",
+      "Baku Boulevard",
+      "Gobustan Mud Volcanoes",
+      "Ateshgah Fire Temple",
+      "Yanar Dag Flame Mountain",
+      "Nizami Street"
+    ],
+    "localFoods": [
+      "Plov",
+      "Dolma",
+      "Kebabs",
+      "Shah Plov",
+      "Qutab",
+      "Dushbara",
+      "Shekerbura",
+      "Pakhlava"
+    ]
+  },
+  {
+    "name": "Tashkent",
+    "country": "Uzbekistan",
+    "countryCode": "UZ",
+    "coordinates": { "lat": 41.2995, "lng": 69.2401 },
+    "population": "megacity",
+    "timezone": "Asia/Tashkent",
+    "famousPlaces": [
+      "Khast Imam Square",
+      "Chorsu Bazaar",
+      "Amir Timur Museum",
+      "Independence Square",
+      "TV Tower",
+      "Minor Mosque",
+      "Mustaqillik Maydoni",
+      "State Museum of Applied Arts",
+      "Tashkent Botanical Garden",
+      "Yangiabad Market"
+    ],
+    "localFoods": [
+      "Plov",
+      "Shashlik",
+      "Lagman",
+      "Manti",
+      "Samsa",
+      "Non bread",
+      "Damlyama",
+      "Green Tea"
+    ]
+  },
+  {
+    "name": "Bishkek",
+    "country": "Kyrgyzstan",
+    "countryCode": "KG",
+    "coordinates": { "lat": 42.8746, "lng": 74.5698 },
+    "population": "large",
+    "timezone": "Asia/Bishkek",
+    "famousPlaces": [
+      "Ala-Too Square",
+      "Osh Bazaar",
+      "Toktogul Satylganov Philharmonic",
+      "Victory Square",
+      "Kyrgyz National Museum",
+      "Alamedin Gorge",
+      "Issyk-Kul Lake",
+      "Burana Tower",
+      "Chuy Valley",
+      "State History Museum"
+    ],
+    "localFoods": [
+      "Beshbarmak",
+      "Manti",
+      "Lagman",
+      "Shashlik",
+      "Kymyz",
+      "Kurut",
+      "Borsok",
+      "Ashlyanfu"
+    ]
+  },
+  {
+    "name": "Ashgabat",
+    "country": "Turkmenistan",
+    "countryCode": "TM",
+    "coordinates": { "lat": 37.9601, "lng": 58.3261 },
+    "population": "large",
+    "timezone": "Asia/Ashgabat",
+    "famousPlaces": [
+      "Independence Monument",
+      "Turkmenistan Tower",
+      "Neutrality Arch",
+      "Ertugrul Gazi Mosque",
+      "Russian Bazaar",
+      "Museum of Fine Arts",
+      "Carpet Museum",
+      "Ashgabat Botanical Garden",
+      "Gokdepe Mosque",
+      "Anau Old City"
+    ],
+    "localFoods": [
+      "Plov",
+      "Manti",
+      "Shashlik",
+      "Ishlekli",
+      "Gatyk",
+      "Churek",
+      "Yarma",
+      "Green Tea"
+    ]
+  },
+  {
+    "name": "Dushanbe",
+    "country": "Tajikistan",
+    "countryCode": "TJ",
+    "coordinates": { "lat": 38.5598, "lng": 68.787 },
+    "population": "large",
+    "timezone": "Asia/Dushanbe",
+    "famousPlaces": [
+      "Somoni Monument",
+      "National Museum of Tajikistan",
+      "Rudaki Park",
+      "Dushanbe Flagpole",
+      "Mehrgon Market",
+      "National Library",
+      "Palace of the Nation",
+      "Gurminj Museum",
+      "Botanical Garden",
+      "Varzob Valley"
+    ],
+    "localFoods": [
+      "Plov",
+      "Shashlik",
+      "Qurutob",
+      "Mantu",
+      "Lagman",
+      "Non Tajik",
+      "Patir",
+      "Green Tea"
+    ]
+  },
+  {
+    "name": "Luang Prabang",
+    "country": "Laos",
+    "countryCode": "LA",
+    "coordinates": { "lat": 19.8833, "lng": 102.1347 },
+    "population": "small",
+    "timezone": "Asia/Vientiane",
+    "famousPlaces": [
+      "Kuang Si Falls",
+      "Mount Phousi",
+      "Pak Ou Caves",
+      "Royal Palace Museum",
+      "Night Market",
+      "Wat Xieng Thong",
+      "Mekong River Cruise",
+      "Tad Sae Waterfall",
+      "Traditional Alms Giving",
+      "Utopia Center"
+    ],
+    "localFoods": [
+      "Laap",
+      "Tam Mak Houng",
+      "Mok Pa",
+      "Khao Niew",
+      "O Lam",
+      "Sai Oua",
+      "Lao Beer"
+    ]
+  },
+  {
+    "name": "Siem Reap",
+    "country": "Cambodia",
+    "countryCode": "KH",
+    "coordinates": { "lat": 13.3671, "lng": 103.8448 },
+    "population": "medium",
+    "timezone": "Asia/Phnom_Penh",
+    "famousPlaces": [
+      "Angkor Wat",
+      "Bayon Temple",
+      "Ta Prohm Temple",
+      "Angkor Thom",
+      "Banteay Srei",
+      "Tonle Sap Lake",
+      "Pub Street",
+      "Angkor Night Market",
+      "Landmine Museum",
+      "Angkor National Museum"
+    ],
+    "localFoods": [
+      "Fish Amok",
+      "Lok Lak",
+      "Khmer Noodles",
+      "Prahok K'tis",
+      "Samlor Korko",
+      "Grilled Fish",
+      "Fruit Shakes",
+      "Angkor Beer"
+    ]
+  },
+  {
+    "name": "Chiang Mai",
+    "country": "Thailand",
+    "countryCode": "TH",
+    "coordinates": { "lat": 18.7883, "lng": 98.9853 },
+    "population": "large",
+    "timezone": "Asia/Bangkok",
+    "famousPlaces": [
+      "Doi Suthep Temple",
+      "Old City Temples",
+      "Night Bazaar",
+      "Elephant Nature Park",
+      "Doi Inthanon National Park",
+      "Tai Wua Lai Road",
+      "Chiang Mai Zoo",
+      "Bua Thong Sticky Waterfalls",
+      "Saturday Walking Street",
+      "Sunday Walking Street"
+    ],
+    "localFoods": [
+      "Khao Soi",
+      "Sai Oua",
+      "Nam Prik Ong",
+      "Gaeng Hang Lay",
+      "Khao Niew Mamuang",
+      "Mango Sticky Rice",
+      "Tom Yum Noodles"
+    ]
+  },
+  {
+    "name": "Pokhara",
+    "country": "Nepal",
+    "countryCode": "NP",
+    "coordinates": { "lat": 28.2096, "lng": 83.9856 },
+    "population": "medium",
+    "timezone": "Asia/Kathmandu",
+    "famousPlaces": [
+      "Phewa Lake",
+      "Sarangkot Viewpoint",
+      "World Peace Pagoda",
+      "David Falls",
+      "Gupteshwor Cave",
+      "Begnas Lake",
+      "Annapurna Base Camp Trail",
+      "Bindhyabasini Temple",
+      "International Mountain Museum",
+      "Adventure Paragliding"
+    ],
+    "localFoods": [
+      "Momo",
+      "Dal Bhat",
+      "Dhido",
+      "Gundruk",
+      "Sel Roti",
+      "Yomari",
+      "Tibetan Bread",
+      "Butter Tea"
+    ]
+  },
+  {
+    "name": "Thimphu",
+    "country": "Bhutan",
+    "countryCode": "BT",
+    "coordinates": { "lat": 27.4728, "lng": 89.6393 },
+    "population": "medium",
+    "timezone": "Asia/Thimphu",
+    "famousPlaces": [
+      "Tashichho Dzong",
+      "Buddha Dordenma",
+      "National Memorial Chorten",
+      "Motithang Takin Preserve",
+      "Folk Heritage Museum",
+      "Takin Zoo",
+      "Dechencholing Palace",
+      "Thimphu Weekend Market",
+      "National Library of Bhutan",
+      "Simtokha Dzong"
+    ],
+    "localFoods": [
+      "Ema Datshi",
+      "Momos",
+      "Phaksha Paa",
+      "Jasha Maru",
+      "Kewa Datshi",
+      "Red Rice",
+      "Suja Butter Tea",
+      "Ara"
+    ]
+  },
+  {
+    "name": "Paro",
+    "country": "Bhutan",
+    "countryCode": "BT",
+    "coordinates": { "lat": 27.4284, "lng": 89.4167 },
+    "population": "small",
+    "timezone": "Asia/Thimphu",
+    "famousPlaces": [
+      "Tiger's Nest Monastery",
+      "Paro Dzong",
+      "National Museum of Bhutan",
+      "Drukgyel Dzong",
+      "Kyichu Lhakhang",
+      "Paro Valley",
+      "Ugyen Pelri Palace",
+      "Jele Dzong Trek",
+      "Dochula Pass",
+      "Bhutanese Farmhouse Visit"
+    ],
+    "localFoods": [
+      "Ema Datshi",
+      "Momos",
+      "Zow Shungo",
+      "Kewa Datshi",
+      "Nga Gyuma",
+      "Chura Nga",
+      "Ara"
+    ]
+  },
+  {
+    "name": "Goa",
+    "country": "India",
+    "countryCode": "IN",
+    "coordinates": { "lat": 15.2993, "lng": 74.124 },
+    "population": "large",
+    "timezone": "Asia/Kolkata",
+    "famousPlaces": [
+      "Baga Beach",
+      "Calangute Beach",
+      "Basilica of Bom Jesus",
+      "Dudhsagar Waterfalls",
+      "Fort Aguada",
+      "Anjuna Flea Market",
+      "Chapora Fort",
+      "Palolem Beach",
+      "Se Cathedral",
+      "Spice Plantations"
+    ],
+    "localFoods": [
+      "Fish Curry Rice",
+      "Pork Vindaloo",
+      "Xacuti",
+      "Sannas",
+      "Prawn Balchão",
+      "Bebinca",
+      "Feni",
+      "King's Beer"
+    ]
+  },
+  {
+    "name": "Jaipur",
+    "country": "India",
+    "countryCode": "IN",
+    "coordinates": { "lat": 26.9124, "lng": 75.7873 },
+    "population": "megacity",
+    "timezone": "Asia/Kolkata",
+    "famousPlaces": [
+      "Amber Fort",
+      "Hawa Mahal",
+      "City Palace",
+      "Jantar Mantar",
+      "Nahargarh Fort",
+      "Jaigarh Fort",
+      "Albert Hall Museum",
+      "Birla Mandir Temple",
+      "Johari Bazaar",
+      "Chokhi Dhani"
+    ],
+    "localFoods": [
+      "Dal Baati Churma",
+      "Gatte Ki Sabzi",
+      "Laal Maas",
+      "Ker Sangri",
+      "Papad Ki Sabzi",
+      "Ghevar",
+      "Lassi",
+      "Pyaaz Kachori"
+    ]
+  },
+  {
+    "name": "Agra",
+    "country": "India",
+    "countryCode": "IN",
+    "coordinates": { "lat": 27.1767, "lng": 78.0081 },
+    "population": "megacity",
+    "timezone": "Asia/Kolkata",
+    "famousPlaces": [
+      "Taj Mahal",
+      "Agra Fort",
+      "Fatehpur Sikri",
+      "Mehtab Bagh",
+      "Itimad-ud-Daulah",
+      "Tomb of Akbar the Great",
+      "Jama Masjid Agra",
+      "Chini Ka Rauza",
+      "Ram Bagh",
+      "Mughal Heritage Walk"
+    ],
+    "localFoods": [
+      "Petha",
+      "Mughlai Cuisine",
+      "Biryani",
+      "Kebabs",
+      "Dalmoth",
+      "Gajak",
+      "Chaat"
+    ]
+  },
+  {
+    "name": "Male",
+    "country": "Maldives",
+    "countryCode": "MV",
+    "coordinates": { "lat": 4.1755, "lng": 73.5093 },
+    "population": "medium",
+    "timezone": "Indian/Maldives",
+    "famousPlaces": [
+      "Malé Friday Mosque",
+      "Maldives National Museum",
+      "Sultan Park",
+      "Artificial Beach",
+      "Grand Friday Mosque",
+      "Fish Market",
+      "Local Market",
+      "Muliaage Palace",
+      "Rasrani Bageecha",
+      "Villingili Ferry"
+    ],
+    "localFoods": [
+      "Mas Huni",
+      "Garudhiya",
+      "Boshi Mashuni",
+      "Mas Riha",
+      "Bis Keemiya",
+      "Sai",
+      "Kulhi Boakiba"
+    ]
+  },
+  {
+    "name": "Kochi",
+    "country": "India",
+    "countryCode": "IN",
+    "coordinates": { "lat": 9.9312, "lng": 76.2673 },
+    "population": "megacity",
+    "timezone": "Asia/Kolkata",
+    "famousPlaces": [
+      "Chinese Fishing Nets",
+      "Fort Kochi",
+      "Mattancherry Palace",
+      "Jewish Synagogue",
+      "Santa Cruz Basilica",
+      "Marine Drive",
+      "Cherai Beach",
+      "Hill Palace Museum",
+      "Willingdon Island",
+      "Kerala Kathakali Centre"
+    ],
+    "localFoods": [
+      "Kerala Sadya",
+      "Appam with Stew",
+      "Fish Moilee",
+      "Puttu and Kadala Curry",
+      "Kappa and Meen Curry",
+      "Beef Fry",
+      "Malabar Parotta",
+      "Toddy"
+    ]
+  },
+  {
+    "name": "Galle",
+    "country": "Sri Lanka",
+    "countryCode": "LK",
+    "coordinates": { "lat": 6.0535, "lng": 80.221 },
+    "population": "medium",
+    "timezone": "Asia/Colombo",
+    "famousPlaces": [
+      "Galle Fort",
+      "Dutch Reformed Church",
+      "Galle Lighthouse",
+      "Maritime Museum",
+      "Galle Fort Clock Tower",
+      "Unawatuna Beach",
+      "Jungle Beach",
+      "Japanese Peace Pagoda",
+      "Mihiripenna Beach",
+      "Rumassala Hill"
+    ],
+    "localFoods": [
+      "Kottu Roti",
+      "Rice and Curry",
+      "Hoppers",
+      "Seafood Platter",
+      "Crab Curry",
+      "Pol Sambol",
+      "Ceylon Arrack"
+    ]
+  }
+]

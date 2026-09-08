@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="bg-background">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - IntelliTrip</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/images/logo.png">
+    <meta name="application-name" content="IntelliTrip">
+    <meta property="og:site_name" content="IntelliTrip">
+    <link rel="canonical" href="https://intellitrip.eu.org/">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/output.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-background text-foreground font-sans antialiased" x-data="settingsPage()" x-init="init()">
+<div class="flex min-h-screen">
+    <div th:replace="~{fragments/sidebar-nav :: sidebar-nav(active='settings')}"></div>
+    <div class="flex min-h-screen flex-1 flex-col">
+        <div th:replace="~{fragments/topbar :: topbar(title='Settings', subtitle='Manage your account, travel preferences, notifications, and security')}"></div>
+        <div class="flex-1 space-y-6 px-4 py-8 md:px-8 max-w-6xl">
+            
+            <!-- Notification toast -->
+            <div x-show="toast.show" x-cloak x-transition class="fixed bottom-6 right-6 z-50 rounded-2xl border border-border bg-card p-4 shadow-2xl flex items-center gap-3">
+                <span :class="toast.type === 'error' ? 'text-destructive' : 'text-primary'">
+                    <template x-if="toast.type !== 'error'">
+                        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    </template>
+                    <template x-if="toast.type === 'error'">
+                        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    </template>
+                </span>
+                <p class="text-sm font-medium" x-text="toast.message"></p>
+            </div>
+
+            <!-- Settings Layout: Sidebar Tabs + Content -->
+            <div class="grid gap-6 md:grid-cols-4">
+                <!-- Navigation Tabs -->
+                <div class="md:col-span-1 space-y-1">
+                    <nav class="flex flex-col space-y-1.5 rounded-2xl border border-border bg-card p-2">
+                        <button type="button" @click="activeTab = 'account'" :class="activeTab === 'account' ? 'bg-primary/10 text-primary font-semibold' : 'text-muted-foreground hover:bg-muted hover:text-foreground'" class="flex items-center gap-2.5 rounded-xl px-4 py-3 text-sm text-left transition-colors">
+                            <span class="text-base">👤</span>
+                            <span>Account</span>
+                        </button>
+                        <button type="button" @click="activeTab = 'preferences'" :class="activeTab === 'preferences' ? 'bg-primary/10 text-primary font-semibold' : 'text-muted-foreground hover:bg-muted hover:text-foreground'" class="flex items-center gap-2.5 rounded-xl px-4 py-3 text-sm text-left transition-colors">
+                            <span class="text-base">✈️</span>
+                            <span>Travel Preferences</span>
+                        </button>
+                        <button type="button" @click="activeTab = 'notifications'" :class="activeTab === 'notifications' ? 'bg-primary/10 text-primary font-semibold' : 'text-muted-foreground hover:bg-muted hover:text-foreground'" class="flex items-center gap-2.5 rounded-xl px-4 py-3 text-sm text-left transition-colors">
+                            <span class="text-base">🔔</span>
+                            <span>Notifications</span>
+                        </button>
+                        <button type="button" @click="activeTab = 'privacy'" :class="activeTab === 'privacy' ? 'bg-primary/10 text-primary font-semibold' : 'text-muted-foreground hover:bg-muted hover:text-foreground'" class="flex items-center gap-2.5 rounded-xl px-4 py-3 text-sm text-left transition-colors">
+                            <span class="text-base">🔒</span>
+                            <span>Privacy & Security</span>
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Tab Content Area -->
+                <div class="md:col-span-3">
+                    
+                    <!-- TAB 1: ACCOUNT -->
+                    <div x-show="activeTab === 'account'" class="space-y-6">
+                        <!-- Section: Edit Profile -->
+                        <div class="rounded-3xl border border-border bg-card p-6 md:p-8 space-y-5">
+                            <div>
+                                <h2 class="text-xl font-bold flex items-center gap-2"><span>👤</span> Edit Profile</h2>
+                                <p class="text-sm text-muted-foreground">Manage your public name and home country.</p>
+                            </div>
+                            <form @submit.prevent="saveProfile" class="space-y-4 max-w-lg">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-muted-foreground mb-1">Full Name</label>
+                                    <input type="text" x-model="profileForm.name" required class="flex h-11 w-full rounded-xl border border-input bg-background px-4 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-muted-foreground mb-1">Country / Region</label>
+                                    <input type="text" x-model="profileForm.country" placeholder="e.g. United States, India, France" class="flex h-11 w-full rounded-xl border border-input bg-background px-4 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                                </div>
+                                <button type="submit" :disabled="saving" class="inline-flex items-center justify-center rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
+                                    Save Profile
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Section: Change Email -->
+                        <div class="rounded-3xl border border-border bg-card p-6 md:p-8 space-y-5">
+                            <div>
+                                <h2 class="text-xl font-bold flex items-center gap-2"><span>✉️</span> Change Email</h2>
+                                <p class="text-sm text-muted-foreground">Update the email address associated with your account.</p>
+                            </div>
+                            <form @submit.prevent="saveEmail" class="space-y-4 max-w-lg">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-muted-foreground mb-1">New Email Address</label>
+                                    <input type="email" x-model="emailForm.email" required class="flex h-11 w-full rounded-xl border border-input bg-background px-4 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-muted-foreground mb-1">Current Password (for confirmation)</label>
+                                    <input type="password" x-model="emailForm.password" required class="flex h-11 w-full rounded-xl border border-input bg-background px-4 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                                </div>
+                                <button type="submit" :disabled="saving" class="inline-flex items-center justify-center rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
+                                    Update Email
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Section: Change Password -->
+                        <div class="rounded-3xl border border-border bg-card p-6 md:p-8 space-y-5">
+                            <div>
+                                <h2 class="text-xl font-bold flex items-center gap-2"><span>🔑</span> Change Password</h2>
+                                <p class="text-sm text-muted-foreground">Choose a strong, unique password to secure your account.</p>
+                            </div>
+                            <form @submit.prevent="savePassword" class="space-y-4 max-w-lg">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-muted-foreground mb-1">Current Password</label>
+                                    <input type="password" x-model="passwordForm.currentPassword" required class="flex h-11 w-full rounded-xl border border-input bg-background px-4 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-muted-foreground mb-1">New Password (min 6 characters)</label>
+                                    <input type="password" x-model="passwordForm.newPassword" minlength="6" required class="flex h-11 w-full rounded-xl border border-input bg-background px-4 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-muted-foreground mb-1">Confirm New Password</label>
+                                    <input type="password" x-model="passwordForm.confirmPassword" minlength="6" required class="flex h-11 w-full rounded-xl border border-input bg-background px-4 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                                </div>
+                                <button type="submit" :disabled="saving" class="inline-flex items-center justify-center rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
+                                    Change Password
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: TRAVEL PREFERENCES -->
+                    <div x-show="activeTab === 'preferences'" class="rounded-3xl border border-border bg-card p-6 md:p-8 space-y-8">
+                        <div>
+                            <h2 class="text-xl font-bold flex items-center gap-2"><span>✈️</span> Travel Preferences</h2>
+                            <p class="text-sm text-muted-foreground">These preferences personalize your generated itineraries by default.</p>
+                        </div>
+
+                        <!-- Preferred Budget -->
+                        <div class="space-y-3">
+                            <label class="block text-sm font-semibold">Preferred Budget</label>
+                            <div class="grid gap-3 sm:grid-cols-3">
+                                <template x-for="b in ['Budget Friendly', 'Moderate', 'Luxury']" :key="b">
+                                    <button type="button" @click="prefForm.preferredBudget = b" :class="prefForm.preferredBudget === b ? 'border-primary bg-primary/10 text-primary font-semibold' : 'border-border text-foreground hover:bg-muted'" class="flex items-center justify-center rounded-xl border p-3.5 text-sm transition-colors">
+                                        <span x-text="b"></span>
+                                    </button>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Travel Style -->
+                        <div class="space-y-3">
+                            <label class="block text-sm font-semibold">Travel Style / Companions</label>
+                            <div class="grid gap-3 sm:grid-cols-4">
+                                <template x-for="s in ['Just Me', 'A Couple', 'Family', 'Friends']" :key="s">
+                                    <button type="button" @click="prefForm.travelStyle = s" :class="prefForm.travelStyle === s ? 'border-primary bg-primary/10 text-primary font-semibold' : 'border-border text-foreground hover:bg-muted'" class="flex items-center justify-center rounded-xl border p-3.5 text-sm transition-colors">
+                                        <span x-text="s"></span>
+                                    </button>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Accommodation -->
+                        <div class="space-y-3">
+                            <label class="block text-sm font-semibold">Accommodation Preference</label>
+                            <div class="grid gap-3 sm:grid-cols-4">
+                                <template x-for="a in ['Budget', 'Mid-range', 'Boutique Hotel', 'Luxury']" :key="a">
+                                    <button type="button" @click="prefForm.accommodation = a" :class="prefForm.accommodation === a ? 'border-primary bg-primary/10 text-primary font-semibold' : 'border-border text-foreground hover:bg-muted'" class="flex items-center justify-center rounded-xl border p-3.5 text-sm transition-colors">
+                                        <span x-text="a"></span>
+                                    </button>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Interests -->
+                        <div class="space-y-3">
+                            <label class="block text-sm font-semibold">Interests</label>
+                            <div class="flex flex-wrap gap-2">
+                                <template x-for="i in ['adventure', 'food', 'culture', 'nature', 'nightlife']" :key="i">
+                                    <button type="button" @click="toggleInterest(i)" :class="selectedInterests.includes(i) ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-background hover:border-primary/40'" class="rounded-full border px-4 py-2 text-sm capitalize transition-colors">
+                                        <span x-text="i"></span>
+                                    </button>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Food Preference -->
+                        <div class="space-y-3">
+                            <label class="block text-sm font-semibold">Food Preference</label>
+                            <div class="grid gap-3 sm:grid-cols-3">
+                                <template x-for="f in ['All', 'Vegetarian', 'Vegan', 'Halal', 'Gluten-Free', 'Kosher']" :key="f">
+                                    <button type="button" @click="prefForm.foodPreference = f" :class="prefForm.foodPreference === f ? 'border-primary bg-primary/10 text-primary font-semibold' : 'border-border text-foreground hover:bg-muted'" class="flex items-center justify-center rounded-xl border p-3 text-sm transition-colors">
+                                        <span x-text="f"></span>
+                                    </button>
+                                </template>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 border-t border-border">
+                            <button type="button" @click="savePreferences" :disabled="saving" class="inline-flex items-center justify-center rounded-full bg-primary px-7 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
+                                Save Travel Preferences
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: NOTIFICATIONS -->
+                    <div x-show="activeTab === 'notifications'" class="rounded-3xl border border-border bg-card p-6 md:p-8 space-y-6">
+                        <div>
+                            <h2 class="text-xl font-bold flex items-center gap-2"><span>🔔</span> Notifications</h2>
+                            <p class="text-sm text-muted-foreground">Manage your notification alerts and automated reminders.</p>
+                        </div>
+
+                        <div class="space-y-4 max-w-xl">
+                            <div class="flex items-center justify-between p-4 rounded-2xl border border-border bg-background">
+                                <div>
+                                    <p class="font-medium text-sm">Trip Reminders</p>
+                                    <p class="text-xs text-muted-foreground">Get notified about upcoming trips, itinerary updates, and check-in schedules.</p>
+                                </div>
+                                <button type="button" @click="notifForm.tripReminders = !notifForm.tripReminders; saveNotifications()" :class="notifForm.tripReminders ? 'bg-primary' : 'bg-muted'" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none">
+                                    <span :class="notifForm.tripReminders ? 'translate-x-5' : 'translate-x-0'" class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+                                </button>
+                            </div>
+
+                            <div class="flex items-center justify-between p-4 rounded-2xl border border-border bg-background">
+                                <div>
+                                    <p class="font-medium text-sm">Travel Recommendations</p>
+                                    <p class="text-xs text-muted-foreground">Receive seasonal travel suggestions, trending spots, and destination tips.</p>
+                                </div>
+                                <button type="button" @click="notifForm.travelRecommendations = !notifForm.travelRecommendations; saveNotifications()" :class="notifForm.travelRecommendations ? 'bg-primary' : 'bg-muted'" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none">
+                                    <span :class="notifForm.travelRecommendations ? 'translate-x-5' : 'translate-x-0'" class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 4: PRIVACY & SECURITY -->
+                    <div x-show="activeTab === 'privacy'" class="space-y-6">
+                        <!-- Password Management Shortcut -->
+                        <div class="rounded-3xl border border-border bg-card p-6 md:p-8 space-y-4">
+                            <div>
+                                <h2 class="text-xl font-bold flex items-center gap-2"><span>🔑</span> Change Password</h2>
+                                <p class="text-sm text-muted-foreground">Update your login security credentials.</p>
+                            </div>
+                            <button type="button" @click="activeTab = 'account'" class="inline-flex items-center rounded-full border border-border px-5 py-2.5 text-sm font-medium hover:bg-muted transition-colors">
+                                Go to Password Settings
+                            </button>
+                        </div>
+
+                        <!-- Delete Account -->
+                        <div class="rounded-3xl border border-destructive/30 bg-destructive/5 p-6 md:p-8 space-y-4">
+                            <div>
+                                <h2 class="text-xl font-bold text-destructive flex items-center gap-2"><span>⚠️</span> Delete Account</h2>
+                                <p class="text-sm text-muted-foreground">Permanently delete your account and all associated itineraries, saved places, and history. This action cannot be undone.</p>
+                            </div>
+                            
+                            <div x-show="!showDeleteConfirm">
+                                <button type="button" @click="showDeleteConfirm = true" class="inline-flex items-center justify-center rounded-full bg-destructive px-6 py-2.5 text-sm font-medium text-destructive-foreground hover:bg-destructive/90 transition-colors">
+                                    Delete Account
+                                </button>
+                            </div>
+
+                            <div x-show="showDeleteConfirm" class="space-y-4 border-t border-destructive/20 pt-4 max-w-md">
+                                <p class="text-sm font-medium text-destructive">Please enter your password to confirm deletion:</p>
+                                <input type="password" x-model="deletePassword" placeholder="Enter your password" class="flex h-11 w-full rounded-xl border border-input bg-background px-4 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive">
+                                <div class="flex gap-3">
+                                    <button type="button" @click="deleteAccount" :disabled="saving" class="inline-flex items-center justify-center rounded-full bg-destructive px-6 py-2.5 text-sm font-medium text-destructive-foreground hover:bg-destructive/90 transition-colors">
+                                        Permanently Delete
+                                    </button>
+                                    <button type="button" @click="showDeleteConfirm = false; deletePassword = ''" class="inline-flex items-center justify-center rounded-full border border-border px-5 py-2.5 text-sm font-medium hover:bg-muted">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function settingsPage() {
+    return {
+        activeTab: 'account',
+        saving: false,
+        showDeleteConfirm: false,
+        deletePassword: '',
+        toast: { show: false, message: '', type: 'success' },
+        profileForm: { name: '', country: '', countryCode: '' },
+        emailForm: { email: '', password: '' },
+        passwordForm: { currentPassword: '', newPassword: '', confirmPassword: '' },
+        prefForm: { preferredBudget: 'Moderate', travelStyle: 'Just Me', accommodation: 'Boutique Hotel', foodPreference: 'All' },
+        selectedInterests: ['food', 'culture'],
+        notifForm: { tripReminders: true, travelRecommendations: true },
+
+        init() {
+            // Check URL parameters for tab
+            const urlParams = new URLSearchParams(window.location.search);
+            const tab = urlParams.get('tab');
+            if (tab && ['account', 'preferences', 'notifications', 'privacy'].includes(tab)) {
+                this.activeTab = tab;
+            }
+            this.fetchSettings();
+        },
+
+        showToast(msg, type = 'success') {
+            this.toast.message = msg;
+            this.toast.type = type;
+            this.toast.show = true;
+            setTimeout(() => { this.toast.show = false; }, 4000);
+        },
+
+        async fetchSettings() {
+            try {
+                const res = await fetch('/api/user/settings');
+                if (res.ok) {
+                    const data = await res.json();
+                    this.profileForm.name = data.name || '';
+                    this.profileForm.country = data.country || '';
+                    this.profileForm.countryCode = data.countryCode || '';
+                    this.emailForm.email = data.email || '';
+                    this.prefForm.preferredBudget = data.preferredBudget || 'Moderate';
+                    this.prefForm.travelStyle = data.travelStyle || 'Just Me';
+                    this.prefForm.accommodation = data.accommodation || 'Boutique Hotel';
+                    this.prefForm.foodPreference = data.foodPreference || 'All';
+                    if (data.interests) {
+                        this.selectedInterests = data.interests.split(',').map(s => s.trim()).filter(Boolean);
+                    }
+                    this.notifForm.tripReminders = data.tripReminders ?? true;
+                    this.notifForm.travelRecommendations = data.travelRecommendations ?? true;
+                }
+            } catch (e) {
+                console.error('Failed to load user settings', e);
+            }
+        },
+
+        toggleInterest(id) {
+            const idx = this.selectedInterests.indexOf(id);
+            if (idx > -1) this.selectedInterests.splice(idx, 1);
+            else this.selectedInterests.push(id);
+        },
+
+        async saveProfile() {
+            this.saving = true;
+            try {
+                const res = await fetch('/api/user/profile', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(this.profileForm)
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Failed to update profile');
+                this.showToast('Profile updated successfully');
+            } catch (e) {
+                this.showToast(e.message, 'error');
+            } finally {
+                this.saving = false;
+            }
+        },
+
+        async saveEmail() {
+            this.saving = true;
+            try {
+                const res = await fetch('/api/user/email', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(this.emailForm)
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Failed to update email');
+                this.showToast('Email address updated');
+                this.emailForm.password = '';
+            } catch (e) {
+                this.showToast(e.message, 'error');
+            } finally {
+                this.saving = false;
+            }
+        },
+
+        async savePassword() {
+            if (this.passwordForm.newPassword !== this.passwordForm.confirmPassword) {
+                this.showToast('New passwords do not match', 'error');
+                return;
+            }
+            this.saving = true;
+            try {
+                const res = await fetch('/api/user/password', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        currentPassword: this.passwordForm.currentPassword,
+                        newPassword: this.passwordForm.newPassword
+                    })
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Failed to change password');
+                this.showToast('Password changed successfully');
+                this.passwordForm = { currentPassword: '', newPassword: '', confirmPassword: '' };
+            } catch (e) {
+                this.showToast(e.message, 'error');
+            } finally {
+                this.saving = false;
+            }
+        },
+
+        async savePreferences() {
+            this.saving = true;
+            try {
+                const payload = {
+                    ...this.prefForm,
+                    interests: this.selectedInterests
+                };
+                const res = await fetch('/api/user/travel-preferences', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Failed to save preferences');
+                this.showToast('Travel preferences saved');
+            } catch (e) {
+                this.showToast(e.message, 'error');
+            } finally {
+                this.saving = false;
+            }
+        },
+
+        async saveNotifications() {
+            try {
+                const res = await fetch('/api/user/notification-settings', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(this.notifForm)
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Failed to save notification settings');
+                this.showToast('Notification settings updated');
+            } catch (e) {
+                this.showToast(e.message, 'error');
+            }
+        },
+
+        async deleteAccount() {
+            this.saving = true;
+            try {
+                const res = await fetch('/api/user/account', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password: this.deletePassword })
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Failed to delete account');
+                window.location.href = '/login';
+            } catch (e) {
+                this.showToast(e.message, 'error');
+                this.saving = false;
+            }
+        }
+    }
+}
+</script>
+</body>
+</html>
