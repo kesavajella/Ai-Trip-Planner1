@@ -25,9 +25,9 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-background text-foreground font-sans antialiased">
-<div class="flex min-h-screen">
+<div class="flex min-h-screen overflow-x-hidden">
     <div th:replace="~{fragments/sidebar-nav :: sidebar-nav(active='generate')}"></div>
-    <div class="flex min-h-screen flex-1 flex-col">
+    <div class="flex min-h-screen flex-1 flex-col overflow-x-hidden">
         <div th:replace="~{fragments/topbar :: topbar(title='AI Trip Generator', subtitle='Tell us the basics — we handle the day-by-day, hotels, food, and the small stuff.')}"></div>
         <div class="flex-1 space-y-6 px-4 py-8 md:px-8">
             <!-- Generator Form -->
