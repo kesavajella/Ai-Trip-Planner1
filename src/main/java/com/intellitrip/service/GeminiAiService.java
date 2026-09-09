@@ -178,7 +178,7 @@ public class GeminiAiService {
 
         for (int attempt = 1; attempt <= (maxRetries + 1); attempt++) {
             try {
-                String response = callGemini(requestBody);
+                String response = callGeminiWithFallback(requestBody);
                 return parseResponse(response);
             } catch (RateLimitException e) {
                 if (attempt <= maxRetries) {
@@ -190,7 +190,7 @@ public class GeminiAiService {
                         Thread.currentThread().interrupt();
                         throw new RuntimeException("Retry interrupted", ie);
                     }
-                    delayMs *= 2; // Exponential backoff: double wait time on next attempt
+                    delayMs *= 2;
                 } else {
                     log.error("Gemini API rate limit exceeded after {} retries.", maxRetries);
                     throw new GeminiQuotaExceededException("Daily limit reached, please try again shortly", e);
@@ -200,14 +200,42 @@ public class GeminiAiService {
         throw new GeminiQuotaExceededException("Daily limit reached, please try again shortly");
     }
 
-    private String callGemini(Map<String, Object> requestBody) {
-        String apiKey = geminiConfig.getApiKey();
-        if (apiKey == null || apiKey.isBlank()) {
+    private String callGeminiWithFallback(Map<String, Object> requestBody) {
+        String primaryKey = geminiConfig.getApiKey();
+        String fallbackKey = geminiConfig.getFallbackApiKey();
+
+        if (primaryKey == null || primaryKey.isBlank()) {
+            if (fallbackKey != null && !fallbackKey.isBlank()) {
+                log.info("Primary key not set, using fallback key");
+                return callGemini(requestBody, fallbackKey);
+            }
             throw new RuntimeException("GEMINI_API_KEY is not set");
         }
 
+        try {
+            log.debug("Trying primary API key");
+            return callGemini(requestBody, primaryKey);
+        } catch (RateLimitException e) {
+            log.warn("Primary API key rate-limited, trying fallback key...");
+            if (fallbackKey != null && !fallbackKey.isBlank()) {
+                return callGemini(requestBody, fallbackKey);
+            }
+            throw e;
+        } catch (RuntimeException e) {
+            String msg = e.getMessage();
+            if (msg != null && (msg.contains("429") || msg.contains("RESOURCE_EXHAUSTED") || msg.contains("403") || msg.contains("PERMISSION_DENIED"))) {
+                log.warn("Primary API key failed with: {}, trying fallback key...", msg);
+                if (fallbackKey != null && !fallbackKey.isBlank()) {
+                    return callGemini(requestBody, fallbackKey);
+                }
+            }
+            throw e;
+        }
+    }
+
+    private String callGemini(Map<String, Object> requestBody, String apiKey) {
         String model = geminiConfig.getModel();
-        log.debug("Calling Gemini API with model: {}", model);
+        log.debug("Calling Gemini API with model: {} (key ending in ...{})", model, apiKey.substring(Math.max(0, apiKey.length() - 4)));
 
         try {
             return restClient.post()
@@ -222,8 +250,10 @@ public class GeminiAiService {
                                 } catch (Exception ignored) {}
                                 log.error("Gemini API returned HTTP {}: {}", resp.getStatusCode(), respBody);
                                 if (resp.getStatusCode() == HttpStatus.TOO_MANY_REQUESTS || resp.getStatusCode().value() == 420) {
-                                     // 429 (RESOURCE_EXHAUSTED) or 420 - retryable with backoff
                                      throw new RateLimitException("Gemini API rate limit (429/420): " + respBody);
+                                }
+                                if (resp.getStatusCode() == HttpStatus.FORBIDDEN || resp.getStatusCode().value() == 403) {
+                                     throw new RuntimeException("Gemini API forbidden (403): " + respBody);
                                 }
                                 throw new RuntimeException("Gemini API error: HTTP " + resp.getStatusCode() + " - " + respBody);
                             })

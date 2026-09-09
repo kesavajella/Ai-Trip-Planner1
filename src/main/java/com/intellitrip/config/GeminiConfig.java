@@ -14,6 +14,9 @@ public class GeminiConfig {
     @Value("${GEMINI_API_KEY:#{null}}")
     private String apiKey;
 
+    @Value("${GEMINI_API_KEY_FALLBACK:#{null}}")
+    private String fallbackApiKey;
+
     @Value("${app.gemini.model:gemini-flash-latest}")
     private String model;
 
@@ -47,6 +50,10 @@ public class GeminiConfig {
 
     public String getApiKey() {
         return apiKey;
+    }
+
+    public String getFallbackApiKey() {
+        return fallbackApiKey;
     }
 
     public String getModel() {
