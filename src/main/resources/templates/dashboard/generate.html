@@ -241,138 +241,169 @@
                     </div>
                  </div>
 
-                 <!-- Hotels -->
-                 <div x-show="itineraryData.hotels && itineraryData.hotels.length" x-cloak class="rounded-3xl border border-border bg-card p-6 md:p-8">
-                     <h3 class="font-serif text-2xl tracking-tight mb-5">Recommended Hotels</h3>
-                     <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                         <template x-for="(h, i) in (itineraryData.hotels || [])" :key="i">
-                             <div class="rounded-2xl border border-border bg-background/50 p-5">
-                                 <h4 class="font-semibold text-base" x-text="h.name"></h4>
-                                 <p class="text-sm text-muted-foreground mt-0.5" x-text="h.area"></p>
-                                 <p class="mt-3 text-sm font-medium text-primary" x-text="formatCost(h.pricePerNight)"></p>
-                                 <p class="text-xs text-muted-foreground mt-1" x-text="h.bestFor"></p>
+                 <!-- Tabbed Sections: Itinerary | Hotels | Transport | Budget -->
+                 <div class="rounded-3xl border border-border bg-card overflow-hidden">
+                     <!-- Tab Buttons -->
+                     <div class="flex border-b border-border bg-muted/30">
+                         <button type="button" @click="activeTab = 'itinerary'" :class="activeTab === 'itinerary' ? 'border-b-2 border-primary text-primary bg-primary/5' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'" class="flex-1 py-3.5 px-4 text-sm font-medium transition-colors text-center">
+                             📅 Day by Day Plan
+                         </button>
+                         <button type="button" @click="activeTab = 'hotels'" :class="activeTab === 'hotels' ? 'border-b-2 border-primary text-primary bg-primary/5' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'" class="flex-1 py-3.5 px-4 text-sm font-medium transition-colors text-center">
+                             🏨 Hotels
+                         </button>
+                         <button type="button" @click="activeTab = 'transport'" :class="activeTab === 'transport' ? 'border-b-2 border-primary text-primary bg-primary/5' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'" class="flex-1 py-3.5 px-4 text-sm font-medium transition-colors text-center">
+                             🚌 Transport
+                         </button>
+                         <button type="button" @click="activeTab = 'budget'" :class="activeTab === 'budget' ? 'border-b-2 border-primary text-primary bg-primary/5' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'" class="flex-1 py-3.5 px-4 text-sm font-medium transition-colors text-center">
+                             💰 Budget
+                         </button>
+                     </div>
+
+                     <div class="p-6 md:p-8">
+                         <!-- Itinerary Panel -->
+                         <div x-show="activeTab === 'itinerary'" x-cloak>
+                             <div class="mb-5 flex items-center justify-between">
+                                 <h3 class="font-serif text-2xl tracking-tight">Day-by-Day Plan</h3>
+                                 <span class="text-sm text-muted-foreground" x-text="(itineraryData?.days || []).length + ' days'"></span>
                              </div>
-                         </template>
-                     </div>
-                 </div>
-
-                 <!-- Transport -->
-                 <div x-show="itineraryData.transport && itineraryData.transport.roundTrip" x-cloak class="rounded-3xl border border-border bg-card p-6 md:p-8">
-                     <h3 class="font-serif text-2xl tracking-tight mb-5">Transport</h3>
-
-                     <!-- Round Trip -->
-                     <div class="rounded-2xl border border-border bg-background/50 p-5 mb-4">
-                         <h4 class="font-semibold text-base flex items-center gap-2"><span>✈️</span> Round-Trip Travel</h4>
-                         <div class="mt-3 grid gap-2 text-sm">
-                             <div class="flex justify-between"><span class="text-muted-foreground">Mode</span><span x-text="itineraryData.transport.roundTrip.mode"></span></div>
-                             <div class="flex justify-between"><span class="text-muted-foreground">Route</span><span x-text="itineraryData.transport.roundTrip.route"></span></div>
-                             <div class="flex justify-between"><span class="text-muted-foreground">Duration</span><span x-text="itineraryData.transport.roundTrip.duration"></span></div>
-                             <div class="flex justify-between"><span class="text-muted-foreground">Est. Cost</span><span x-text="formatCost(itineraryData.transport.roundTrip.estimatedCost)"></span></div>
-                             <div class="flex justify-between"><span class="text-muted-foreground">Book via</span><span x-text="itineraryData.transport.roundTrip.recommendedBookingApp"></span></div>
+                             <div class="space-y-4">
+                                 <template x-for="day in (itineraryData?.days || [])" :key="day.day">
+                                     <div class="rounded-2xl border border-border bg-background/50 p-5">
+                                         <div class="flex items-center gap-3">
+                                             <span class="grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary font-serif text-lg" x-text="day.day"></span>
+                                             <div>
+                                                 <h4 class="font-semibold" x-text="day.title || ('Day ' + day.day + ': ' + (day.theme || ''))"></h4>
+                                                 <p class="text-sm text-muted-foreground" x-text="day.theme"></p>
+                                                 <p class="text-xs text-muted-foreground" x-show="day.date" x-text="formatDate(day.date)"></p>
+                                             </div>
+                                         </div>
+                                         <div class="mt-4 space-y-3">
+                                             <template x-for="act in (day.activities || [])" :key="act.time + '-' + act.activity">
+                                                 <div class="flex items-start gap-4 rounded-xl bg-muted/30 p-4">
+                                                     <span class="min-w-[5rem] text-xs font-medium text-muted-foreground" x-text="act.time || act.timeSlot || act.timeOfDay"></span>
+                                                     <div class="flex-1">
+                                                         <p class="font-medium" x-text="act.activity || act.locationName || 'Activity'"></p>
+                                                         <p class="mt-0.5 text-sm text-muted-foreground" x-text="act.description"></p>
+                                                         <p class="mt-1 text-xs text-muted-foreground" x-show="act.locationName">
+                                                              <span class="text-primary">📍</span> <span x-text="act.locationName"></span>
+                                                         </p>
+                                                         <p class="mt-0.5 text-xs text-muted-foreground" x-show="act.transitInfo">
+                                                              <span class="text-primary">🚌</span> <span x-text="act.transitInfo"></span>
+                                                         </p>
+                                                     </div>
+                                                     <span class="text-sm font-medium" x-text="formatCost(act.estimatedCost || 0)"></span>
+                                                 </div>
+                                             </template>
+                                             <template x-if="!day.activities || !day.activities.length">
+                                                 <p class="text-sm text-muted-foreground">No activities planned for this day.</p>
+                                             </template>
+                                         </div>
+                                     </div>
+                                 </template>
+                             </div>
                          </div>
-                     </div>
 
-                     <!-- Local Transport Apps -->
-                     <div x-show="itineraryData.transport.localTransportApps && itineraryData.transport.localTransportApps.length" x-cloak>
-                         <h4 class="font-semibold text-base flex items-center gap-2 mb-3"><span>📱</span> Local Transport Apps</h4>
-                         <div class="grid gap-3 sm:grid-cols-2">
-                             <template x-for="(app, j) in (itineraryData.transport.localTransportApps || [])" :key="j">
-                                 <div class="rounded-xl border border-border bg-background/50 p-4">
-                                     <p class="font-medium text-sm" x-text="app.name"></p>
-                                     <p class="text-xs text-muted-foreground mt-0.5" x-text="app.purpose"></p>
+                         <!-- Hotels Panel -->
+                         <div x-show="activeTab === 'hotels'" x-cloak>
+                             <h3 class="font-serif text-2xl tracking-tight mb-5">Recommended Hotels</h3>
+                             <div x-show="!itineraryData.hotels || !itineraryData.hotels.length" class="text-sm text-muted-foreground py-4">No hotel recommendations available for this trip.</div>
+                             <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                                 <template x-for="(h, i) in (itineraryData.hotels || [])" :key="i">
+                                     <div class="rounded-2xl border border-border bg-background/50 p-5">
+                                         <h4 class="font-semibold text-base" x-text="h.name"></h4>
+                                         <p class="text-sm text-muted-foreground mt-0.5" x-text="h.area"></p>
+                                         <p class="mt-3 text-sm font-medium text-primary" x-text="formatCost(h.pricePerNight)"></p>
+                                         <p class="text-xs text-muted-foreground mt-1" x-text="h.bestFor"></p>
+                                     </div>
+                                 </template>
+                             </div>
+                         </div>
+
+                         <!-- Transport Panel -->
+                         <div x-show="activeTab === 'transport'" x-cloak>
+                             <h3 class="font-serif text-2xl tracking-tight mb-5">Transport</h3>
+
+                             <div x-show="!itineraryData.transport || !itineraryData.transport.roundTrip" class="text-sm text-muted-foreground py-4">No transport details available for this trip.</div>
+
+                             <div x-show="itineraryData.transport && itineraryData.transport.roundTrip">
+                                 <!-- Round Trip -->
+                                 <div class="rounded-2xl border border-border bg-background/50 p-5 mb-4">
+                                     <h4 class="font-semibold text-base flex items-center gap-2"><span>✈️</span> Round-Trip Travel</h4>
+                                     <div class="mt-3 grid gap-2 text-sm">
+                                         <div class="flex justify-between"><span class="text-muted-foreground">Mode</span><span x-text="itineraryData.transport.roundTrip.mode"></span></div>
+                                         <div class="flex justify-between"><span class="text-muted-foreground">Route</span><span x-text="itineraryData.transport.roundTrip.route"></span></div>
+                                         <div class="flex justify-between"><span class="text-muted-foreground">Duration</span><span x-text="itineraryData.transport.roundTrip.duration"></span></div>
+                                         <div class="flex justify-between"><span class="text-muted-foreground">Est. Cost</span><span x-text="formatCost(itineraryData.transport.roundTrip.estimatedCost)"></span></div>
+                                         <div class="flex justify-between"><span class="text-muted-foreground">Book via</span><span x-text="itineraryData.transport.roundTrip.recommendedBookingApp"></span></div>
+                                     </div>
                                  </div>
-                             </template>
+
+                                 <!-- Local Transport Apps -->
+                                 <div x-show="itineraryData.transport.localTransportApps && itineraryData.transport.localTransportApps.length">
+                                     <h4 class="font-semibold text-base flex items-center gap-2 mb-3"><span>📱</span> Local Transport Apps</h4>
+                                     <div class="grid gap-3 sm:grid-cols-2">
+                                         <template x-for="(app, j) in (itineraryData.transport.localTransportApps || [])" :key="j">
+                                             <div class="rounded-xl border border-border bg-background/50 p-4">
+                                                 <p class="font-medium text-sm" x-text="app.name"></p>
+                                                 <p class="text-xs text-muted-foreground mt-0.5" x-text="app.purpose"></p>
+                                             </div>
+                                         </template>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+
+                         <!-- Budget Panel -->
+                         <div x-show="activeTab === 'budget'" x-cloak>
+                             <h3 class="font-serif text-2xl tracking-tight mb-5">Budget Breakdown</h3>
+
+                             <div x-show="!itineraryData.budgetBreakdown" class="text-sm text-muted-foreground py-4">No budget breakdown available for this trip.</div>
+
+                             <div x-show="itineraryData.budgetBreakdown">
+                                 <p class="text-xs uppercase tracking-wide text-muted-foreground mb-4" x-text="(itineraryData.budgetBreakdown.currency || destCurrencyCode || 'USD') + ' • ' + (itineraryData.days?.length || 0) + ' days'"></p>
+
+                                 <div class="space-y-4">
+
+                                     <div class="flex items-center justify-between rounded-xl bg-background/50 p-4">
+                                         <span class="text-sm font-medium text-muted-foreground">Accommodation</span>
+                                         <span class="font-medium" x-text="formatCostInCurrency(itineraryData.budgetBreakdown.estimatedAccommodationTotal, itineraryData.budgetBreakdown.currency || destCurrencyCode || currencyCode, 1)"></span>
+                                     </div>
+
+                                     <div class="flex items-center justify-between rounded-xl bg-background/50 p-4">
+                                         <span class="text-sm font-medium text-muted-foreground">Food</span>
+                                         <span class="font-medium" x-text="formatCostInCurrency(itineraryData.budgetBreakdown.estimatedFoodTotal, itineraryData.budgetBreakdown.currency || destCurrencyCode || currencyCode, 1)"></span>
+                                     </div>
+
+                                     <div class="flex items-center justify-between rounded-xl bg-background/50 p-4">
+                                         <span class="text-sm font-medium text-muted-foreground">Activities</span>
+                                         <span class="font-medium" x-text="formatCostInCurrency(itineraryData.budgetBreakdown.estimatedActivitiesTotal, itineraryData.budgetBreakdown.currency || destCurrencyCode || currencyCode, 1)"></span>
+                                     </div>
+
+                                     <div class="flex items-center justify-between rounded-xl bg-background/50 p-4">
+                                         <span class="text-sm font-medium text-muted-foreground">Transport</span>
+                                         <span class="font-medium" x-text="formatCostInCurrency(itineraryData.budgetBreakdown.estimatedTransportTotal, itineraryData.budgetBreakdown.currency || destCurrencyCode || currencyCode, 1)"></span>
+                                     </div>
+
+                                     <div class="flex items-center justify-between rounded-xl bg-background/50 p-4">
+                                         <span class="text-sm font-medium text-muted-foreground">Other</span>
+                                         <span class="font-medium" x-text="formatCostInCurrency(itineraryData.budgetBreakdown.estimatedOtherTotal, itineraryData.budgetBreakdown.currency || destCurrencyCode || currencyCode, 1)"></span>
+                                     </div>
+
+                                     <div class="flex items-center justify-between rounded-xl border-t border-border pt-4 mt-2">
+                                         <span class="font-semibold">Grand Total</span>
+                                         <span class="font-serif text-2xl text-primary" x-text="formatCostInCurrency(itineraryData.budgetBreakdown.grandTotal, itineraryData.budgetBreakdown.currency || destCurrencyCode || currencyCode, 1)"></span>
+                                     </div>
+                                 </div>
+
+                                 <div x-show="userCountryCurrencyCode && userCountryCurrencyCode !== destCurrencyCode" class="mt-4 text-right">
+                                     <p class="text-xs text-muted-foreground" x-text="'≈ ' + formatCostInCurrency(itineraryData.totalBudget, userCountryCurrencyCode, userCountryRate) + ' (' + userCountryCurrencyCode + ')'"></p>
+                                 </div>
+                             </div>
                          </div>
                      </div>
                  </div>
 
-                 <!-- Budget Breakdown -->
-                 <div x-show="itineraryData.budgetBreakdown" x-cloak class="rounded-3xl border border-border bg-card p-6 md:p-8">
-                     <h3 class="font-serif text-2xl tracking-tight mb-5">Budget Breakdown</h3>
-                     <p class="text-xs uppercase tracking-wide text-muted-foreground mb-4" x-text="(itineraryData.budgetBreakdown.currency || destCurrencyCode || 'USD') + ' • ' + (itineraryData.days?.length || 0) + ' days'"></p>
-
-                     <div class="space-y-4">
-
-                         <div class="flex items-center justify-between rounded-xl bg-background/50 p-4">
-                             <span class="text-sm font-medium text-muted-foreground">Accommodation</span>
-                             <span class="font-medium" x-text="formatCostInCurrency(itineraryData.budgetBreakdown.estimatedAccommodationTotal, itineraryData.budgetBreakdown.currency || destCurrencyCode || currencyCode, 1)"></span>
-                         </div>
-
-                         <div class="flex items-center justify-between rounded-xl bg-background/50 p-4">
-                             <span class="text-sm font-medium text-muted-foreground">Food</span>
-                             <span class="font-medium" x-text="formatCostInCurrency(itineraryData.budgetBreakdown.estimatedFoodTotal, itineraryData.budgetBreakdown.currency || destCurrencyCode || currencyCode, 1)"></span>
-                         </div>
-
-                         <div class="flex items-center justify-between rounded-xl bg-background/50 p-4">
-                             <span class="text-sm font-medium text-muted-foreground">Activities</span>
-                             <span class="font-medium" x-text="formatCostInCurrency(itineraryData.budgetBreakdown.estimatedActivitiesTotal, itineraryData.budgetBreakdown.currency || destCurrencyCode || currencyCode, 1)"></span>
-                         </div>
-
-                         <div class="flex items-center justify-between rounded-xl bg-background/50 p-4">
-                             <span class="text-sm font-medium text-muted-foreground">Transport</span>
-                             <span class="font-medium" x-text="formatCostInCurrency(itineraryData.budgetBreakdown.estimatedTransportTotal, itineraryData.budgetBreakdown.currency || destCurrencyCode || currencyCode, 1)"></span>
-                         </div>
-
-                         <div class="flex items-center justify-between rounded-xl bg-background/50 p-4">
-                             <span class="text-sm font-medium text-muted-foreground">Other</span>
-                             <span class="font-medium" x-text="formatCostInCurrency(itineraryData.budgetBreakdown.estimatedOtherTotal, itineraryData.budgetBreakdown.currency || destCurrencyCode || currencyCode, 1)"></span>
-                         </div>
-
-                         <div class="flex items-center justify-between rounded-xl border-t border-border pt-4 mt-2">
-                             <span class="font-semibold">Grand Total</span>
-                             <span class="font-serif text-2xl text-primary" x-text="formatCostInCurrency(itineraryData.budgetBreakdown.grandTotal, itineraryData.budgetBreakdown.currency || destCurrencyCode || currencyCode, 1)"></span>
-                         </div>
-                     </div>
-
-                     <div x-show="userCountryCurrencyCode && userCountryCurrencyCode !== destCurrencyCode" class="mt-4 text-right">
-                         <p class="text-xs text-muted-foreground" x-text="'≈ ' + formatCostInCurrency(itineraryData.totalBudget, userCountryCurrencyCode, userCountryRate) + ' (' + userCountryCurrencyCode + ')'"</p>
-                     </div>
-                 </div>
-
-                 <!-- Day by Day Itinerary -->
-                 <div class="rounded-3xl border border-border bg-card p-6 md:p-8">
-                    <div class="mb-5 flex items-center justify-between">
-                        <h3 class="font-serif text-2xl tracking-tight">Day-by-Day Plan</h3>
-                        <span class="text-sm text-muted-foreground" x-text="(itineraryData?.days || []).length + ' days'"></span>
-                    </div>
-                    <div class="space-y-4">
-                        <template x-for="day in (itineraryData?.days || [])" :key="day.day">
-                            <div class="rounded-2xl border border-border bg-background/50 p-5">
-                                <div class="flex items-center gap-3">
-                                    <span class="grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary font-serif text-lg" x-text="day.day"></span>
-                                    <div>
-                                        <h4 class="font-semibold" x-text="day.title || ('Day ' + day.day + ': ' + (day.theme || ''))"></h4>
-                                        <p class="text-sm text-muted-foreground" x-text="day.theme"></p>
-                                        <p class="text-xs text-muted-foreground" x-show="day.date" x-text="formatDate(day.date)"></p>
-                                    </div>
-                                </div>
-                                <div class="mt-4 space-y-3">
-                                    <template x-for="act in (day.activities || [])" :key="act.time + '-' + act.activity">
-                                        <div class="flex items-start gap-4 rounded-xl bg-muted/30 p-4">
-                                            <span class="min-w-[5rem] text-xs font-medium text-muted-foreground" x-text="act.time || act.timeSlot || act.timeOfDay"></span>
-                                            <div class="flex-1">
-                                                <p class="font-medium" x-text="act.activity || act.locationName || 'Activity'"></p>
-                                                <p class="mt-0.5 text-sm text-muted-foreground" x-text="act.description"></p>
-                                                <p class="mt-1 text-xs text-muted-foreground" x-show="act.locationName">
-                                                     <span class="text-primary">📍</span> <span x-text="act.locationName"></span>
-                                                </p>
-                                                <p class="mt-0.5 text-xs text-muted-foreground" x-show="act.transitInfo">
-                                                     <span class="text-primary">🚌</span> <span x-text="act.transitInfo"></span>
-                                                </p>
-                                            </div>
-                                            <span class="text-sm font-medium" x-text="formatCost(act.estimatedCost || 0)"></span>
-                                        </div>
-                                    </template>
-                                    <template x-if="!day.activities || !day.activities.length">
-                                        <p class="text-sm text-muted-foreground">No activities planned for this day.</p>
-                                    </template>
-                                </div>
-                            </div>
-                        </template>
-                    </div>
-                </div>
-
-                <!-- Action Buttons -->
+                 <!-- Action Buttons -->
                 <div class="flex flex-wrap items-center justify-between gap-3 rounded-3xl border border-border bg-card p-5">
                     <p class="text-sm text-muted-foreground">Save this trip to your Saved Trips, or keep it in My Trips for now.</p>
                     <div class="flex flex-wrap gap-3">
@@ -406,6 +437,7 @@ resultIcon: '',
         itineraryData: null,
         tripId: null,
         tripSaved: false,
+        activeTab: 'itinerary',
         form: {
             city: 'Santorini, Greece',
             source: '',
