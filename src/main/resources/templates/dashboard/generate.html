@@ -27,7 +27,7 @@
 <body class="bg-background text-foreground font-sans antialiased">
 <div class="flex min-h-screen overflow-x-hidden">
     <div th:replace="~{fragments/sidebar-nav :: sidebar-nav(active='generate')}"></div>
-    <div class="flex min-h-screen flex-1 flex-col overflow-x-hidden">
+    <div class="flex min-h-screen flex-1 flex-col">
         <div th:replace="~{fragments/topbar :: topbar(title='AI Trip Generator', subtitle='Tell us the basics — we handle the day-by-day, hotels, food, and the small stuff.')}"></div>
         <div class="flex-1 space-y-6 px-4 py-8 md:px-8">
             <!-- Generator Form -->
@@ -149,7 +149,7 @@
                     <div class="flex flex-wrap gap-2">
                         <template x-for="i in interestsList" :key="i.id">
                             <label @click="toggleInterest(i.id)" :class="picked.includes(i.id) ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-card hover:border-primary/40'" class="flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 text-sm transition-colors">
-                                <span class="h-5 w-5 text-primary" x-html="i.icon"></span>
+                                <span class="h-5 w-5" :class="picked.includes(i.id) ? 'text-primary-foreground' : 'text-primary'" x-html="i.icon"></span>
                                 <span x-text="i.label"></span>
                             </label>
                         </template>

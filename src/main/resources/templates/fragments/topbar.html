@@ -44,7 +44,7 @@
                         <svg class="h-3.5 w-3.5 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
                     </button>
                     
-                    <div x-show="profileOpen" x-cloak @click.outside="profileOpen = false" class="absolute right-0 top-full mt-2 w-72 max-h-[82vh] overflow-y-auto rounded-2xl border border-border bg-card py-2 shadow-2xl z-50">
+                    <div x-show="profileOpen" x-cloak @click.outside="profileOpen = false" class="absolute right-0 top-full mt-2 w-72 max-h-[82vh] overflow-y-auto rounded-2xl border border-border bg-card py-2 shadow-2xl z-[9999]">
                         <div class="px-4 py-3">
                             <p class="text-sm font-semibold text-foreground truncate" th:text="${user != null && user.name != null ? user.name : 'User'}">User</p>
                             <p class="text-xs text-muted-foreground truncate" th:text="${user != null && user.email != null ? user.email : ''}">user@example.com</p>
