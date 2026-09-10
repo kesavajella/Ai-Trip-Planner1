@@ -1,7 +1,7 @@
 <header th:fragment="navbar" x-data="{ scrolled: false, mobileOpen: false, profileOpen: false }"
         x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 12 })"
         :class="scrolled ? 'border-border bg-background/85 backdrop-blur-md' : 'border-transparent bg-transparent'"
-        class="sticky top-0 z-40 w-full border-b transition-colors">
+        class="sticky top-0 z-50 w-full border-b transition-colors">
     <div class="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 md:px-6">
         
         <!-- IntelliTrip Brand Logo & Name -->
@@ -19,14 +19,14 @@
 
         <div class="hidden items-center gap-2 md:flex">
             <div th:replace="~{fragments/theme-toggle :: theme-toggle}"></div>
-            <div th:if="${user != null}" class="relative" x-data="{ profileOpen: false, dropdownStyle: {}, positionDropdown() { if (!this.profileOpen) return; this.$nextTick(() => { const btn = this.$refs.profileBtn; if (!btn) return; const r = btn.getBoundingClientRect(); this.dropdownStyle = { position: 'fixed', top: r.bottom + 8 + 'px', right: (window.innerWidth - r.right) + 'px', zIndex: 9999 }; }); } }">
-                <button x-ref="profileBtn" @click="profileOpen = !profileOpen; positionDropdown()" class="flex items-center gap-2 rounded-full border border-border bg-card/80 px-1.5 py-1 pr-3 text-sm hover:bg-muted transition-colors backdrop-blur">
+            <div th:if="${user != null}" class="relative" x-data="{ profileOpen: false }">
+                <button @click="profileOpen = !profileOpen" class="flex items-center gap-2 rounded-full border border-border bg-card/80 px-1.5 py-1 pr-3 text-sm hover:bg-muted transition-colors backdrop-blur">
                     <span class="relative h-7 w-7 overflow-hidden rounded-full bg-muted flex items-center justify-center text-xs font-medium">
                         <span th:text="${#strings.substring(user.name, 0, 1)}">A</span>
                     </span>
                     <span class="font-medium" th:text="${user != null && user.name != null ? #strings.arraySplit(user.name, ' ')[0] : 'User'}">User</span>
                 </button>
-                <div x-show="profileOpen" x-cloak @click.outside="profileOpen = false" x-teleport="body" :style="dropdownStyle" class="w-48 rounded-lg border border-border bg-card py-1 shadow-lg">
+                <div x-show="profileOpen" x-cloak @click.outside="profileOpen = false" class="absolute right-0 top-full mt-2 w-48 rounded-lg border border-border bg-card py-1 shadow-lg z-[1000]">
                     <form th:action="@{/logout}" method="get">
                         <button type="submit" class="w-full px-4 py-2 text-left text-sm text-muted-foreground hover:bg-muted hover:text-foreground">Log out</button>
                     </form>

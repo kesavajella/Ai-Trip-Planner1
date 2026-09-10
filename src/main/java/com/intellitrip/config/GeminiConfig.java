@@ -17,7 +17,7 @@ public class GeminiConfig {
     @Value("${GEMINI_API_KEY_FALLBACK:#{null}}")
     private String fallbackApiKey;
 
-    @Value("${app.gemini.model:gemini-flash-latest}")
+    @Value("${app.gemini.model:gemini-3.8-flash}")
     private String model;
 
     @Value("${app.gemini.connect-timeout-ms:10000}")
