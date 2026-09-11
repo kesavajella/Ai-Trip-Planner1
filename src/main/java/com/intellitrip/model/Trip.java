@@ -81,6 +81,7 @@ public class Trip {
     public void setCountry(String country) { this.country = country; }
     public String getImage() { return image; }
     public void setImage(String image) { this.image = image; }
+    public String getImageUrl() { return image; }
     public int getDays() { return days; }
     public void setDays(int days) { this.days = days; }
     public String getBudget() { return budget; }

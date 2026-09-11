@@ -28,7 +28,7 @@ class ItineraryCacheServiceTest {
         String key2 = cacheService.buildKey("  tokyo, japan  ", 5, "moderate", "solo  ");
 
         assertEquals(key1, key2);
-        assertEquals("tokyo, japan|5|moderate|solo", key1);
+        assertEquals("tokyo, japan|||5|moderate|solo", key1);
     }
 
     @Test

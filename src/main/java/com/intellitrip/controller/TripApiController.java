@@ -11,6 +11,7 @@ import com.intellitrip.repository.UserRepository;
 import com.intellitrip.service.CurrencyService;
 import com.intellitrip.service.ItineraryGeneratorService;
 import com.intellitrip.service.NotificationService;
+import com.intellitrip.service.PexelsService;
 import com.intellitrip.service.TripService;
 import com.intellitrip.exception.GeminiQuotaExceededException;
 import org.slf4j.Logger;
@@ -27,7 +28,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 
 @RestController
 @RequestMapping("/api")
@@ -40,14 +40,15 @@ public class TripApiController {
     private final NotificationService notificationService;
     private final UserRepository userRepository;
     private final CurrencyService currencyService;
-    private final Random random = new Random();
+    private final PexelsService pexelsService;
 
-    public TripApiController(ItineraryGeneratorService itineraryGenerator, TripService tripService, NotificationService notificationService, UserRepository userRepository, CurrencyService currencyService) {
+    public TripApiController(ItineraryGeneratorService itineraryGenerator, TripService tripService, NotificationService notificationService, UserRepository userRepository, CurrencyService currencyService, PexelsService pexelsService) {
         this.itineraryGenerator = itineraryGenerator;
         this.tripService = tripService;
         this.notificationService = notificationService;
         this.userRepository = userRepository;
         this.currencyService = currencyService;
+        this.pexelsService = pexelsService;
     }
 
 @GetMapping("/trips")
@@ -303,14 +304,7 @@ public class TripApiController {
             trip.setCountry(cityParts[1].trim());
         }
 
-        String[] staticImages = {
-            "/images/image1.jpeg", "/images/image2.jpeg", "/images/image3.jpeg",
-            "/images/image4.jpeg", "/images/image5.jpeg", "/images/image6.jpeg",
-            "/images/image7.jpeg", "/images/image8.jpeg", "/images/image9.jpg",
-            "/images/image10.jpeg", "/images/image11.jpeg", "/images/image12.jpeg",
-            "/images/image13.jpeg", "/images/image14.jpeg", "/images/image15.jpeg"
-        };
-        trip.setImage(staticImages[random.nextInt(staticImages.length)]);
+        trip.setImage(pexelsService.fetchCoverImage(city));
 
         trip.setDays(days);
         trip.setBudget(budget);
