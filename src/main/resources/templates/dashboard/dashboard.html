@@ -62,7 +62,7 @@
                 </div>
                 <div class="rounded-3xl border border-border bg-card p-5">
                     <div class="flex items-start justify-between">
-                        <div><p class="text-xs uppercase tracking-wide text-muted-foreground">Budget tracked</p><p class="mt-2 font-serif text-3xl tracking-tight" th:text="${userCountryCurrencyCode != null && !userCountryCurrencyCode.isBlank() ? @currencyService.formatInCurrency(totalBudget, userCountryCurrencyCode, userLocale) : @currencyService.format(totalBudget, userLocale)}">$0</p></div>
+                        <div><p class="text-xs uppercase tracking-wide text-muted-foreground">Budget tracked</p><p class="mt-2 font-serif text-3xl tracking-tight" th:text="${userCountryCurrencyCode != null && !userCountryCurrencyCode.isBlank() ? @currencyService.convertAndFormat(totalBudget, userCountryCurrencyCode, userLocale) : @currencyService.format(totalBudget, userLocale)}">$0</p></div>
                         <span class="grid h-9 w-9 place-items-center rounded-xl bg-primary/10 text-primary">
                             <svg class="h-[1.05rem] w-[1.05rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
                         </span>

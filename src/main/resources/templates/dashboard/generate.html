@@ -64,35 +64,36 @@
                              </template>
                          </ul>
                      </div>
-                    <div class="relative space-y-2">
-                        <label class="flex items-center gap-1.5 text-sm font-medium"><svg class="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Source / Starting Location</label>
-                        <input type="text"
-                               x-model="form.source"
-                               @input="onSourceInput($event)"
-                               @keydown.down.prevent="openSourceSuggestions(); highlightNextSource()"
-                               @keydown.up.prevent="highlightPrevSource()"
-                               @keydown.enter="onSourceEnter($event)"
-                               @keydown.escape="closeSourceSuggestions"
-                               @blur="closeSourceSuggestions"
-                               placeholder="Search your starting city or country..."
-                               autocomplete="off"
-                               class="flex h-12 w-full rounded-xl border border-input bg-background px-4 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                        <div x-show="showSourceSuggestions && sourceSuggestions.length"
+<div class="destination-wrapper relative space-y-2" style="position: relative; width: 100%;">
+                         <label class="flex items-center gap-1.5 text-sm font-medium"><svg class="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Source / Starting Location</label>
+                         <input type="text"
+                                x-model="form.source"
+                                @input="onSourceInput($event)"
+                                @keydown.down.prevent="openSourceSuggestions(); highlightNextSource()"
+                                @keydown.up.prevent="highlightPrevSource()"
+                                @keydown.enter="onSourceEnter($event)"
+                                @keydown.escape="closeSourceSuggestions"
+                                @blur="closeSourceSuggestions"
+                                placeholder="Search your starting city or country..."
+                                autocomplete="off"
+                                class="flex h-12 w-full rounded-xl border border-input bg-background px-4 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                         <ul id="sourceDropdown" class="autocomplete-list"
+                             x-show="showSourceSuggestions && sourceSuggestions.length"
                              x-cloak
-                             class="absolute top-full left-0 z-30 mt-1 max-h-72 w-full overflow-y-auto rounded-xl border border-border bg-card shadow-xl">
-                            <template x-for="(s, i) in sourceSuggestions" :key="i">
-                                <div @mousedown.prevent="pickSource(i)"
-                                     :class="{'bg-accent': i === highlightedSourceIndex}"
-                                     class="cursor-pointer px-3 py-2">
-                                    <div class="flex items-center justify-between">
-                                        <span x-text="s.name" class="font-medium"></span>
-                                        <span class="text-xs text-muted-foreground" x-text="typeLabel(s.type)"></span>
-                                    </div>
-                                    <div class="text-xs text-muted-foreground" x-text="subtitle(s)"></div>
-                                </div>
-                            </template>
-                        </div>
-                    </div>
+                             style="display: none;">
+                             <template x-for="(s, i) in sourceSuggestions" :key="i">
+                                 <li @mousedown.prevent="pickSource(i)"
+                                     :class="{'bg-primary text-primary-foreground': i === highlightedSourceIndex}"
+                                     class="cursor-pointer">
+                                     <div>
+                                         <div class="city-title" x-text="s.name"></div>
+                                         <div class="subtext" x-text="subtitle(s)"></div>
+                                     </div>
+                                     <span class="badge" x-text="typeLabel(s.type)"></span>
+                                 </li>
+                             </template>
+                         </ul>
+                     </div>
                     <div class="space-y-2">
                         <label for="days" class="flex items-center gap-1.5 text-sm"><svg class="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg> Number of days</label>
                         <input id="days" type="number" x-model.number="form.numberOfDays" min="1" max="30" class="flex h-11 w-full rounded-xl border border-input bg-background px-4 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
@@ -468,6 +469,8 @@ resultIcon: '',
         showSourceSuggestions: false,
         highlightedSourceIndex: -1,
         sourceDebounceTimer: null,
+        sourceAbortController: null,
+        sourceSearchCache: new Map(),
         todayDate: new Date(Date.now() + 86400000).toISOString().split('T')[0],
 currencyCode: 'USD',
         rate: 1,
@@ -631,25 +634,49 @@ init() {
 
             clearTimeout(this.sourceDebounceTimer);
             this.sourceDebounceTimer = setTimeout(() => {
-                fetch('/api/data/autocomplete?q=' + encodeURIComponent(val) + '&limit=10')
-                    .then(r => r.ok ? r.json() : Promise.reject(r))
+                if (this.sourceAbortController) {
+                    this.sourceAbortController.abort();
+                }
+                this.sourceAbortController = new AbortController();
+
+                const cacheKey = val.toLowerCase();
+                if (this.sourceSearchCache.has(cacheKey)) {
+                    this.sourceSuggestions = this.sourceSearchCache.get(cacheKey);
+                    this.highlightedSourceIndex = this.sourceSuggestions.length ? 0 : -1;
+                    this.showSourceSuggestions = this.sourceSuggestions.length > 0;
+                    return;
+                }
+
+                const endpoint = 'https://photon.komoot.io/api/?q=' + encodeURIComponent(val) + '&limit=6';
+                fetch(endpoint, { signal: this.sourceAbortController.signal })
+                    .then(r => r.json())
                     .then(data => {
-                        this.sourceSuggestions = (data.results || []).map(s => ({
-                            type: s.type,
-                            name: s.name,
-                            country: s.country || '',
-                            state: s.state || '',
-                            countryCode: s.countryCode || ''
-                        }));
+                        const results = (data.features || []).map(item => {
+                            const props = item.properties;
+                            const locationParts = [props.district, props.city, props.state, props.country].filter(Boolean);
+                            const subtitle = [...new Set(locationParts)].filter(part => part !== props.name).join(', ');
+                            return {
+                                type: (props.osm_value || props.type || 'Place').replace(/_/g, ' '),
+                                name: props.name || '',
+                                country: props.country || '',
+                                state: props.state || '',
+                                subtitle: subtitle,
+                                countryCode: props.countrycode || props.country || ''
+                            };
+                        });
+                        this.sourceSearchCache.set(cacheKey, results);
+                        this.sourceSuggestions = results;
                         this.highlightedSourceIndex = this.sourceSuggestions.length ? 0 : -1;
                         this.showSourceSuggestions = this.sourceSuggestions.length > 0;
                     })
-                    .catch(() => {
-                        this.sourceSuggestions = [];
-                        this.showSourceSuggestions = false;
-                        this.highlightedSourceIndex = -1;
+                    .catch(err => {
+                        if (err.name !== 'AbortError') {
+                            this.sourceSuggestions = [];
+                            this.showSourceSuggestions = false;
+                            this.highlightedSourceIndex = -1;
+                        }
                     });
-            }, 200);
+            }, 180);
         },
 
         pickSource(i) {

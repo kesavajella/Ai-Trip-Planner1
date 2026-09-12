@@ -54,7 +54,7 @@
                         </div>
                         <div>
                             <dt class="text-xs uppercase tracking-wide text-muted-foreground">Total Cost</dt>
-                            <dd class="mt-1 text-lg font-medium" th:with="code=${trip.destinationCurrencyCode}" th:text="${code != null && !code.isBlank() ? @currencyService.formatInCurrency(trip.budgetUsd, code, userLocale) : @currencyService.formatInCurrency(trip.budgetUsd, 'USD', userLocale)}"></dd>
+                            <dd class="mt-1 text-lg font-medium" th:with="code=${trip.destinationCurrencyCode}" th:text="${code != null && !code.isBlank() ? @currencyService.convertAndFormat(trip.budgetUsd, code, userLocale) : @currencyService.convertAndFormat(trip.budgetUsd, 'USD', userLocale)}"></dd>
                         </div>
                     </div>
                 </div>
