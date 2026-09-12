@@ -204,8 +204,11 @@ public class GeminiAiService {
         String primaryKey = geminiConfig.getApiKey();
         String fallbackKey = geminiConfig.getFallbackApiKey();
 
-        if (primaryKey == null || primaryKey.isBlank()) {
-            if (fallbackKey != null && !fallbackKey.isBlank()) {
+        boolean primaryAvailable = primaryKey != null && !primaryKey.isBlank();
+        boolean fallbackAvailable = fallbackKey != null && !fallbackKey.isBlank();
+
+        if (!primaryAvailable) {
+            if (fallbackAvailable) {
                 log.info("Primary key not set, using fallback key");
                 return callGemini(requestBody, fallbackKey);
             }
@@ -217,19 +220,35 @@ public class GeminiAiService {
             return callGemini(requestBody, primaryKey);
         } catch (RateLimitException e) {
             log.warn("Primary API key rate-limited, trying fallback key...");
-            if (fallbackKey != null && !fallbackKey.isBlank()) {
+            if (fallbackAvailable) {
                 return callGemini(requestBody, fallbackKey);
             }
             throw e;
         } catch (RuntimeException e) {
             String msg = e.getMessage();
-            if (msg != null && (msg.contains("429") || msg.contains("RESOURCE_EXHAUSTED") || msg.contains("403") || msg.contains("PERMISSION_DENIED"))) {
-                log.warn("Primary API key failed with: {}, trying fallback key...", msg);
-                if (fallbackKey != null && !fallbackKey.isBlank()) {
+            boolean rateLimited = msg != null && (msg.contains("429") || msg.contains("RESOURCE_EXHAUSTED") || msg.contains("403") || msg.contains("PERMISSION_DENIED"));
+            boolean networkError = msg != null && (msg.contains("timeout") || msg.contains("Timeout") || msg.contains("Connection") || msg.contains("UnknownHost") || msg.contains("SSL"));
+            if ((rateLimited || networkError) && fallbackAvailable) {
+                log.warn("Primary API key failed ({}), trying fallback key...", msg != null ? msg : "error");
+                try {
                     return callGemini(requestBody, fallbackKey);
+                } catch (Exception fallbackEx) {
+                    log.error("Fallback API key also failed: {}", fallbackEx.getMessage());
+                    throw new RuntimeException("Both primary and fallback Gemini API keys failed: " + fallbackEx.getMessage(), fallbackEx);
                 }
             }
             throw e;
+        } catch (Exception e) {
+            if (fallbackAvailable) {
+                log.warn("Primary API key threw unexpected exception, trying fallback key: {}", e.getMessage());
+                try {
+                    return callGemini(requestBody, fallbackKey);
+                } catch (Exception fallbackEx) {
+                    log.error("Fallback API key also failed: {}", fallbackEx.getMessage());
+                    throw new RuntimeException("Both primary and fallback Gemini API keys failed: " + fallbackEx.getMessage(), fallbackEx);
+                }
+            }
+            throw new RuntimeException("Failed to call Gemini API: " + e.getMessage(), e);
         }
     }
 

@@ -244,18 +244,22 @@
                  <!-- Tabbed Sections: Itinerary | Hotels | Transport | Budget -->
                  <div class="rounded-3xl border border-border bg-card overflow-hidden">
                      <!-- Tab Buttons -->
-                     <div class="flex border-b border-border bg-muted/30">
-                         <button type="button" @click="activeTab = 'itinerary'" :class="activeTab === 'itinerary' ? 'border-b-2 border-primary text-primary bg-primary/5' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'" class="flex-1 py-3.5 px-4 text-sm font-medium transition-colors text-center">
-                             📅 Day by Day Plan
+                     <div class="grid grid-cols-2 gap-3 p-4 md:grid-cols-4 md:p-5">
+                         <button type="button" @click="activeTab = 'itinerary'" :class="activeTab === 'itinerary' ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-card text-muted-foreground hover:border-primary/50 hover:text-foreground'" class="flex flex-col items-center justify-center gap-1.5 rounded-2xl border-2 px-3 py-4 text-sm font-semibold transition-colors">
+                             <span class="text-lg">📅</span>
+                             <span>Day by Day Plan</span>
                          </button>
-                         <button type="button" @click="activeTab = 'hotels'" :class="activeTab === 'hotels' ? 'border-b-2 border-primary text-primary bg-primary/5' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'" class="flex-1 py-3.5 px-4 text-sm font-medium transition-colors text-center">
-                             🏨 Hotels
+                         <button type="button" @click="activeTab = 'hotels'" :class="activeTab === 'hotels' ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-card text-muted-foreground hover:border-primary/50 hover:text-foreground'" class="flex flex-col items-center justify-center gap-1.5 rounded-2xl border-2 px-3 py-4 text-sm font-semibold transition-colors">
+                             <span class="text-lg">🏨</span>
+                             <span>Hotels</span>
                          </button>
-                         <button type="button" @click="activeTab = 'transport'" :class="activeTab === 'transport' ? 'border-b-2 border-primary text-primary bg-primary/5' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'" class="flex-1 py-3.5 px-4 text-sm font-medium transition-colors text-center">
-                             🚌 Transport
+                         <button type="button" @click="activeTab = 'transport'" :class="activeTab === 'transport' ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-card text-muted-foreground hover:border-primary/50 hover:text-foreground'" class="flex flex-col items-center justify-center gap-1.5 rounded-2xl border-2 px-3 py-4 text-sm font-semibold transition-colors">
+                             <span class="text-lg">🚌</span>
+                             <span>Transport</span>
                          </button>
-                         <button type="button" @click="activeTab = 'budget'" :class="activeTab === 'budget' ? 'border-b-2 border-primary text-primary bg-primary/5' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'" class="flex-1 py-3.5 px-4 text-sm font-medium transition-colors text-center">
-                             💰 Budget
+                         <button type="button" @click="activeTab = 'budget'" :class="activeTab === 'budget' ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-card text-muted-foreground hover:border-primary/50 hover:text-foreground'" class="flex flex-col items-center justify-center gap-1.5 rounded-2xl border-2 px-3 py-4 text-sm font-semibold transition-colors">
+                             <span class="text-lg">💰</span>
+                             <span>Budget</span>
                          </button>
                      </div>
 
