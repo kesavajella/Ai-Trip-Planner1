@@ -15,7 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,14 +60,36 @@ public class DashboardController {
 
         List<Trip> upcomingPreview = upcoming.stream().limit(3).toList();
 
+        // A trip is "past" when its start date + duration falls on or before today.
+        LocalDate today = LocalDate.now();
+        List<Trip> pastTrips = userTrips.stream()
+                .filter(t -> isPast(t, today))
+                .sorted(Comparator.comparing(Trip::getCreatedAt).reversed())
+                .limit(3)
+                .toList();
+
         model.addAttribute("upcoming", upcomingPreview);
         model.addAttribute("upcomingCount", upcoming.size());
+        model.addAttribute("pastTrips", pastTrips);
+        model.addAttribute("pastCount", pastTrips.size());
         model.addAttribute("totalTrips", userTrips.size());
         model.addAttribute("upcomingDays", upcoming.stream().mapToInt(Trip::getDays).sum());
         model.addAttribute("totalBudget", userTrips.stream().mapToDouble(Trip::getBudgetUsd).sum());
         addUserCountryCurrency(model, user);
 
         return "dashboard/dashboard";
+    }
+
+    private boolean isPast(Trip trip, LocalDate today) {
+        if (trip.getStartDate() == null || trip.getStartDate().isBlank()) {
+            return "completed".equalsIgnoreCase(trip.getStatus());
+        }
+        try {
+            LocalDate start = LocalDate.parse(trip.getStartDate().trim());
+            return start.plusDays(trip.getDays()).isBefore(today) || start.plusDays(trip.getDays()).equals(today);
+        } catch (Exception e) {
+            return "completed".equalsIgnoreCase(trip.getStatus());
+        }
     }
 
 @GetMapping("/generate")
