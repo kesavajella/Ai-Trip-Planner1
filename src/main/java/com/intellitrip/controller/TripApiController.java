@@ -308,7 +308,7 @@ public class TripApiController {
 
         trip.setDays(days);
         trip.setBudget(budget);
-        trip.setBudgetUsd(itinerary.getTotalBudget());
+        trip.setBudgetUsd(itinerary.getTotalBudgetUsd() > 0 ? itinerary.getTotalBudgetUsd() : itinerary.getTotalBudget());
         trip.setTravelType(travelers);
         trip.setInterests(interests != null ? String.join(", ", interests) : "");
         trip.setAccommodationPreference(accommodationPreference != null ? accommodationPreference : "");

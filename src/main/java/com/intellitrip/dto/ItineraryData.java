@@ -19,6 +19,7 @@ public class ItineraryData {
     private Object transport;
     private Object budgetBreakdown;
     private Object tripOverview;
+    private double totalBudgetUsd;
 
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
@@ -52,6 +53,9 @@ public class ItineraryData {
     public void setBudgetBreakdown(Object budgetBreakdown) { this.budgetBreakdown = budgetBreakdown; }
     public Object getTripOverview() { return tripOverview; }
     public void setTripOverview(Object tripOverview) { this.tripOverview = tripOverview; }
+
+    public double getTotalBudgetUsd() { return totalBudgetUsd; }
+    public void setTotalBudgetUsd(double totalBudgetUsd) { this.totalBudgetUsd = totalBudgetUsd; }
 
     public static class DayData {
         private int day;

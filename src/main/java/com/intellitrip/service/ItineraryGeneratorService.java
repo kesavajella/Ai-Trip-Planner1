@@ -439,8 +439,11 @@ public class ItineraryGeneratorService {
         double dailyRateInr = dailyRateInrForTier(request.getBudget());
         double destDailyRate = convertInrToDestination(dailyRateInr, data.getDestinationCurrencyCode());
         double totalBudget = destDailyRate * request.getNumberOfDays();
+        double inrRate = currencyService.usdRateForCurrency(BASE_CURRENCY_INR);
+        double totalBudgetUsd = inrRate > 0 ? (dailyRateInr / inrRate) * request.getNumberOfDays() : totalBudget;
 
         data.setTotalBudget(totalBudget);
+        data.setTotalBudgetUsd(totalBudgetUsd);
         data.setDailyBudget(destDailyRate);
 
         return data;
@@ -474,8 +477,11 @@ public class ItineraryGeneratorService {
         double dailyRateInr = dailyRateInrForTier(budget);
         double destDailyRate = convertInrToDestination(dailyRateInr, data.getDestinationCurrencyCode());
         double totalBudget = destDailyRate * days;
+        double inrRate = currencyService.usdRateForCurrency(BASE_CURRENCY_INR);
+        double totalBudgetUsd = inrRate > 0 ? (dailyRateInr / inrRate) * days : totalBudget;
 
         data.setTotalBudget(totalBudget);
+        data.setTotalBudgetUsd(totalBudgetUsd);
         data.setDailyBudget(destDailyRate);
 
         String[] timeSlots = {"09:00 AM", "11:30 AM", "02:00 PM", "04:30 PM", "07:00 PM", "08:30 PM"};

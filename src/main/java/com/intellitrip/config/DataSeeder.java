@@ -112,7 +112,7 @@ public class DataSeeder implements CommandLineRunner {
         upcoming1.setImage("/images/image1.jpeg");
         upcoming1.setDays(5);
         upcoming1.setBudget("Moderate");
-        upcoming1.setBudgetUsd(1200 / currencyService.usdRateForCurrency("JPY"));
+        upcoming1.setBudgetUsd(1200);
         upcoming1.setTravelType("Solo");
         upcoming1.setInterests("culture, food");
         upcoming1.setDestinationCurrencyCode("JPY");
@@ -129,7 +129,7 @@ public class DataSeeder implements CommandLineRunner {
         completed1.setImage("/images/image2.jpeg");
         completed1.setDays(7);
         completed1.setBudget("Luxury");
-        completed1.setBudgetUsd(2500 / currencyService.usdRateForCurrency("IDR"));
+        completed1.setBudgetUsd(2500);
         completed1.setTravelType("Couple");
         completed1.setInterests("nature, food");
         completed1.setDestinationCurrencyCode("IDR");
@@ -146,7 +146,7 @@ public class DataSeeder implements CommandLineRunner {
         upcoming2.setImage("/images/image3.jpeg");
         upcoming2.setDays(4);
         upcoming2.setBudget("Luxury");
-        upcoming2.setBudgetUsd(3000 / currencyService.usdRateForCurrency("EUR"));
+        upcoming2.setBudgetUsd(3000);
         upcoming2.setTravelType("Couple");
         upcoming2.setInterests("culture, food, nightlife");
         upcoming2.setDestinationCurrencyCode("EUR");
@@ -163,7 +163,7 @@ public class DataSeeder implements CommandLineRunner {
         completed2.setImage("/images/image4.jpeg");
         completed2.setDays(6);
         completed2.setBudget("Moderate");
-        completed2.setBudgetUsd(1500 / currencyService.usdRateForCurrency("TRY"));
+        completed2.setBudgetUsd(1500);
         completed2.setTravelType("Family");
         completed2.setInterests("culture, adventure");
         completed2.setDestinationCurrencyCode("TRY");
@@ -180,7 +180,7 @@ public class DataSeeder implements CommandLineRunner {
         upcoming3.setImage("/images/image5.jpeg");
         upcoming3.setDays(5);
         upcoming3.setBudget("Moderate");
-        upcoming3.setBudgetUsd(1800 / currencyService.usdRateForCurrency("EUR"));
+        upcoming3.setBudgetUsd(1800);
         upcoming3.setTravelType("Friends");
         upcoming3.setInterests("culture, food, nightlife");
         upcoming3.setDestinationCurrencyCode("EUR");
@@ -197,7 +197,7 @@ public class DataSeeder implements CommandLineRunner {
         completed3.setImage("/images/image6.jpeg");
         completed3.setDays(5);
         completed3.setBudget("Budget Friendly");
-        completed3.setBudgetUsd(700 / currencyService.usdRateForCurrency("THB"));
+        completed3.setBudgetUsd(700);
         completed3.setTravelType("Family");
         completed3.setInterests("nature, adventure");
         completed3.setDestinationCurrencyCode("THB");
