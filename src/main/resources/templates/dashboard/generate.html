@@ -33,35 +33,37 @@
             <!-- Generator Form -->
             <form @submit.prevent="generateTrip" class="space-y-12 rounded-3xl border border-border bg-card p-6 md:p-8 font-sans">
                 <div class="grid gap-5 md:grid-cols-2">
-                    <div class="relative space-y-2">
-                        <label class="flex items-center gap-1.5 text-sm font-medium"><svg class="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> What is destination of choice?</label>
-                        <input type="text"
-                               x-model="form.city"
-                               @input="onCityInput($event)"
-                               @keydown.down.prevent="openSuggestions(); highlightNext()"
-                               @keydown.up.prevent="highlightPrev()"
-                               @keydown.enter="onEnter($event)"
-                               @keydown.escape="closeSuggestions"
-                               @blur="closeSuggestions"
-                               placeholder="Search countries, states, cities..."
-                               autocomplete="off"
-                               class="flex h-12 w-full rounded-xl border border-input bg-background px-4 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                        <div x-show="showSuggestions && suggestions.length"
+<div class="destination-wrapper relative space-y-2" style="position: relative; width: 100%;">
+                         <label class="flex items-center gap-1.5 text-sm font-medium"><svg class="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> What is destination of choice?</label>
+                         <input type="text"
+                                id="destinationInput"
+                                x-model="form.city"
+                                @input="onCityInput($event)"
+                                @keydown.down.prevent="highlightNext()"
+                                @keydown.up.prevent="highlightPrev()"
+                                @keydown.enter="onEnter($event)"
+                                @keydown.escape="closeSuggestions"
+                                @blur="closeSuggestions"
+                                placeholder="Search destinations, landmarks, cities..."
+                                autocomplete="off"
+                                class="flex h-12 w-full rounded-xl border border-input bg-background px-4 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                         <ul id="cityDropdown" class="autocomplete-list"
+                             x-show="showSuggestions && suggestions.length"
                              x-cloak
-                             class="absolute top-full left-0 z-30 mt-1 max-h-72 w-full overflow-y-auto rounded-xl border border-border bg-card shadow-xl">
-                            <template x-for="(s, i) in suggestions" :key="i">
-                                <div @mousedown.prevent="pick(i)"
-                                     :class="{'bg-accent': i === highlightedIndex}"
-                                     class="cursor-pointer px-3 py-2">
-                                    <div class="flex items-center justify-between">
-                                        <span x-text="s.name" class="font-medium"></span>
-                                        <span class="text-xs text-muted-foreground" x-text="typeLabel(s.type)"></span>
-                                    </div>
-                                    <div class="text-xs text-muted-foreground" x-text="subtitle(s)"></div>
-                                </div>
-                            </template>
-                        </div>
-                    </div>
+                             style="display: none;">
+                             <template x-for="(s, i) in suggestions" :key="i">
+                                 <li @mousedown.prevent="pick(i)"
+                                     :class="{'bg-primary text-primary-foreground': i === highlightedIndex}"
+                                     class="cursor-pointer">
+                                     <div>
+                                         <div class="city-title" x-text="s.name"></div>
+                                         <div class="subtext" x-text="subtitle(s)"></div>
+                                     </div>
+                                     <span class="badge" x-text="typeLabel(s.type)"></span>
+                                 </li>
+                             </template>
+                         </ul>
+                     </div>
                     <div class="relative space-y-2">
                         <label class="flex items-center gap-1.5 text-sm font-medium"><svg class="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Source / Starting Location</label>
                         <input type="text"
@@ -460,6 +462,8 @@ resultIcon: '',
         showSuggestions: false,
         highlightedIndex: -1,
         debounceTimer: null,
+        abortController: null,
+        searchCache: new Map(),
         sourceSuggestions: [],
         showSourceSuggestions: false,
         highlightedSourceIndex: -1,
@@ -543,25 +547,49 @@ init() {
 
             clearTimeout(this.debounceTimer);
             this.debounceTimer = setTimeout(() => {
-                fetch('/api/data/autocomplete?q=' + encodeURIComponent(val) + '&limit=10')
-                    .then(r => r.ok ? r.json() : Promise.reject(r))
+                if (this.abortController) {
+                    this.abortController.abort();
+                }
+                this.abortController = new AbortController();
+
+                const cacheKey = val.toLowerCase();
+                if (this.searchCache.has(cacheKey)) {
+                    this.suggestions = this.searchCache.get(cacheKey);
+                    this.highlightedIndex = this.suggestions.length ? 0 : -1;
+                    this.showSuggestions = this.suggestions.length > 0;
+                    return;
+                }
+
+                const endpoint = 'https://photon.komoot.io/api/?q=' + encodeURIComponent(val) + '&limit=6';
+                fetch(endpoint, { signal: this.abortController.signal })
+                    .then(r => r.json())
                     .then(data => {
-                        this.suggestions = (data.results || []).map(s => ({
-                            type: s.type,
-                            name: s.name,
-                            country: s.country || '',
-                            state: s.state || '',
-                            countryCode: s.countryCode || ''
-                        }));
+                        const results = (data.features || []).map(item => {
+                            const props = item.properties;
+                            const locationParts = [props.district, props.city, props.state, props.country].filter(Boolean);
+                            const subtitle = [...new Set(locationParts)].filter(part => part !== props.name).join(', ');
+                            return {
+                                type: (props.osm_value || props.type || 'Place').replace(/_/g, ' '),
+                                name: props.name || '',
+                                country: props.country || '',
+                                state: props.state || '',
+                                subtitle: subtitle,
+                                countryCode: props.countrycode || props.country || ''
+                            };
+                        });
+                        this.searchCache.set(cacheKey, results);
+                        this.suggestions = results;
                         this.highlightedIndex = this.suggestions.length ? 0 : -1;
                         this.showSuggestions = this.suggestions.length > 0;
                     })
-                    .catch(() => {
-                        this.suggestions = [];
-                        this.showSuggestions = false;
-                        this.highlightedIndex = -1;
+                    .catch(err => {
+                        if (err.name !== 'AbortError') {
+                            this.suggestions = [];
+                            this.showSuggestions = false;
+                            this.highlightedIndex = -1;
+                        }
                     });
-            }, 200);
+            }, 180);
         },
 
         typeLabel(type) {
@@ -571,9 +599,7 @@ init() {
         },
 
         subtitle(s) {
-            if (s.type === 'city') return s.state ? s.state + ', ' + s.country : s.country;
-            if (s.type === 'state') return s.country || '';
-            return '';
+            return s.subtitle || (s.type === 'city' ? (s.state ? s.state + ', ' + s.country : s.country) : (s.state || s.country || ''));
         },
 
         buildLabel(s) {
