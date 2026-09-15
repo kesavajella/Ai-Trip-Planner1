@@ -48,7 +48,7 @@
                 </div>
 
                 <!-- Saved Trips Grid -->
-                <div x-show="!loading && savedTrips.length > 0" x-cloak class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                <div x-show="!loading && savedTrips.length > 0" x-cloak class="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                     <template x-for="trip in savedTrips" :key="trip.id">
                         <a :href="'/dashboard/trips/' + trip.id" class="flex flex-col rounded-3xl border border-border bg-card overflow-hidden group transition-all hover:-translate-y-1 hover:soft-shadow-lg">
                             <div class="relative aspect-[16/10] w-full overflow-hidden">
@@ -100,7 +100,7 @@
                 </div>
 
                 <!-- Saved Places Grid -->
-                <div x-show="!loading && savedPlaces.length > 0" x-cloak class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                <div x-show="!loading && savedPlaces.length > 0" x-cloak class="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                     <template x-for="place in savedPlaces" :key="place.id">
                         <div class="flex flex-col rounded-3xl border border-border bg-card overflow-hidden group transition-all hover:-translate-y-1 hover:soft-shadow-lg">
                             <div class="relative w-full overflow-hidden" :class="place.tripId ? 'aspect-[16/10]' : 'aspect-[4/3]'">

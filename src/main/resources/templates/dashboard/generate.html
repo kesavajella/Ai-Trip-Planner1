@@ -31,8 +31,8 @@
         <div th:replace="~{fragments/topbar :: topbar(title='AI Trip Generator', subtitle='Tell us the basics — we handle the day-by-day, hotels, food, and the small stuff.')}"></div>
         <div class="flex-1 space-y-6 px-4 py-8 md:px-8">
             <!-- Generator Form -->
-            <form @submit.prevent="generateTrip" class="space-y-12 rounded-3xl border border-border bg-card p-6 md:p-8 font-sans">
-                <div class="grid gap-5 md:grid-cols-2">
+            <form @submit.prevent="generateTrip" class="space-y-12 rounded-3xl border border-border bg-card p-4 sm:p-6 md:p-8 font-sans">
+                <div class="grid gap-4 md:grid-cols-2">
 <div class="destination-wrapper relative space-y-2" style="position: relative; width: 100%;">
                          <label class="flex items-center gap-1.5 text-sm font-medium"><svg class="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> What is destination of choice?</label>
                          <input type="text"
@@ -106,8 +106,8 @@
 
                 <!-- Budget -->
                 <div class="space-y-4">
-                    <h2 class="text-xl font-bold">What is Your Budget?</h2>
-                    <div class="grid gap-4 md:grid-cols-3">
+                    <h2 class="text-lg sm:text-xl font-bold">What is Your Budget?</h2>
+                    <div class="grid gap-3 grid-cols-1 sm:grid-cols-3">
                         <template x-for="b in budgets" :key="b.id">
                             <label @click="form.budget = b.id" :class="form.budget === b.id ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/40'" class="flex cursor-pointer flex-col items-start rounded-xl border p-5 transition-colors bg-card">
                                 <span class="h-6 w-6 text-primary" x-html="b.icon"></span>
@@ -120,8 +120,8 @@
 
                 <!-- Travelers -->
                 <div class="space-y-4">
-                    <h2 class="text-xl font-bold">Who do you plan on traveling with?</h2>
-                    <div class="grid gap-4 md:grid-cols-4">
+                    <h2 class="text-lg sm:text-xl font-bold">Who do you plan on traveling with?</h2>
+                    <div class="grid gap-3 grid-cols-2 sm:grid-cols-4">
                         <template x-for="t in travelers" :key="t.id">
                             <label @click="form.travelers = t.id" :class="form.travelers === t.id ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/40'" class="flex cursor-pointer flex-col items-start rounded-xl border p-5 transition-colors bg-card">
                                 <span class="h-6 w-6 text-primary" x-html="t.icon"></span>
@@ -134,8 +134,8 @@
 
                 <!-- Accommodation Preference -->
                 <div class="space-y-4">
-                    <h2 class="text-xl font-bold">Accommodation Preference</h2>
-                    <div class="grid gap-4 md:grid-cols-4">
+                    <h2 class="text-lg sm:text-xl font-bold">Accommodation Preference</h2>
+                    <div class="grid gap-3 grid-cols-2 sm:grid-cols-4">
                         <template x-for="a in accommodationOptions" :key="a.id">
                             <label @click="form.accommodationPreference = a.id" :class="form.accommodationPreference === a.id ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/40'" class="flex cursor-pointer flex-col items-start rounded-xl border p-5 transition-colors bg-card">
                                 <span class="h-6 w-6 text-primary" x-html="a.icon"></span>

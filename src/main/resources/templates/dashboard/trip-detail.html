@@ -39,7 +39,7 @@
                             <p class="text-white/80" th:text="${trip.country != null && !trip.country.isBlank() ? trip.country : ''}"></p>
                         </div>
                     </div>
-                    <div class="grid gap-6 p-6 md:grid-cols-4">
+                    <div class="grid gap-4 p-6 md:grid-cols-2 lg:grid-cols-4">
                         <div>
                             <dt class="text-xs uppercase tracking-wide text-muted-foreground">Duration</dt>
                             <dd class="mt-1 text-lg font-medium" th:text="${trip.days} + ' days'"></dd>
@@ -63,7 +63,7 @@
             <div class="mt-8 rounded-3xl border border-border bg-card p-6">
                 <h2 class="font-serif text-2xl tracking-tight">Trip Requirements</h2>
                 <p class="mt-1 text-sm text-muted-foreground">The details you provided for this trip</p>
-                <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="mt-5 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                     <div class="rounded-xl bg-muted/30 p-4">
                         <dt class="text-xs uppercase tracking-wide text-muted-foreground">Destination</dt>
                         <dd class="mt-1 text-sm font-medium" th:text="${trip.destination != null && !trip.destination.isBlank() ? trip.destination : 'N/A'}"></dd>
@@ -143,7 +143,7 @@
                  <!-- Hotels Section -->
                  <div x-show="itinerary && itinerary.hotels && itinerary.hotels.length" x-cloak class="mt-8 rounded-3xl border border-border bg-card p-6 md:p-8">
                      <h2 class="font-serif text-2xl tracking-tight mb-5">Recommended Hotels</h2>
-                     <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                     <div class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                          <template x-for="(h, i) in (itinerary.hotels || [])" :key="i">
                              <div class="rounded-2xl border border-border bg-background/50 p-5">
                                  <h3 class="font-semibold text-base" x-text="h.name"></h3>
@@ -174,7 +174,7 @@
                      <!-- Local Transport Apps -->
                      <div x-show="itinerary.transport.localTransportApps && itinerary.transport.localTransportApps.length" x-cloak>
                          <h3 class="font-semibold text-base flex items-center gap-2 mb-3"><span>??</span> Local Transport Apps</h3>
-                         <div class="grid gap-3 sm:grid-cols-2">
+                         <div class="grid gap-3 grid-cols-1 sm:grid-cols-2">
                              <template x-for="(app, j) in (itinerary.transport.localTransportApps || [])" :key="j">
                                  <div class="rounded-xl border border-border bg-background/50 p-4">
                                      <p class="font-medium text-sm" x-text="app.name"></p>

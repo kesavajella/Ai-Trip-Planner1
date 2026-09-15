@@ -30,7 +30,7 @@
     <div class="flex min-h-screen flex-1 flex-col">
         <div th:replace="~{fragments/topbar :: topbar(title='My Trips', subtitle=${tripsSubtitle})}"></div>
         <div class="flex-1 px-4 py-8 md:px-8">
-            <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" th:if="${!#lists.isEmpty(trips)}">
+            <div class="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" th:if="${!#lists.isEmpty(trips)}">
                 <div th:each="trip : ${trips}" class="flex flex-col rounded-3xl border border-border bg-card overflow-hidden group transition-all hover:-translate-y-1 hover:soft-shadow-lg relative">
                     <a th:href="@{/dashboard/trips/{id}(id=${trip.id})}" class="flex flex-col">
                         <div class="relative aspect-[16/10] overflow-hidden">

@@ -33,7 +33,7 @@
         <div th:replace="~{fragments/topbar :: topbar(title=${dashboardTitle}, subtitle=${dashboardSubtitle})}"></div>
         <div class="flex-1 px-4 py-8 md:px-8">
             <!-- Stats -->
-            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
                 <div class="rounded-3xl border border-border bg-card p-5">
                     <div class="flex items-start justify-between">
                         <div><p class="text-xs uppercase tracking-wide text-muted-foreground">Total trips</p><p class="mt-2 font-serif text-3xl tracking-tight" th:text="${totalTrips}">0</p></div>

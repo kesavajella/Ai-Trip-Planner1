@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <body>
 <div th:fragment="topbar(title, subtitle)">
-    <div class="relative z-50 flex flex-col gap-4 border-b border-border bg-background/80 px-4 py-5 backdrop-blur md:px-8 md:py-6">
-        <div class="flex items-center justify-between gap-3">
+    <div class="relative z-50 flex flex-col gap-4 border-b border-border bg-background/80 px-3 sm:px-4 py-4 sm:py-5 backdrop-blur md:px-8 md:py-6">
+        <div class="flex items-center justify-between gap-3 flex-wrap">
             <div class="ml-auto flex items-center gap-1.5">
 <div th:replace="~{fragments/theme-toggle :: theme-toggle}"></div>
                 <div class="relative" x-data="{ notifOpen: false, notifications: [], loading: true, fetchNotifications() { fetch('/api/notifications').then(r => r.json()).then(data => { this.notifications = data.map(n => ({ ...n, time: this.formatTime(n.createdAt) })); this.loading = false; }).catch(() => { this.loading = false; }); }, markAllRead() { fetch('/api/notifications/mark-all-read', { method: 'POST' }).then(() => { this.notifications.forEach(n => n.read = true); }); }, formatTime(dateStr) { if (!dateStr) return ''; const d = new Date(dateStr); return d.toLocaleString(); } }" x-init="fetchNotifications(); window.addEventListener('notifications-updated', () => { if (typeof this.fetchNotifications === 'function') { this.fetchNotifications(); } })">
@@ -77,9 +77,9 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-wrap items-end justify-between gap-3">
-            <div>
-                <h1 class="font-serif text-3xl tracking-tight md:text-4xl" th:text="${title}">Title</h1>
+        <div class="flex flex-wrap items-end justify-between gap-3 w-full">
+            <div class="min-w-0">
+                <h1 class="font-serif text-2xl sm:text-3xl md:text-4xl tracking-tight truncate" th:text="${title}">Title</h1>
                 <p th:if="${subtitle}" class="mt-1 text-sm text-muted-foreground md:text-base" th:text="${subtitle}">Subtitle</p>
             </div>
         </div>
