@@ -209,29 +209,31 @@ public class GeminiAiService {
 
         if (!primaryAvailable) {
             if (fallbackAvailable) {
-                log.info("Primary key not set, using fallback key");
-                return callGemini(requestBody, fallbackKey);
+                log.info("Primary key not set, using fallback key with model: {}", geminiConfig.getFallbackModel());
+                return callGemini(requestBody, fallbackKey, geminiConfig.getFallbackModel());
             }
             throw new RuntimeException("GEMINI_API_KEY is not set");
         }
 
         try {
-            log.debug("Trying primary API key");
-            return callGemini(requestBody, primaryKey);
+            log.debug("Trying primary API key with model: {}", geminiConfig.getPrimaryModel());
+            return callGemini(requestBody, primaryKey, geminiConfig.getPrimaryModel());
         } catch (RateLimitException e) {
-            log.warn("Primary API key rate-limited, trying fallback key...");
+            log.warn("Primary API key rate-limited, trying fallback key with model: {}...", geminiConfig.getFallbackModel());
             if (fallbackAvailable) {
-                return callGemini(requestBody, fallbackKey);
+                return callGemini(requestBody, fallbackKey, geminiConfig.getFallbackModel());
             }
             throw e;
         } catch (RuntimeException e) {
             String msg = e.getMessage();
             boolean rateLimited = msg != null && (msg.contains("429") || msg.contains("RESOURCE_EXHAUSTED") || msg.contains("403") || msg.contains("PERMISSION_DENIED"));
+            boolean serverError = msg != null && (msg.contains("503") || msg.contains("500") || msg.contains("502") || msg.contains("504"));
+            boolean notFound = msg != null && (msg.contains("404") || msg.contains("NOT_FOUND"));
             boolean networkError = msg != null && (msg.contains("timeout") || msg.contains("Timeout") || msg.contains("Connection") || msg.contains("UnknownHost") || msg.contains("SSL"));
-            if ((rateLimited || networkError) && fallbackAvailable) {
-                log.warn("Primary API key failed ({}), trying fallback key...", msg != null ? msg : "error");
+            if ((rateLimited || serverError || notFound || networkError) && fallbackAvailable) {
+                log.warn("Primary API key failed ({}), trying fallback key with model: {}...", msg != null ? msg : "error", geminiConfig.getFallbackModel());
                 try {
-                    return callGemini(requestBody, fallbackKey);
+                    return callGemini(requestBody, fallbackKey, geminiConfig.getFallbackModel());
                 } catch (Exception fallbackEx) {
                     log.error("Fallback API key also failed: {}", fallbackEx.getMessage());
                     throw new RuntimeException("Both primary and fallback Gemini API keys failed: " + fallbackEx.getMessage(), fallbackEx);
@@ -240,9 +242,9 @@ public class GeminiAiService {
             throw e;
         } catch (Exception e) {
             if (fallbackAvailable) {
-                log.warn("Primary API key threw unexpected exception, trying fallback key: {}", e.getMessage());
+                log.warn("Primary API key threw unexpected exception, trying fallback key with model: {}: {}", geminiConfig.getFallbackModel(), e.getMessage());
                 try {
-                    return callGemini(requestBody, fallbackKey);
+                    return callGemini(requestBody, fallbackKey, geminiConfig.getFallbackModel());
                 } catch (Exception fallbackEx) {
                     log.error("Fallback API key also failed: {}", fallbackEx.getMessage());
                     throw new RuntimeException("Both primary and fallback Gemini API keys failed: " + fallbackEx.getMessage(), fallbackEx);
@@ -252,8 +254,7 @@ public class GeminiAiService {
         }
     }
 
-    private String callGemini(Map<String, Object> requestBody, String apiKey) {
-        String model = geminiConfig.getModel();
+    private String callGemini(Map<String, Object> requestBody, String apiKey, String model) {
         log.debug("Calling Gemini API with model: {} (key ending in ...{})", model, apiKey.substring(Math.max(0, apiKey.length() - 4)));
 
         try {
@@ -273,6 +274,12 @@ public class GeminiAiService {
                                 }
                                 if (resp.getStatusCode() == HttpStatus.FORBIDDEN || resp.getStatusCode().value() == 403) {
                                      throw new RuntimeException("Gemini API forbidden (403): " + respBody);
+                                }
+                                if (resp.getStatusCode() == HttpStatus.SERVICE_UNAVAILABLE || resp.getStatusCode().value() == 503) {
+                                     throw new RuntimeException("Gemini API service unavailable (503): " + respBody);
+                                }
+                                if (resp.getStatusCode() == HttpStatus.NOT_FOUND || resp.getStatusCode().value() == 404) {
+                                     throw new RuntimeException("Gemini API not found (404): " + respBody);
                                 }
                                 throw new RuntimeException("Gemini API error: HTTP " + resp.getStatusCode() + " - " + respBody);
                             })

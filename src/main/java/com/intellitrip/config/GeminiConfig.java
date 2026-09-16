@@ -17,8 +17,11 @@ public class GeminiConfig {
     @Value("${GEMINI_API_KEY_FALLBACK:#{null}}")
     private String fallbackApiKey;
 
-    @Value("${app.gemini.model:gemini-3.8-flash}")
-    private String model;
+    @Value("${app.gemini.model-primary:gemini-3.5-flash}")
+    private String primaryModel;
+
+    @Value("${app.gemini.model-fallback:gemini-3.8-flash}")
+    private String fallbackModel;
 
     @Value("${app.gemini.connect-timeout-ms:10000}")
     private int connectTimeoutMs;
@@ -56,8 +59,16 @@ public class GeminiConfig {
         return fallbackApiKey;
     }
 
+    public String getPrimaryModel() {
+        return primaryModel;
+    }
+
+    public String getFallbackModel() {
+        return fallbackModel;
+    }
+
     public String getModel() {
-        return model;
+        return primaryModel;
     }
 
     public int getMaxRetries() {
@@ -70,5 +81,9 @@ public class GeminiConfig {
 
     public boolean hasApiKey() {
         return apiKey != null && !apiKey.isBlank();
+    }
+
+    public boolean hasFallbackApiKey() {
+        return fallbackApiKey != null && !fallbackApiKey.isBlank();
     }
 }
